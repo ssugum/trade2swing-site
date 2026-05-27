@@ -98,6 +98,10 @@ h3 { font-size: 19px; }
 .btn-ghost:hover { border-color: var(--brand); color: var(--brand-deep); }
 .section.dark .btn-ghost { color: #fff; border-color: var(--line-dark); }
 .section.dark .btn-ghost:hover { border-color: #c4b5fd; color: #fff; }
+.hero .btn-ghost { color: #fff; border-color: var(--line-dark); }
+.hero .btn-ghost:hover { color: #fff; border-color: #c4b5fd; }
+.page-head .btn-ghost { color: #fff; border-color: var(--line-dark); }
+.page-head .btn-ghost:hover { color: #fff; border-color: #c4b5fd; }
 .btn-light { background: #fff; color: var(--brand-deep); }
 
 /* ---------- Top navigation ---------- */
@@ -158,13 +162,13 @@ h3 { font-size: 19px; }
   padding: 96px 0 104px;
 }
 .hero::before {
-  content: ""; position: absolute; inset: 0;
+  content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
     radial-gradient(620px 380px at 78% 8%, rgba(139,92,246,.40), transparent 70%),
     radial-gradient(560px 420px at 12% 92%, rgba(99,102,241,.34), transparent 70%);
 }
 .hero::after {
-  content: ""; position: absolute; inset: 0;
+  content: ""; position: absolute; inset: 0; pointer-events: none;
   background-image:
     linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
@@ -296,7 +300,7 @@ h3 { font-size: 19px; }
 /* ---------- CTA band ---------- */
 .cta-band { position: relative; overflow: hidden; border-radius: var(--radius); padding: 52px 48px; background: var(--bg-dark); color: #fff; }
 .cta-band::before {
-  content: ""; position: absolute; inset: 0;
+  content: ""; position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(500px 280px at 85% 15%, rgba(139,92,246,.42), transparent 70%);
 }
 .cta-band .inner { position: relative; max-width: 560px; }
@@ -309,7 +313,7 @@ h3 { font-size: 19px; }
   position: relative; overflow: hidden; padding: 70px 0 64px;
 }
 .page-head::before {
-  content: ""; position: absolute; inset: 0;
+  content: ""; position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(560px 320px at 80% 0%, rgba(139,92,246,.36), transparent 70%);
 }
 .page-head .inner { position: relative; max-width: 720px; }
