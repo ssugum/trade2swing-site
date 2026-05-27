@@ -50,6 +50,9 @@ That's the whole loop. After a few rounds it becomes muscle memory.
 
 ## Useful one-off commands
 
+## git --version
+## git config --global user.name "ssugum"
+## git config --global user.email "ssugum@gmail.com"
 - `git log --oneline -10` - show the last 10 commits as one-line summaries.
 - `git diff` - show exactly which lines changed in your modified files.
 - `git diff --staged` - show what is already staged for the next commit.
