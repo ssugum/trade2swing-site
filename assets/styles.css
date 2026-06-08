@@ -418,3 +418,70 @@ h3 { font-size: 19px; }
   .expect .soon, .expect .live { margin-left: 56px; }
   .footer-top { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   Print stylesheet
+   Applies when the user prints any page (Ctrl+P -> Save as PDF).
+   Goal: produce a clean, ink-efficient PDF that reads like a doc.
+   ============================================================ */
+@media print {
+  /* Hide site chrome that does not belong in a printed document */
+  .nav, .nav-toggle, .nav-menu,
+  .cta-band, .section.tight,
+  .footer-bottom { display: none !important; }
+
+  /* Soften the dark hero / page-head / patterns band for ink */
+  .hero, .page-head, .section.dark, .footer {
+    background: #fff !important;
+    color: #15112b !important;
+  }
+  .hero::before, .hero::after,
+  .page-head::before, .cta-band::before { display: none !important; }
+  .hero h1, .page-head h1, .section.dark h2 { color: #15112b !important; }
+  .hero h1 .grad { -webkit-text-fill-color: #4f46e5 !important; color: #4f46e5 !important; background: none !important; }
+  .hero .sub, .hero-meta .item .l, .page-head p,
+  .section.dark .lead, .section.dark .checklist li span,
+  .hero .pill, .crumb { color: #4a4660 !important; }
+  .section.dark .checklist li b,
+  .hero-meta .item .n { color: #15112b !important; }
+  .section.dark .eyebrow, .page-head .eyebrow,
+  .crumb a { color: #4f46e5 !important; }
+  .footer h4, .footer .brand, .footer-blurb,
+  .footer ul a { color: #15112b !important; }
+  .footer-disclaimer { background: #fff !important; border-color: #d6c9f0 !important; }
+
+  /* The Google Sheet iframe will not print usefully -- replace with a note */
+  .embed-shell { border: 1px dashed #c4b5fd !important; box-shadow: none !important; }
+  .embed-shell iframe { display: none !important; }
+  .embed-bar { background: #f6f5fb !important; }
+  .embed-shell::after {
+    content: "The live cohort tracker is interactive and best viewed online. Open the page on trade2swing.com to explore the sortable, filterable sheet.";
+    display: block;
+    padding: 26px 24px;
+    text-align: center;
+    color: #4a4660;
+    font-style: italic;
+    font-size: 11pt;
+  }
+
+  /* Keep figures, cards, and key blocks from breaking across pages */
+  figure, .card, .embed-shell, .quote-card, .disclaimer,
+  .footer-disclaimer { page-break-inside: avoid; break-inside: avoid; }
+  h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+  img { max-width: 100% !important; height: auto !important; }
+
+  /* General print tweaks */
+  body { font-size: 11pt; }
+  .section, .section.soft { padding: 18px 0 !important; background: #fff !important; }
+  .page-head, .hero { padding: 24px 0 !important; }
+  .wrap { padding: 0 18px !important; }
+  a { color: #4f46e5; }
+  /* Show URLs after external links so the PDF carries the references */
+  a[href^="http"]:after { content: " (" attr(href) ")"; font-size: 9pt; color: #888; word-break: break-all; }
+  a[href^="#"]:after,
+  a[href^="mailto:"]:after,
+  a[href^="/"]:after { content: ""; }
+
+  /* No purple hover effects on print */
+  .btn { display: none !important; }
+}
