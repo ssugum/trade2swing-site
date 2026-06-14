@@ -3,396 +3,497 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weekly Earnings Analysis — trade2swing</title>
+<title>Weekly Earnings Dashboard — Week of Jun 15, 2026</title>
 <style>
-:root { color-scheme: light; }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: #f5f6f8; color: #1a1d24; line-height: 1.4; font-size: 13px; }
-.wrap { max-width: 1180px; margin: 0 auto; padding: 16px; }
-.mono { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
-a { color: #2563eb; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f4f6f9; color: #1a1a2e; font-size: 13px; }
+  a { color: inherit; text-decoration: none; }
 
-.hdr { background: linear-gradient(135deg,#0f172a,#1e293b); color: #fff; border-radius: 12px; padding: 18px 22px; }
-.hdr h1 { font-size: 19px; font-weight: 700; letter-spacing: -0.3px; }
-.hdr .sub { color: #94a3b8; font-size: 12px; margin-top: 4px; }
-.hdr .asof { color: #cbd5e1; font-size: 11px; margin-top: 8px; }
+  /* ── Header ── */
+  header { background: #1a1a2e; color: #fff; padding: 14px 20px; display: flex; align-items: center; gap: 16px; }
+  header h1 { font-size: 18px; font-weight: 700; letter-spacing: .3px; }
+  header .subtitle { font-size: 11px; opacity: .7; margin-top: 2px; }
+  header .badge { margin-left: auto; background: #e63946; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
 
-.kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 12px; }
-.kpi { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 11px 14px; }
-.kpi .num { font-size: 21px; font-weight: 700; }
-.kpi .lbl { font-size: 10px; color: #6b7280; margin-top: 1px; text-transform: uppercase; letter-spacing: 0.4px; }
-.kpi.blue .num { color: #2563eb; } .kpi.green .num { color: #16a34a; } .kpi.red .num { color: #dc2626; }
+  /* ── KPI Strip ── */
+  .kpi-strip { display: flex; gap: 12px; padding: 12px 20px; background: #fff; border-bottom: 1px solid #e0e4ea; flex-wrap: wrap; }
+  .kpi { flex: 1; min-width: 120px; background: #f8f9fc; border: 1px solid #e0e4ea; border-radius: 8px; padding: 10px 14px; }
+  .kpi .label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: #666; }
+  .kpi .value { font-size: 20px; font-weight: 700; color: #1a1a2e; margin-top: 2px; }
+  .kpi .sub { font-size: 10px; color: #888; margin-top: 2px; }
+  .kpi.alert .value { color: #e63946; }
+  .kpi.green .value { color: #2a9d5c; }
 
-.sec-title { font-size: 13px; font-weight: 700; margin: 20px 0 9px; display: flex; align-items: center; gap: 8px; }
-.sec-title:before { content: ""; width: 4px; height: 15px; background: #2563eb; border-radius: 2px; }
+  /* ── Hot Themes ── */
+  .themes-section { padding: 12px 20px; }
+  .themes-section h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: #888; margin-bottom: 8px; }
+  .themes-grid { display: flex; gap: 10px; flex-wrap: wrap; }
+  .theme-card { flex: 1; min-width: 220px; background: #fff; border: 1px solid #e0e4ea; border-left: 4px solid; border-radius: 6px; padding: 10px 12px; }
+  .theme-card:nth-child(1) { border-left-color: #4361ee; }
+  .theme-card:nth-child(2) { border-left-color: #2a9d5c; }
+  .theme-card:nth-child(3) { border-left-color: #e63946; }
+  .theme-card:nth-child(4) { border-left-color: #f4a261; }
+  .theme-card .t-title { font-weight: 700; font-size: 12px; color: #1a1a2e; }
+  .theme-card .t-tickers { margin: 4px 0; }
+  .theme-card .t-tickers span { display: inline-block; background: #eef0f8; color: #4361ee; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 10px; margin-right: 3px; margin-bottom: 2px; }
+  .theme-card .t-why { font-size: 11px; color: #555; line-height: 1.5; margin-top: 4px; }
 
-.themes { display: grid; grid-template-columns: repeat(auto-fill,minmax(265px,1fr)); gap: 10px; }
-.theme { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 13px; }
-.theme h3 { font-size: 12.5px; font-weight: 700; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.theme p { font-size: 11px; color: #4b5563; margin-top: 6px; }
-.theme .tk { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 3px; }
-.theme .tk span { background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 4px; padding: 1px 5px; font-size: 9.5px; font-weight: 600; color: #334155; }
-.badge { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.4px; }
-.b-hot { background: #fee2e2; color: #b91c1c; } .b-reset { background: #dbeafe; color: #1d4ed8; }
-.b-mixed { background: #f3f4f6; color: #4b5563; } .b-watch { background: #ede9fe; color: #6d28d9; }
-.b-steady { background: #dcfce7; color: #15803d; }
+  /* ── Table ── */
+  .table-section { padding: 12px 20px 20px; }
+  .table-section h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: #888; margin-bottom: 8px; }
+  .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid #e0e4ea; background: #fff; }
+  table { width: 100%; border-collapse: collapse; min-width: 900px; }
+  th { background: #1a1a2e; color: #ccd; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; padding: 8px 10px; text-align: left; white-space: nowrap; position: sticky; top: 0; }
+  th:first-child { position: sticky; left: 0; z-index: 2; background: #1a1a2e; }
+  td { padding: 7px 10px; border-bottom: 1px solid #f0f2f6; vertical-align: middle; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover > td { background: #f8f9fc !important; }
 
-.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 4px 0 10px; }
-.controls input, .controls select { font-size: 12px; padding: 6px 9px; border: 1px solid #d1d5db; border-radius: 7px; background: #fff; color: #1a1d24; }
-.controls input[type=search] { min-width: 190px; }
-.controls label { font-size: 11.5px; color: #374151; display: flex; align-items: center; gap: 5px; cursor: pointer; }
-.count { font-size: 11.5px; color: #6b7280; margin-left: auto; }
+  /* ── Reporting-this-week highlight ── */
+  tr.reporting-soon td { background: #fffbf0; }
+  tr.reporting-soon .ticker-cell { border-left: 3px solid #f4a261; }
+  .reporting-badge { display: inline-block; background: #f4a261; color: #fff; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 8px; margin-left: 4px; vertical-align: middle; }
 
-.tbl-wrap { overflow-x: auto; border: 1px solid #e5e7eb; border-radius: 10px; background: #fff; }
-table { border-collapse: collapse; width: 100%; table-layout: fixed; min-width: 1080px; }
-thead th { position: sticky; top: 0; background: #1e293b; color: #e2e8f0; font-size: 9.5px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.3px; padding: 8px 8px; text-align: left; cursor: pointer;
-  white-space: nowrap; user-select: none; border-bottom: 2px solid #0f172a; }
-thead th:hover { background: #334155; }
-thead th .arr { color: #60a5fa; font-size: 8px; }
-tbody td { padding: 7px 8px; border-bottom: 1px solid #f1f3f5; vertical-align: top; font-size: 11.5px; }
-tr.row { cursor: pointer; }
-tr.row:hover td { background: #f8fafc; }
-tr.row.thisweek td { background: #fffbeb; }
-tr.row.thisweek:hover td { background: #fef3c7; }
+  /* ── Ticker cell ── */
+  .ticker-cell { display: flex; align-items: center; gap: 8px; }
+  .logo-wrap { width: 28px; height: 28px; border-radius: 6px; overflow: hidden; background: #eef0f8; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .logo-wrap img { width: 28px; height: 28px; object-fit: contain; }
+  .logo-fallback { font-size: 11px; font-weight: 700; color: #4361ee; }
+  .ticker-info .tick { font-weight: 700; font-size: 12px; color: #1a1a2e; }
+  .ticker-info .co { font-size: 10px; color: #777; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.co { display: flex; gap: 8px; align-items: flex-start; }
-.logo { position: relative; width: 26px; height: 26px; flex: none; border-radius: 6px; overflow: hidden; }
-.logo .mono { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  color: #fff; font-weight: 700; font-size: 10px; letter-spacing: -0.3px; }
-.logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
-  background: #fff; opacity: 0; transition: opacity .15s; }
-.co .tk { font-weight: 700; font-size: 12px; color: #0f172a; }
-.co .nm { color: #1f2937; font-size: 11px; }
-.co .si { color: #94a3b8; font-size: 9.5px; margin-top: 1px; }
-.ed { font-weight: 600; white-space: nowrap; font-size: 11px; }
-.ed.tw { color: #b45309; }
-.ed-tag { display: block; background: #f59e0b; color: #fff; font-size: 8px; font-weight: 700;
-  padding: 1px 4px; border-radius: 3px; margin-top: 2px; width: max-content; }
-.ed-x { color: #9ca3af; font-size: 9px; }
-.nq { font-size: 10.5px; }
-.nq b { font-weight: 600; color: #6b7280; font-size: 9px; }
-.oh { display: flex; align-items: center; gap: 6px; }
-.oh .bar { height: 7px; border-radius: 4px; flex: 1; background: #eef0f3; overflow: hidden; min-width: 28px; }
-.oh .fill { height: 100%; border-radius: 4px; }
-.oh .pct { font-weight: 700; white-space: nowrap; font-size: 11px; }
-.muted { color: #9ca3af; }
-.chev { color: #94a3b8; font-size: 10px; text-align: center; }
+  /* ── Off High color coding ── */
+  .off-high { font-weight: 700; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+  .off-high.mild { background: #e8f5e9; color: #2e7d32; }     /* 0–15% */
+  .off-high.moderate { background: #fff8e1; color: #f57f17; } /* 15–35% */
+  .off-high.deep { background: #fce4ec; color: #c62828; }     /* 35–60% */
+  .off-high.very-deep { background: #e8eaf6; color: #283593; } /* >60% */
 
-tr.detail { display: none; }
-tr.detail.open { display: table-row; }
-tr.detail td { background: #f8fafc; padding: 10px 14px; border-bottom: 2px solid #e5e7eb; }
-.det-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; font-size: 11px; }
-.det-grid .full { grid-column: 1 / -1; }
-.det-grid .k { color: #6b7280; font-weight: 600; text-transform: uppercase; font-size: 9px; letter-spacing: 0.4px; }
-.det-grid .v { color: #1f2937; margin-top: 1px; }
+  /* ── Catalyst expand ── */
+  .expand-btn { background: none; border: none; cursor: pointer; color: #4361ee; font-size: 11px; padding: 0; display: flex; align-items: center; gap: 4px; }
+  .expand-btn::before { content: '▶'; font-size: 8px; transition: transform .15s; }
+  .expand-btn.open::before { transform: rotate(90deg); }
+  .catalyst-row td { background: #f4f6ff !important; }
+  .catalyst-content { font-size: 11px; color: #444; line-height: 1.6; padding: 4px 0; max-width: 600px; white-space: normal; }
+  .catalyst-row { display: none; }
+  .catalyst-row.visible { display: table-row; }
 
-.legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 9px 2px 0; font-size: 10.5px; color: #6b7280; }
-.legend span { display: flex; align-items: center; gap: 5px; }
-.dot { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
-
-.note { background: #fff; border: 1px solid #e5e7eb; border-left: 3px solid #2563eb; border-radius: 8px;
-  padding: 12px 15px; margin-top: 16px; font-size: 11px; color: #4b5563; }
-.note b { color: #1a1d24; }
-.foot { text-align: center; color: #6b7280; font-size: 11px; margin: 16px 0 6px; }
-.foot .cp { font-weight: 700; color: #1a1d24; }
-.foot a { text-decoration: none; }
+  /* ── Footer ── */
+  footer { padding: 12px 20px; font-size: 10px; color: #aaa; border-top: 1px solid #e0e4ea; background: #fff; }
+  footer a { color: #aaa; text-decoration: underline; }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <div class="hdr">
-    <h1>Weekly Earnings Analysis &mdash; Equity Research Dashboard</h1>
-    <div class="sub">44 stocks from ER.txt &middot; sector, recent &amp; projected sales/EPS, price vs. 52-week high, 50-day volume, catalysts</div>
-    <div class="asof" id="asof"></div>
+<header>
+  <div>
+    <div class="h1-wrap">
+      <h1>📊 Weekly Earnings Dashboard</h1>
+      <div class="subtitle">Week of Jun 15 – Jun 21, 2026 &nbsp;|&nbsp; Data as of Jun 13, 2026</div>
+    </div>
   </div>
+  <div class="badge">⚡ 8 Reporting This Week</div>
+</header>
 
-  <div class="kpis" id="kpis"></div>
-
-  <div class="sec-title">Hot Sector Themes</div>
-  <div class="themes" id="themes"></div>
-
-  <div class="sec-title">Stock-by-Stock Detail &mdash; click any row for the catalyst</div>
-  <div class="controls">
-    <input type="search" id="search" placeholder="Search ticker, company...">
-    <select id="fSector"><option value="">All sectors</option></select>
-    <select id="fTheme"><option value="">All themes</option></select>
-    <label><input type="checkbox" id="fWeek"> Reports this week only</label>
-    <span class="count" id="count"></span>
+<!-- KPI Strip -->
+<div class="kpi-strip">
+  <div class="kpi">
+    <div class="label">Tickers Tracked</div>
+    <div class="value">15</div>
+    <div class="sub">Across 5 sectors</div>
   </div>
-  <div class="tbl-wrap">
-    <table>
-      <colgroup>
-        <col style="width:210px"><col style="width:84px"><col style="width:140px"><col style="width:96px">
-        <col style="width:140px"><col style="width:120px"><col style="width:78px"><col style="width:124px">
-        <col style="width:72px"><col style="width:26px">
-      </colgroup>
-      <thead><tr id="thead"></tr></thead>
-      <tbody id="tbody"></tbody>
-    </table>
+  <div class="kpi alert">
+    <div class="label">Reporting ≤7 Days</div>
+    <div class="value">8</div>
+    <div class="sub">CGC, RFIL, PLAY, LZB, WLY, KMX, ACN, KR</div>
   </div>
-  <div class="legend">
-    <span><i class="dot" style="background:#16a34a"></i> &le;10% off high &mdash; momentum, high expectations</span>
-    <span><i class="dot" style="background:#0d9488"></i> 10&ndash;25% off</span>
-    <span><i class="dot" style="background:#d97706"></i> 25&ndash;45% off</span>
-    <span><i class="dot" style="background:#dc2626"></i> 45%+ off &mdash; washed out, low expectations</span>
-    <span style="background:#fffbeb;border:1px solid #fde68a;padding:1px 6px;border-radius:4px">Highlighted = reports Jun 8&ndash;12, 2026</span>
+  <div class="kpi">
+    <div class="label">Avg Off 52W High</div>
+    <div class="value">-35.2%</div>
+    <div class="sub">Median: -31.7%</div>
   </div>
-
-  <div class="note">
-    <b>Reading it for momentum:</b> distance from the 52-week high proxies how much is already priced in &mdash;
-    names near highs (green) need a clean beat <em>and</em> strong guidance to rise and can be punished on a miss;
-    deeply discounted names (red) carry low expectations, so an in-line print can spark relief. Pair with the
-    Next-Q Estimate column for the actual beat/miss line.
-    <br><br>
-    <b>Data &amp; caveats:</b> Figures compiled from public sources (SEC filings, company guidance, Earnings Whispers,
-    StockAnalysis.com, Wall Street consensus aggregators, Alphastreet) as of Jun 5–6, 2026; estimates are analyst consensus
-    where available, n/a where coverage is limited. <b>50-day avg volume</b> is approximate (≈3-month basis).
-    Prices marked ~ are estimates; prices are as of Jun 3–5, 2026 close. Not investment advice.
+  <div class="kpi green">
+    <div class="label">Near 52W High (&lt;5%)</div>
+    <div class="value">2</div>
+    <div class="sub">JBL (-0.6%), WLY (-3.4%)</div>
   </div>
-
-  <div class="foot" id="foot"></div>
+  <div class="kpi alert">
+    <div class="label">Deeply Off High (&gt;60%)</div>
+    <div class="value">3</div>
+    <div class="sub">DOMO -78%, VNCE -79%, PLAY -63%</div>
+  </div>
 </div>
 
+<!-- Hot Themes -->
+<div class="themes-section">
+  <h2>🔥 Hot Sector Themes</h2>
+  <div class="themes-grid">
+    <div class="theme-card">
+      <div class="t-title">AI Infrastructure &amp; Services</div>
+      <div class="t-tickers">
+        <span>ACN</span><span>JBL</span><span>AIOT</span><span>QMCO</span><span>RFIL</span>
+      </div>
+      <div class="t-why">AI buildout is lifting electronics manufacturing (JBL near 52W high), fleet IoT analytics (AIOT), AI training data storage (QMCO) and 5G RF components (RFIL). ACN the outlier: –46% off high on U.S. federal budget cuts; Q3 report Jun 18 is a key earnings catalyst.</div>
+    </div>
+    <div class="theme-card">
+      <div class="t-title">Cannabis Earnings Week</div>
+      <div class="t-tickers">
+        <span>CGC</span><span>HITI</span>
+      </div>
+      <div class="t-why">Both cannabis names active this week. HITI showing 25% YoY revenue growth and turning EPS-positive in Canadian retail. CGC reports Jun 15 — cost cuts driving EPS improvement +88% YoY; U.S. state-level legalization momentum sustaining sector interest.</div>
+    </div>
+    <div class="theme-card">
+      <div class="t-title">Consumer Discretionary Stress</div>
+      <div class="t-tickers">
+        <span>KMX</span><span>PLAY</span><span>VNCE</span><span>LZB</span>
+      </div>
+      <div class="t-why">High rates and cautious spending have hammered discretionary names. PLAY –63%, KMX –41%, VNCE –79% off 52W highs. KMX (Jun 17) and PLAY (Jun 16) report this week — used-car affordability and entertainment wallet-share are key beat/miss catalysts.</div>
+    </div>
+    <div class="theme-card">
+      <div class="t-title">Academic Publishing + AI Content</div>
+      <div class="t-tickers">
+        <span>WLY</span>
+      </div>
+      <div class="t-why">John Wiley near its 52W high as AI companies license academic/research content at scale. Q3 FY26 EPS swung from –$0.42 to +$0.57 YoY. Q4 FY26 report Jun 16 expected EPS $1.67 on $454M revenue. Analyst avg PT $67.32 vs. current $44.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Table -->
+<div class="table-section">
+  <h2>📋 Earnings Tracker — All Tickers</h2>
+  <div class="table-wrap">
+    <table id="earningsTable">
+      <thead>
+        <tr>
+          <th>Ticker / Company</th>
+          <th>Sector</th>
+          <th>Earnings Date</th>
+          <th>Last 2Q Rev Growth</th>
+          <th>Avg Annual Sales</th>
+          <th>Last 2Q EPS</th>
+          <th>Next Q Est Sales</th>
+          <th>Next Q Est EPS</th>
+          <th>Price (as-of)</th>
+          <th>Off 52W High</th>
+          <th>Catalyst ▾</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  ⚠️ <strong>Data Caveat:</strong> Prices, estimates, and volumes sourced from public websites (StockAnalysis.com, Yahoo Finance, Alphastreet, WallStreetZen, Barchart, company IR). Analyst-consensus EPS/revenue estimates are approximate and subject to revision. 50-day avg volume is estimated. This dashboard is for informational purposes only — not investment advice.
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  © 2026 <a href="https://substack.com/@trade2swing" target="_blank">trade2swing</a>
+</footer>
+
 <script>
-const STOCKS = [
-{"ticker":"ORCL","company":"Oracle Corp","sector":"Technology","industry":"Enterprise Software","earningsDate":"2026-06-10","salesGrowth":"Q3 FY26 +11% to $17.19B; Q2 FY26 +12% YoY","avgAnnualSales":"~$64B (FY26 ttm); FY25 $57.4B","epsLast2Q":"Q3 FY26 ~$1.96 (beat); Q2 FY26 $1.83","nextQEstSales":"$19.10B","nextQEstEPS":"$1.96 (guide: $1.96–2.00)","price":"213.68","priceAsOf":"2026-06-05","high52":"345.72","low52":"134.57","offHigh":"-38.2%","avgVol50":"~20M","catalyst":"OCI AI cloud backlog ~$130B; cloud rev guide +46–50% YoY Q4; Ellison now #2 richest globally; stock dropped 9.6% Jun 5 ahead of print — bar reset from highs","domain":"oracle.com"},
-{"ticker":"ADBE","company":"Adobe Inc","sector":"Technology","industry":"Software - Application","earningsDate":"2026-06-11","salesGrowth":"Q1 FY26 +11% to $5.71B; Q4 FY25 +11%","avgAnnualSales":"~$24.5B (FY26 ttm); FY25 $23.77B","epsLast2Q":"Q1 FY26 $4.86 (beat); Q4 FY25 $4.81","nextQEstSales":"$6.44B","nextQEstEPS":"$5.01","price":"251.44","priceAsOf":"2026-06-05","high52":"421.48","low52":"224.13","offHigh":"-40.3%","avgVol50":"~4.5M","catalyst":"AI competitive fears weigh (-40% off high, -28.5% YTD); Semrush acquisition closed; $25B buyback; Firefly AI monetization; AI-enabled Express; analyst consensus: Hold (lower bar)","domain":"adobe.com"},
-{"ticker":"FCEL","company":"FuelCell Energy","sector":"Energy","industry":"Clean Energy Equipment","earningsDate":"2026-06-08","salesGrowth":"Q1 FY26 rev modest; persistent losses","avgAnnualSales":"~$165M (FY25 ttm)","epsLast2Q":"Q1 FY26 loss; multi-quarter EPS miss streak","nextQEstSales":"$41.11M","nextQEstEPS":"-$0.57","price":"~1.15","priceAsOf":"2026-06-05","high52":"~3.20","low52":"~0.85","offHigh":"~-64%","avgVol50":"~5M","catalyst":"Hydrogen/fuel cell power generation; DOE contracts; cash burn risk; multi-year lows; needs positive project milestones to re-rate","domain":"fuelcellenergy.com"},
-{"ticker":"CHWY","company":"Chewy Inc","sector":"Consumer Discretionary","industry":"Internet Retail (Pet)","earningsDate":"2026-06-10","salesGrowth":"Q4 FY26 +5.5% to $3.41B; FY26 full-yr +6.2%","avgAnnualSales":"~$12.6B (FY26)","epsLast2Q":"Q4 FY26 $0.29; FY26 non-GAAP EPS $1.15","nextQEstSales":"$3.36B","nextQEstEPS":"$0.43","price":"21.04","priceAsOf":"2026-06-03","high52":"48.62","low52":"19.30","offHigh":"-56.7%","avgVol50":"~7M","catalyst":"Modern Animal vet-care acquisition; Autoship ~75% revenue; analyst PTs slashed 20–30%; macro pet-spend slowdown; Mizuho expects guide-down","domain":"chewy.com"},
-{"ticker":"MTN","company":"Vail Resorts","sector":"Consumer Discretionary","industry":"Resorts & Casinos","earningsDate":"2026-06-08","salesGrowth":"Q2 FY26 rev $1.08B (miss $1.11B); Q1 FY26 solid","avgAnnualSales":"~$2.96B (FY25); ~$2.8B FY26E","epsLast2Q":"Q2 FY26 $5.87 (miss $6.15); EBITDA guide cut","nextQEstSales":"$1.22B","nextQEstEPS":"$9.06","price":"133.88","priceAsOf":"2026-06-03","high52":"172.00","low52":"118.51","offHigh":"-22.2%","avgVol50":"~0.5M","catalyst":"Record-low snowfall (skier visits -14.9%); FY26 EBITDA cut to $747–783M from $842–898M; Q3 easier weather comp; CEO insider buy $4.94M; 6.6% yield","domain":"vailresorts.com"},
-{"ticker":"CPB","company":"Campbell's Company","sector":"Consumer Staples","industry":"Packaged Foods","earningsDate":"2026-06-08","salesGrowth":"Q2 FY26 +2.4% YoY; Q1 FY26 +1.3%; FY25 +6.4%","avgAnnualSales":"~$10.0B (FY26 ttm); FY25 $10.25B","epsLast2Q":"Q2 FY26 ~$0.74; Q1 FY26 ~$0.62","nextQEstSales":"$2.39B","nextQEstEPS":"$0.47","price":"20.99","priceAsOf":"2026-06-03","high52":"34.66","low52":"19.56","offHigh":"-39.4%","avgVol50":"~10M","catalyst":"Bernstein/UBS/BofA PT cuts ahead of print; SpaghettiOs lawsuit (minor); Rao's/Sovos integration; competitive pricing (PepsiCo); MAHA health-label risk; 7.4% yield cushion","domain":"campbells.com"},
-{"ticker":"CASY","company":"Casey's General Stores","sector":"Consumer Discretionary","industry":"Specialty Retail (Convenience)","earningsDate":"2026-06-09","salesGrowth":"Q3 FY26 strong beat; FY25 +7.25% to $15.94B","avgAnnualSales":"~$16.98B (FY26 ttm)","epsLast2Q":"Q3 FY26 $17.42 TTM EPS; FY26 EPS guide raised","nextQEstSales":"$4.31B","nextQEstEPS":"$3.32","price":"761.91","priceAsOf":"2026-06-05","high52":"901.00","low52":"433.63","offHigh":"-15.5%","avgVol50":"~0.43M","catalyst":"Joined S&P 500 on Apr 9 (massive index demand); pizza chain +22% comps; fuel margin recovery; Wells Fargo PT $910; Barron's cover: 'Wings can take it higher'; +68% market cap over 52wk","domain":"caseys.com"},
-{"ticker":"ASO","company":"Academy Sports + Outdoors","sector":"Consumer Discretionary","industry":"Specialty Retail (Sporting Goods)","earningsDate":"2026-06-09","salesGrowth":"Q3 FY25 +3.0%; comps -0.9%; eComm +22.2%","avgAnnualSales":"~$6.01B (FY26 run-rate)","epsLast2Q":"Q3 FY25 $1.05 (+14%); Q2 FY25 $1.85","nextQEstSales":"$1.44B","nextQEstEPS":"$0.91","price":"~54","priceAsOf":"2026-06-05","high52":"~59","low52":"~33","offHigh":"~-8%","avgVol50":"~1.7M","catalyst":"Store expansion on track (25 new); Jordan brand collaboration; tariff exposure on imports limited; Q1 FY26 comps expected positive; inexpensive at ~9x PE","domain":"academy.com"},
-{"ticker":"UEC","company":"Uranium Energy Corp","sector":"Energy","industry":"Uranium Mining","earningsDate":"2026-06-08","salesGrowth":"FY25 rev; in-situ uranium production growing","avgAnnualSales":"~$45M (FY25); ramping","epsLast2Q":"Q3 FY25 EPS small loss; uranium spot gains","nextQEstSales":"$8.50M","nextQEstEPS":"-$0.05","price":"~14.14","priceAsOf":"2026-06-05","high52":"~19.17","low52":"~5.60","offHigh":"~-26%","avgVol50":"~8M","catalyst":"Nuclear renaissance (data center power demand); +152% 52wk run; SMR & utility contracts; US uranium production ramping; Strong Buy consensus (9 analysts)","domain":"uraniumenergycom"},
-{"ticker":"UNFI","company":"United Natural Foods","sector":"Consumer Staples","industry":"Food Distribution","earningsDate":"2026-06-09","salesGrowth":"Q2 FY26 profit swing to positive; Q1 FY26 beat; FY25 +2.6%","avgAnnualSales":"~$31.5B (FY25/26)","epsLast2Q":"Q2 FY26 profitability inflection; Q1 FY26 EPS beat","nextQEstSales":"$7.80B","nextQEstEPS":"$0.77","price":"~48","priceAsOf":"2026-06-05","high52":"~52","low52":"20.78","offHigh":"~-8%","avgVol50":"~1.5M","catalyst":"Natural food pivot (higher-margin segment); margin turnaround; network optimization; near/at 52wk high — bar elevated; EPS est up 30.5% in 30 days","domain":"unfi.com"},
-{"ticker":"LEN","company":"Lennar Corp","sector":"Consumer Discretionary","industry":"Homebuilding","earningsDate":"2026-06-11","salesGrowth":"Q1 FY26 softness; FY25 ~2% growth; cycle pressured","avgAnnualSales":"~$35B (FY25)","epsLast2Q":"Q1 FY26 $1.09; Q4 FY25 $4.06","nextQEstSales":"$8.01B","nextQEstEPS":"$1.25","price":"~100","priceAsOf":"2026-06-05","high52":"~170","low52":"~80","offHigh":"~-41%","avgVol50":"~6M","catalyst":"Delivery guide 20–21K homes Q2; ASP $370–375K; affordability squeeze; tariff impact on materials; rate sensitivity; deeply discounted vs peak","domain":"lennar.com"},
-{"ticker":"AVO","company":"Mission Produce","sector":"Consumer Staples","industry":"Fresh Produce","earningsDate":"2026-06-08","salesGrowth":"Q2 FY26 -16.3% YoY; Q1 FY26 +8.5%","avgAnnualSales":"~$1.1B (FY25)","epsLast2Q":"Q2 FY26 $0.17; Q1 FY26 $0.08","nextQEstSales":"$269.30M (-29.2% YoY)","nextQEstEPS":"$0.05","price":"~11","priceAsOf":"2026-06-05","high52":"~17","low52":"~8","offHigh":"~-35%","avgVol50":"~0.6M","catalyst":"Avocado pricing headwinds; tariff on Mexico/Peru imports; blueberry segment growing; rev comp vs strong prior-year period","domain":"missionproduce.com"},
-{"ticker":"GHM","company":"Graham Corp","sector":"Industrials","industry":"Defense & Energy Heat Exchange Equipment","earningsDate":"2026-06-08","salesGrowth":"Q3 FY26 rev growth; TTM rev $209.9M; defense driven","avgAnnualSales":"~$210M (TTM FY26)","epsLast2Q":"TTM EPS $1.11; Q3 FY26 beat; quarterly lumpy on defense contracts","nextQEstSales":"$60.82M","nextQEstEPS":"$0.30","price":"~38","priceAsOf":"2026-06-05","high52":"~50","low52":"~20","offHigh":"~-24%","avgVol50":"~0.2M","catalyst":"US Navy/submarine heat exchange contracts; clean energy (hydrogen); defense budget tailwind; lumpiness from large project timing explains YoY comparison","domain":"grahamcorporation.com"},
-{"ticker":"MAMA","company":"Mama's Creations","sector":"Consumer Staples","industry":"Fresh/Deli Specialty Food","earningsDate":"2026-06-08","salesGrowth":"Q3 FY26 +46.9% rev; +47% prior quarter","avgAnnualSales":"~$175M (FY26 run-rate)","epsLast2Q":"Q3 FY26 $0.03; FY26 EPS solidly positive","nextQEstSales":"$51.80M (+46.9% YoY)","nextQEstEPS":"$0.03","price":"~6.50","priceAsOf":"2026-06-05","high52":"~9.50","low52":"~4","offHigh":"~-32%","avgVol50":"~0.4M","catalyst":"Fresh meatballs/pasta expansion into Walmart, Kroger; Italian deli product distribution gains; consistent 40%+ revenue growth; growing national footprint","domain":"mamascreations.com"},
-{"ticker":"RH","company":"RH (Restoration Hardware)","sector":"Consumer Discretionary","industry":"Specialty Retail (Luxury Home)","earningsDate":"2026-06-08","salesGrowth":"Q3 FY26 rev miss; FY25 +5%; FY26 guide ~+8%","avgAnnualSales":"~$3.4B (FY26 ttm)","epsLast2Q":"Q3 FY26 miss; Q4 guided ahead","nextQEstSales":"$791.62M","nextQEstEPS":"-$1.70","price":"~150","priceAsOf":"2026-06-05","high52":"264.58","low52":"123.03","offHigh":"~-43%","avgVol50":"~1.8M","catalyst":"Housing market recovery catalyst; furniture tariff delay (Jan 2027); new gallery openings (Detroit, Manhasset); Gary Friedman's antiques initiative; PT $233 vs current ~$150","domain":"rh.com"},
-{"ticker":"SFIX","company":"Stitch Fix","sector":"Consumer Discretionary","industry":"Internet Retail (Personal Styling)","earningsDate":"2026-06-10","salesGrowth":"Q2 FY26 rev stabilizing; comp improving; AI styling","avgAnnualSales":"~$1.35B (FY26 run-rate)","epsLast2Q":"Q2 FY26 slight loss; guidance met","nextQEstSales":"$332.68M","nextQEstEPS":"-$0.06","price":"~3.80","priceAsOf":"2026-06-05","high52":"~8","low52":"~2.50","offHigh":"~-53%","avgVol50":"~2M","catalyst":"AI-powered styling transformation; Q3 guide $330–335M in-line with cons; adj EBITDA $7–10M; deeply discounted; cost structure improving","domain":"stitchfix.com"},
-{"ticker":"GLOO","company":"Gloo Inc","sector":"Technology","industry":"Software - Application (Community/Faith)","earningsDate":"2026-06-08","salesGrowth":"First public quarters; SaaS growth","avgAnnualSales":"~$130M (FY26 est)","epsLast2Q":"Pre-profitability; managed losses","nextQEstSales":"$35.98M","nextQEstEPS":"-$0.16","price":"~8","priceAsOf":"2026-06-05","high52":"~15","low52":"~5","offHigh":"~-47%","avgVol50":"~0.3M","catalyst":"Faith/church community SaaS platform; digital engagement tools for religious organizations; growing ARR; mission-driven niche with strong retention","domain":"gloo.us"},
-{"ticker":"DLTH","company":"Duluth Trading Co","sector":"Consumer Discretionary","industry":"Apparel Retail","earningsDate":"2026-06-08","salesGrowth":"Q4 FY25 declining; FY25 rev declining; turnaround in progress","avgAnnualSales":"~$440M (FY25)","epsLast2Q":"Recent quarters: losses; Q1 FY26 seasonally weakest","nextQEstSales":"$95.10M (-7.4% YoY)","nextQEstEPS":"-$0.45","price":"~4.50","priceAsOf":"2026-06-05","high52":"~8","low52":"~3","offHigh":"~-44%","avgVol50":"~0.3M","catalyst":"Q1 seasonally weakest; brand refresh underway; tariff headwinds on outdoor apparel imports; operational restructuring; deep value if turnaround lands","domain":"duluthtrading.com"},
-{"ticker":"JILL","company":"J.Jill Inc","sector":"Consumer Discretionary","industry":"Apparel Retail (Women's)","earningsDate":"2026-06-10","salesGrowth":"Q4 FY26 consistent; FY26 steady comps","avgAnnualSales":"~$640M (FY26)","epsLast2Q":"Q4 FY26 $0.87; Q3 FY26 ~$0.75; profitable multi-Q streak","nextQEstSales":"$156.90M","nextQEstEPS":"$0.87","price":"~22","priceAsOf":"2026-06-05","high52":"~30","low52":"~14","offHigh":"~-27%","avgVol50":"~0.3M","catalyst":"Women's specialty apparel; loyalty program driving repeat; consistent profitability; modest EPS growth; tariff exposure limited (domestic sourcing mix)","domain":"jjill.com"},
-{"ticker":"LE","company":"Lands' End Inc","sector":"Consumer Discretionary","industry":"Internet Retail (Apparel)","earningsDate":"2026-06-09","salesGrowth":"FY25 revenue flat; Q3 FY25 modest decline","avgAnnualSales":"~$1.38B (FY25)","epsLast2Q":"Small EPS; margins recovering","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~9.50","priceAsOf":"2026-06-05","high52":"~15","low52":"~7","offHigh":"~-37%","avgVol50":"~0.3M","catalyst":"Online apparel; tariff uncertainty on Asia-sourced goods; inventory normalization; private label focus; operating leverage improving","domain":"landsend.com"},
-{"ticker":"BARK","company":"BARK Inc","sector":"Consumer Discretionary","industry":"Specialty Retail (Pet Products)","earningsDate":"2026-06-09","salesGrowth":"Q3 FY26 rev ~$94M; modest growth from BarkBox subscriptions","avgAnnualSales":"~$380M (FY26 run-rate)","epsLast2Q":"Q3 FY26 loss; near break-even non-GAAP","nextQEstSales":"$96.30M","nextQEstEPS":"-$0.35","price":"~2.10","priceAsOf":"2026-06-05","high52":"~4","low52":"~1.40","offHigh":"~-48%","avgVol50":"~2M","catalyst":"BarkBox subscription model; pet gifting/treat market; path to profitability; tariff minimal; micro-cap with brand loyalty","domain":"bark.co"},
-{"ticker":"EH","company":"EHang Holdings","sector":"Industrials","industry":"Aerospace & Defense (eVTOL)","earningsDate":"2026-06-08","salesGrowth":"Q1 FY26 rev $77.10M est vs tiny prior; +2,044% YoY","avgAnnualSales":"~$50M (FY25); scaling rapidly","epsLast2Q":"Recent quarters: managed losses; commercial deliveries ramping","nextQEstSales":"$77.10M (+2,044% YoY)","nextQEstEPS":"-$0.20","price":"~22","priceAsOf":"2026-06-05","high52":"~38","low52":"~10","offHigh":"~-42%","avgVol50":"~3M","catalyst":"China eVTOL commercial operations; EH216-S passenger drone; regulatory approvals expanding; massive revenue inflection from essentially zero; export potential","domain":"ehang.com"},
-{"ticker":"CNM","company":"Core & Main Inc","sector":"Industrials","industry":"Water Infrastructure Distribution","earningsDate":"2026-06-10","salesGrowth":"Q4 FY25 organic growth; FY26 IIJA tailwind","avgAnnualSales":"~$7.0B (FY26)","epsLast2Q":"Q4 FY25 EPS positive; stable distribution margins","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~52","priceAsOf":"2026-06-05","high52":"~70","low52":"~40","offHigh":"~-26%","avgVol50":"~2M","catalyst":"Water/pipe/valve distribution; Infrastructure Investment & Jobs Act multi-year funding; aging US water infrastructure replacement; national distributor advantages","domain":"coreandmain.com"},
-{"ticker":"DBI","company":"Designer Brands Inc","sector":"Consumer Discretionary","industry":"Footwear Retail (DSW)","earningsDate":"2026-06-09","salesGrowth":"Q4 FY25 declining; FY25 ~-5%; store traffic soft","avgAnnualSales":"~$2.8B (FY25)","epsLast2Q":"Q4 FY25 below estimates; FY25 EPS reset lower","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~4.50","priceAsOf":"2026-06-05","high52":"~9","low52":"~3.50","offHigh":"~-50%","avgVol50":"~1.2M","catalyst":"DSW store traffic recovery; athletic footwear tailwinds; tariff on Asian shoe imports; margin compression; deeply discounted; any positive comp could lift","domain":"designerbrands.com"},
-{"ticker":"CBRL","company":"Cracker Barrel Old Country","sector":"Consumer Discretionary","industry":"Casual Dining Restaurants","earningsDate":"2026-06-09","salesGrowth":"Q2 FY26 comps recovering; turnaround under CEO Julie Masino","avgAnnualSales":"~$3.4B (FY26)","epsLast2Q":"Q2 FY26 loss recovering; store renovations ongoing","nextQEstSales":"$776.07M","nextQEstEPS":"-$0.44","price":"~35","priceAsOf":"2026-06-05","high52":"~55","low52":"~24","offHigh":"~-36%","avgVol50":"~1M","catalyst":"CEO-led turnaround (store remodels, menu evolution); comps turning positive; restaurant peers gaining; fiscal Q3 includes spring travel season; 5%+ yield","domain":"crackerbarrel.com"},
-{"ticker":"ACB","company":"Aurora Cannabis Inc","sector":"Healthcare","industry":"Cannabis (Medical/Recreational)","earningsDate":"2026-06-11","salesGrowth":"Q3 FY26 Canadian medical + EU export growth","avgAnnualSales":"~C$350M (FY26 est)","epsLast2Q":"Recent quarters: narrowing losses; profitability approaching","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~7","priceAsOf":"2026-06-05","high52":"~12","low52":"~4.50","offHigh":"~-42%","avgVol50":"~5M","catalyst":"Germany adult-use legalization expanding; global medical cannabis export; Aurora Sun facility ramping; profitability target FY26; cannabis M&A consolidation wave","domain":"auroracannabis.com"},
-{"ticker":"AEMD","company":"Aethlon Medical Inc","sector":"Healthcare","industry":"Medical Devices (Blood Purification)","earningsDate":"2026-06-10","salesGrowth":"Clinical-stage; pre-revenue","avgAnnualSales":"<$1M","epsLast2Q":"Net loss; R&D stage","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"2.09","priceAsOf":"2026-06-05","high52":"~4.50","low52":"~1.20","offHigh":"~-54%","avgVol50":"~0.2M","catalyst":"Hemopurifier blood treatment device; oncology/infectious disease viral clearance; FDA Breakthrough Device Designation; clinical trial milestones key","domain":"aethlonmedical.com"},
-{"ticker":"ATEX","company":"Anterix Inc","sector":"Communication Services","industry":"Wireless Spectrum Licensing","earningsDate":"2026-06-10","salesGrowth":"Licensing model; revenue from utility spectrum deals","avgAnnualSales":"~$15M (FY26 licensing fees)","epsLast2Q":"Cash flow from license agreements; low revenue model","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~28","priceAsOf":"2026-06-05","high52":"~42","low52":"~18","offHigh":"~-33%","avgVol50":"~0.2M","catalyst":"900 MHz private broadband spectrum licensing to electric utilities; grid modernization mandates; Xcel, PPL, AES customer wins; long-duration recurring licensing revenue","domain":"anterix.com"},
-{"ticker":"MPAA","company":"Motorcar Parts of America","sector":"Consumer Discretionary","industry":"Auto Parts (Remanufactured)","earningsDate":"2026-06-08","salesGrowth":"FY26 Q3 rev +12%; note: YoY comparison -76.8% reflects prior segment divested","avgAnnualSales":"~$320M (continuing ops FY26)","epsLast2Q":"Q3 FY26 EPS improving; prior divestitures normalize base","nextQEstSales":"$175.88M","nextQEstEPS":"$0.11","price":"~9","priceAsOf":"2026-06-05","high52":"~18","low52":"~6","offHigh":"~-50%","avgVol50":"~0.4M","catalyst":"Remanufactured auto parts (alternators, starters, brake calipers); aging US vehicle fleet; parts demand resilient; divestitures simplified business; deep value","domain":"motorcarparts.com"},
-{"ticker":"LAKE","company":"Lakeland Industries","sector":"Industrials","industry":"Protective Safety Clothing","earningsDate":"2026-06-09","salesGrowth":"Q4 FY26 rev ~$45.8M; steady international growth","avgAnnualSales":"~$185M (FY26)","epsLast2Q":"Q4 FY26 modest profit; FY26 solid execution","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~20","priceAsOf":"2026-06-05","high52":"~28","low52":"~15","offHigh":"~-29%","avgVol50":"~0.15M","catalyst":"Industrial safety demand globally; fire-resistant/chemical protection; Latin America/international expansion; government/industrial sector resilient","domain":"lakeland.com"},
-{"ticker":"DOMO","company":"Domo Inc","sector":"Technology","industry":"Business Intelligence Software","earningsDate":"2026-06-09","salesGrowth":"Q4 FY26 flat; FY26 rev ~$320M; AI-BI positioning","avgAnnualSales":"~$320M (FY26)","epsLast2Q":"Q4 FY26 non-GAAP near break-even; cost-cutting ongoing","nextQEstSales":"$79.65M","nextQEstEPS":"-$0.04","price":"~4.50","priceAsOf":"2026-06-05","high52":"18.49","low52":"2.39","offHigh":"-75.7%","avgVol50":"~2M","catalyst":"Stock surged ~35% Jun 4 on acquisition speculation; AI-native BI platform; deeply discounted at -76% off 52wk high; any M&A premium would be substantial from current levels","domain":"domo.com"},
-{"ticker":"HOFT","company":"Hooker Furnishings","sector":"Consumer Discretionary","industry":"Home Furnishings","earningsDate":"2026-06-11","salesGrowth":"Q4 FY26 rev ~$100M; housing market headwinds; tariff on Asia-sourced furniture","avgAnnualSales":"~$490M (FY26)","epsLast2Q":"Q4 FY26 net income $0.54M; margins compressed; Q1 FY27 first look","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~15","priceAsOf":"2026-06-05","high52":"~22","low52":"~10","offHigh":"~-32%","avgVol50":"~0.15M","catalyst":"Furniture tariff headwinds (60%+ Asia-sourced); housing turnover cycle; diversified wholesale/retail channels; deep value if tariff relief materializes","domain":"hookerfurniture.com"},
-{"ticker":"SJM","company":"J.M. Smucker Co","sector":"Consumer Staples","industry":"Food Products (Branded)","earningsDate":"2026-06-09","salesGrowth":"Q3 FY26 moderate; Hostess integration; FY25 +9% (Hostess added)","avgAnnualSales":"~$8.9B (FY26)","epsLast2Q":"Q3 FY26 adj EPS ~$2.45; Q2 FY26 adj EPS ~$2.65","nextQEstSales":"~$2.25B","nextQEstEPS":"~$2.05","price":"~103","priceAsOf":"2026-06-05","high52":"~130","low52":"~90","offHigh":"~-21%","avgVol50":"~1.5M","catalyst":"Hostess/Twinkies integration (FY26 synergies); Meow Mix / Milk-Bone pet food; Folgers coffee; Jif peanut butter; tariff on cocoa/coffee imports; dividend yield ~4%","domain":"jmsmucker.com"},
-{"ticker":"SAIL","company":"SailPoint Inc","sector":"Technology","industry":"Security Software (Identity)","earningsDate":"2026-06-09","salesGrowth":"Re-IPO 2024; rapid ARR growth; identity security demand strong","avgAnnualSales":"~$600M (FY26 run-rate)","epsLast2Q":"Non-GAAP EPS improving; ARR acceleration","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~45","priceAsOf":"2026-06-05","high52":"~62","low52":"~30","offHigh":"~-27%","avgVol50":"~1.5M","catalyst":"AI-native identity security; enterprise cloud adoption; Thales/Ping acquisition alternatives vs organic; zero-trust identity mandate in regulated industries; recent re-IPO","domain":"sailpoint.com"},
-{"ticker":"LOVE","company":"Lovesac Co","sector":"Consumer Discretionary","industry":"Specialty Retail (Home Furnishings)","earningsDate":"2026-06-11","salesGrowth":"Q4 FY26 rev modest; FY26 ~flat; Sactional demand steady","avgAnnualSales":"~$680M (FY26)","epsLast2Q":"Q4 FY26 loss (seasonally weak); FY26 slight profit","nextQEstSales":"~$133M","nextQEstEPS":"n/a","price":"~14","priceAsOf":"2026-06-05","high52":"~28","low52":"~10","offHigh":"~-50%","avgVol50":"~0.3M","catalyst":"Sactional modular sofa premium brand; tariff headwinds on foam/fabric imports; loyalty program; direct-to-consumer channels; needs housing/consumer recovery","domain":"lovesac.com"},
-{"ticker":"TITN","company":"Titan Machinery Inc","sector":"Industrials","industry":"Farm & Construction Equipment Dealers","earningsDate":"2026-06-09","salesGrowth":"FY26 revenue declining from peak; ag cycle bottoming","avgAnnualSales":"~$2.5B (FY26)","epsLast2Q":"Q4 FY25 EPS loss; ag downcycle; Ukraine operations wound down","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~12","priceAsOf":"2026-06-05","high52":"~18","low52":"~8","offHigh":"~-33%","avgVol50":"~0.5M","catalyst":"Ag equipment cycle bottom; dealer inventory normalization; Ukraine segment exit complete; AGCO/CNH equipment brand leverage; US equipment demand watch","domain":"titanmachinery.com"},
-{"ticker":"VRA","company":"Vera Bradley Inc","sector":"Consumer Discretionary","industry":"Accessories & Handbags","earningsDate":"2026-06-11","salesGrowth":"FY26 declining; brand refresh mid-cycle; wholesale recovering","avgAnnualSales":"~$450M (FY26)","epsLast2Q":"Q4 FY26 small profit; restructuring gains","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~4","priceAsOf":"2026-06-05","high52":"~7","low52":"~3","offHigh":"~-43%","avgVol50":"~0.4M","catalyst":"Brand refresh underway; wholesale channel rebuild; cost-cutting ($20M+ program); new product launches for back-to-school; deeply discounted","domain":"verabradley.com"},
-{"ticker":"NAVN","company":"Navan Inc","sector":"Technology","industry":"Travel & Expense Management SaaS","earningsDate":"2026-06-10","salesGrowth":"FY25 rev +30.8% to $702M; high-growth SaaS; IPO 2024","avgAnnualSales":"~$750M (FY26 est)","epsLast2Q":"Non-GAAP losses; investing in growth","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~18","priceAsOf":"2026-06-05","high52":"~28","low52":"~12","offHigh":"~-36%","avgVol50":"~1M","catalyst":"T&E cloud platform; corporate travel recovery; AI-powered booking and expense; post-IPO growth story; profitability timeline key for re-rating","domain":"navan.com"},
-{"ticker":"OXM","company":"Oxford Industries Inc","sector":"Consumer Discretionary","industry":"Apparel Manufacturing (Lifestyle)","earningsDate":"2026-06-10","salesGrowth":"Q4 FY26 revenue soft; Tommy Bahama/Lily Pulitzer tariff impact","avgAnnualSales":"~$1.62B (FY25)","epsLast2Q":"Q4 FY26 EPS beat; FY26 soft guidance","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~62","priceAsOf":"2026-06-05","high52":"~100","low52":"~48","offHigh":"~-38%","avgVol50":"~0.5M","catalyst":"Tommy Bahama resort/lifestyle brand; Lily Pulitzer; Marlin Bar expansion; tariff on cotton/apparel; leisure travel tailwind; Q1 FY27 first print","domain":"oxfordindustries.com"},
-{"ticker":"SKIL","company":"Skillsoft Corp","sector":"Technology","industry":"Learning Management Software","earningsDate":"2026-06-09","salesGrowth":"FY26 rev declining modestly; AI-upskilling pivot growing","avgAnnualSales":"~$525M (FY26)","epsLast2Q":"Q4 FY26 non-GAAP EPS improving; restructuring benefits","nextQEstSales":"$130.15M","nextQEstEPS":"$0.94","price":"~4","priceAsOf":"2026-06-05","high52":"~8","low52":"~2.50","offHigh":"~-50%","avgVol50":"~1M","catalyst":"Enterprise AI upskilling demand; L&D budget pressure vs AI training need; deeply discounted; profitability path via cost cuts; potential M&A target","domain":"skillsoft.com"},
-{"ticker":"LMNR","company":"Limoneira Co","sector":"Consumer Staples","industry":"Fresh Produce (Citrus)","earningsDate":"2026-06-09","salesGrowth":"Q2 FY26 lemon pricing recovery; real estate segment stable","avgAnnualSales":"~$240M (FY26)","epsLast2Q":"Q1 FY26 loss (seasonally normal); Q4 FY25 profitable","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~25","priceAsOf":"2026-06-05","high52":"~30","low52":"~18","offHigh":"~-17%","avgVol50":"~0.15M","catalyst":"Lemon/citrus pricing recovery; California farm operations; Windfall Farms real estate development; crop timing and weather key","domain":"limoneira.com"},
-{"ticker":"SUJA","company":"Suja Life Inc","sector":"Consumer Staples","industry":"Beverages (Organic/Cold-Pressed)","earningsDate":"2026-06-09","salesGrowth":"FY25 rev $326.62M (+2%); first public quarters post-May 2026 IPO","avgAnnualSales":"~$330M (FY26 est)","epsLast2Q":"Pre-IPO; first public report","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"12.85","priceAsOf":"2026-06-03","high52":"18.48","low52":"12.80","offHigh":"-30.5%","avgVol50":"~0.5M","catalyst":"Recent IPO (May 7 at $21, now -39% from IPO price); organic/cold-pressed juice market leader; Slice fruit soda brand added; Vive Organic shots; national grocery distribution","domain":"sujajuice.com"},
-{"ticker":"VFS","company":"VinFast Auto Ltd","sector":"Consumer Discretionary","industry":"EV Manufacturing (Vietnam)","earningsDate":"2026-06-08","salesGrowth":"Q1 FY26 rev +66% YoY; delivery volumes ramping globally","avgAnnualSales":"~$2B (FY26 run-rate)","epsLast2Q":"Large EPS losses; cash burn high; capital-intensive ramp","nextQEstSales":"$1.09B (+66% YoY)","nextQEstEPS":"-$0.31","price":"~2.20","priceAsOf":"2026-06-05","high52":"~5.50","low52":"~1.40","offHigh":"~-60%","avgVol50":"~8M","catalyst":"Vietnam EV maker; US/Europe market expansion; revenue growing but cash burn risk; North Carolina US factory ongoing; high volatility meme-adjacent name","domain":"vinfastauto.com"},
-{"ticker":"MH","company":"McGraw Hill LLC","sector":"Consumer Discretionary","industry":"Educational Publishing","earningsDate":"2026-06-11","salesGrowth":"Digital learning transition; institutional higher-ed steady","avgAnnualSales":"~$1.8B (FY26 est)","epsLast2Q":"Profitable on an adjusted basis; cash flow positive","nextQEstSales":"n/a","nextQEstEPS":"n/a","price":"~15","priceAsOf":"2026-06-05","high52":"~22","low52":"~11","offHigh":"~-32%","avgVol50":"~0.5M","catalyst":"Digital courseware transition; AI tutoring integration; K-12 and higher-ed market; enrollment stable; digital subscription model improving margins","domain":"mheducation.com"}
+const stocks = [
+  {
+    ticker:"KR", company:"Kroger Co", sector:"Consumer Staples", industry:"Food & Drug Retail",
+    earningsDate:"2026-06-19", reportingSoon:true,
+    salesGrowth:"Q3 FY26: $33.86B +0.7% YoY\nQ4 FY26: $34.73B +1.2% YoY",
+    avgSales:"$147.6B (FY2026)",
+    eps:"Q3 FY26 adj ~$0.99; Q4 FY26 adj $1.28 (beat, +12%)",
+    nextSales:"~$47B (Q1 FY27)",
+    nextEPS:"~$1.22 (FY27 guide $5.10–$5.30)",
+    price:"$64.71", priceDate:"Jun 13",
+    high52:"$76.58", offHigh:"-15.5%", offHighClass:"moderate",
+    vol50:"~7M",
+    catalyst:"eCommerce sales +20% YoY, exceeded $16B for full year. Identical sales +2.4% ex-fuel in Q4. 2026 guidance: adj EPS $5.10–$5.30, new store openings +30%. Post-Albertsons deal collapse, KR executing standalone playbook with digital acceleration.",
+    domain:"kroger.com"
+  },
+  {
+    ticker:"PGR", company:"Progressive Corp", sector:"Financials", industry:"P&C Insurance",
+    earningsDate:"2026-07-09", reportingSoon:false,
+    salesGrowth:"FY2025: $87.6B +16% YoY\nQ1 2026: $22.2B +8.7% YoY",
+    avgSales:"$87.6B (FY2025)",
+    eps:"Q1 2026: $4.81 (+9.8% YoY); FY2025 adj EPS $19.29",
+    nextSales:"~$22B (Q2 2026)",
+    nextEPS:"$3.76 (Q2 2026)",
+    price:"$196.82", priceDate:"Jun 2",
+    high52:"$288.35", offHigh:"-31.7%", offHighClass:"moderate",
+    vol50:"~3M",
+    catalyst:"Policies in force +10% YoY (39.2M). Market share gains as smaller carriers exited. Stock –31% off high as loss ratios normalize from elevated 2024 levels. Next earnings Jul 9.",
+    domain:"progressive.com"
+  },
+  {
+    ticker:"ACN", company:"Accenture plc", sector:"Technology", industry:"IT Services & Consulting",
+    earningsDate:"2026-06-18", reportingSoon:true,
+    salesGrowth:"FY2025: $69.67B +7.4% YoY\nQ2 FY26: $18.0B +8.3% YoY",
+    avgSales:"$69.67B (FY2025)",
+    eps:"Q2 FY26: $2.96 (up from $2.85); FY25 adj EPS $12.93 (+8%)",
+    nextSales:"~$18.5B (Q3 FY26)",
+    nextEPS:"$3.71 (Q3 FY26)",
+    price:"$170.28", priceDate:"Jun 13",
+    high52:"$317.30", offHigh:"-46.3%", offHighClass:"deep",
+    vol50:"~3.5M",
+    catalyst:"U.S. federal IT budget cuts are revenue headwind (~8% of rev). AI consulting bookings still strong. Stock –43.9% past year on multiple analyst downgrades. FY26 adj EPS guide $13.52–$13.90. Q3 report Jun 18 is critical for forward guidance clarity.",
+    domain:"accenture.com"
+  },
+  {
+    ticker:"JBL", company:"Jabil Inc", sector:"Technology", industry:"Electronic Manufacturing Services",
+    earningsDate:"2026-06-25", reportingSoon:true,
+    salesGrowth:"FY2025: $29.80B +3.2% YoY\nFY26 run-rate: ~$8.5B/qtr (+14%)",
+    avgSales:"$29.80B (FY2025); FY26 guide $34B",
+    eps:"Q4 FY25: $3.29 core; FY26 full-yr guide $11.55 core",
+    nextSales:"~$8.5B (Q3 FY26)",
+    nextEPS:"$2.98 (Q3 FY26 guide)",
+    price:"$385.00", priceDate:"Jun 13",
+    high52:"$387.38", offHigh:"-0.6%", offHighClass:"mild",
+    vol50:"~1.5M",
+    catalyst:"AI infrastructure manufacturing surge drives FY26 rev guidance $34B (+14%). Near all-time 52W high. Intelligent infrastructure & regulated industries are key growth segments. Adj FCF guide $1.3B+. AI server demand is structurally strong.",
+    domain:"jabil.com"
+  },
+  {
+    ticker:"DOMO", company:"Domo Inc", sector:"Technology", industry:"Business Intelligence Software",
+    earningsDate:"2026-09-01", reportingSoon:false,
+    salesGrowth:"FY26: $318.86M +0.6% YoY\nQ4 FY26: $79.6M (beat est 1.2%)",
+    avgSales:"$318.86M (FY2026)",
+    eps:"Q4 FY26: $0.03 non-GAAP (beat 200%); TTM GAAP: –$1.45",
+    nextSales:"$80.31M (Q1 FY27 guide)",
+    nextEPS:"–$0.10 (Q1 FY27 guide)",
+    price:"$4.01", priceDate:"Jun 3",
+    high52:"$18.49", offHigh:"-78.3%", offHighClass:"very-deep",
+    vol50:"~2M",
+    catalyst:"Stock surged ~35% Jun 4 on M&A/acquisition speculation. –78% off 52W high creates high acquisition premium potential. Revenue essentially flat. Q1 FY27 guide: $80.3M revenue, EPS –$0.10. Exploring strategic alternatives.",
+    domain:"domo.com"
+  },
+  {
+    ticker:"HITI", company:"High Tide Inc", sector:"Consumer Discretionary", industry:"Cannabis Retail",
+    earningsDate:"2026-08-01", reportingSoon:false,
+    salesGrowth:"FY2025: CA$594M +13.7% YoY\nQ1 FY26: CA$178.3M +25% YoY",
+    avgSales:"CA$594M (~$437M USD) FY2025",
+    eps:"Q1 FY26: CA$0.01 (vs –CA$0.035 prior yr); turning profitable",
+    nextSales:"~CA$185M (Q2 FY26)",
+    nextEPS:"~CA$0.02 (Q2 FY26)",
+    price:"$2.41 (USD)", priceDate:"Jun 13",
+    high52:"$4.06", offHigh:"-40.6%", offHighClass:"deep",
+    vol50:"~0.5M",
+    catalyst:"Canada's largest cannabis retailer. Cabana Club loyalty program. Q1 2026: +25% revenue growth, EPS turning positive. Consolidating independents in Ontario/Alberta. 2 analysts 'Strong Buy' avg PT $6.13 (+154%). Revenue growing 10%/yr avg.",
+    domain:"hightideinc.com"
+  },
+  {
+    ticker:"CGC", company:"Canopy Growth Corp", sector:"Consumer Discretionary", industry:"Cannabis Production",
+    earningsDate:"2026-06-15", reportingSoon:true,
+    salesGrowth:"FY2025: ~$194M; Q4 FY26 est: $53.26M +17.6% YoY",
+    avgSales:"~$210.6M (FY2026 consensus est)",
+    eps:"Q4 FY26 est: –$0.06; FY26 full-yr est: –$0.36 EPS (+88% YoY improvement)",
+    nextSales:"$53.26M (Q4 FY26 est)",
+    nextEPS:"–$0.06 (Q4 FY26 consensus)",
+    price:"$1.07", priceDate:"Jun 13",
+    high52:"$2.38", offHigh:"-55.0%", offHighClass:"deep",
+    vol50:"~10M",
+    catalyst:"Reports Jun 15. Cost-cutting driving EPS improvement +87.9% YoY. Revenue est +8.9% YoY. U.S. cannabis legalization remains key upside catalyst. Acreage USA option preserves U.S. entry. –55% off 52W high.",
+    domain:"canopygrowth.com"
+  },
+  {
+    ticker:"LZB", company:"La-Z-Boy Inc", sector:"Consumer Discretionary", industry:"Furniture Manufacturing",
+    earningsDate:"2026-06-16", reportingSoon:true,
+    salesGrowth:"TTM $2.12B (+1.4% YoY)\nQ3 FY26: ~$530M (est)",
+    avgSales:"$2.12B (TTM FY2026)",
+    eps:"Q3 FY26: ~$0.54 (est); TTM GAAP EPS $2.00",
+    nextSales:"$569.2M (Q4 FY26 consensus)",
+    nextEPS:"$0.82 (Q4 FY26; range $0.80–$0.85)",
+    price:"$36.65", priceDate:"May 22",
+    high52:"$43.26", offHigh:"-15.3%", offHighClass:"moderate",
+    vol50:"~0.5M",
+    catalyst:"Reports Jun 16. Housing market recovery tailwind. Joybird e-commerce growing. Q4 EPS est $0.82 vs $0.85 three months ago (–3.5% drift). 2 Buy ratings, avg PT $44.50. Margin recovery and Joybird growth are key watches.",
+    domain:"la-z-boy.com"
+  },
+  {
+    ticker:"KMX", company:"CarMax Inc", sector:"Consumer Discretionary", industry:"Used Vehicle Retail",
+    earningsDate:"2026-06-17", reportingSoon:true,
+    salesGrowth:"FY26: $25.88B –1.8% YoY\nQ4 FY26: ~$5.95B (beat est 3.3%)",
+    avgSales:"$25.88B (FY2026); $26.35B (FY2025)",
+    eps:"Q4 FY26: $0.34 (beat 46.8%); Q3 FY26: net loss on margin pressure",
+    nextSales:"~$6.2B (Q1 FY27 est)",
+    nextEPS:"$0.94 (Q1 FY27 consensus)",
+    price:"$42.52", priceDate:"Jun 13",
+    high52:"$71.99", offHigh:"-40.9%", offHighClass:"deep",
+    vol50:"~3M",
+    catalyst:"Reports Jun 17. Q4 beat shows recovery. Annual earnings –50.6% on margin squeeze + lower volume. 20-analyst consensus 'Hold'; avg PT $42.69 (flat). High interest rates pressuring used-car affordability. Consumer trade-down vs. rate sensitivity is key beat/miss driver.",
+    domain:"carmax.com"
+  },
+  {
+    ticker:"VNCE", company:"Vince Holding Corp", sector:"Consumer Discretionary", industry:"Luxury Apparel",
+    earningsDate:"2026-09-15", reportingSoon:false,
+    salesGrowth:"Q3 FY25: $85.13M (beat est by 5.2%)\nQ2 FY25: ~$84M (est)",
+    avgSales:"~$340M (FY2025 est)",
+    eps:"Q3 FY25: $0.21 (beat $0.12 est); FY26 full-yr est: –$0.68",
+    nextSales:"~$80M (Q1 FY26 est)",
+    nextEPS:"~–$0.20 (Q1 FY26 est)",
+    price:"$1.26", priceDate:"Jun 1",
+    high52:"$5.99", offHigh:"-79.0%", offHighClass:"very-deep",
+    vol50:"~0.15M",
+    catalyst:"Luxury contemporary brand (Vince label). Stock –79% off 52W high while avg analyst PT is $4.17–$6.63 — large divergence signals deep value or liquidity risk. 3 analyst 'Strong Buy'. Q3 FY25 beat on both top and bottom line.",
+    domain:"vince.com"
+  },
+  {
+    ticker:"AIOT", company:"PowerFleet Inc", sector:"Technology", industry:"IoT Fleet Management",
+    earningsDate:"2026-07-15", reportingSoon:false,
+    salesGrowth:"FY25: $362.5M (post-merger, +169%)\nQ3 FY26: $113.5M +7% YoY; services +11%",
+    avgSales:"$362.5M (FY2025); FY26 guide $440–445M",
+    eps:"Q3 FY26: $0.02 non-GAAP (beat est by 10,000%); Q4 FY26 est: –$0.01",
+    nextSales:"$115.3M (Q4 FY26 consensus)",
+    nextEPS:"–$0.01 (Q4 FY26 consensus)",
+    price:"$2.95", priceDate:"Jun 13",
+    high52:"$6.07", offHigh:"-51.4%", offHighClass:"deep",
+    vol50:"~0.8M",
+    catalyst:"AIoT fleet telematics platform. Services revenue +11% YoY. FY26 revenue guide $440–445M. 3 analyst 'Strong Buy' avg PT $10.33 (+250% from current). Post-Cognatas integration driving scale. –51% off 52W high.",
+    domain:"powerfleet.com"
+  },
+  {
+    ticker:"PLAY", company:"Dave & Buster's Entertainment", sector:"Consumer Discretionary", industry:"Entertainment & Dining",
+    earningsDate:"2026-06-16", reportingSoon:true,
+    salesGrowth:"Q4 FY25: $529.6M flat YoY (missed est ~4.5%)\nQ1 FY26 est: $571.1M +0.6% YoY",
+    avgSales:"~$2.1B (FY2025/26 TTM)",
+    eps:"Q4 FY25: –$0.35 (missed $0.46 est); TTM GAAP EPS: –$1.40",
+    nextSales:"$571.1M (Q1 FY26 consensus)",
+    nextEPS:"Consensus revised –20.8% in 30 days",
+    price:"$13.18", priceDate:"Jun 11",
+    high52:"$35.53", offHigh:"-62.9%", offHighClass:"very-deep",
+    vol50:"~2M",
+    catalyst:"Reports Jun 16. Revenue growth reversal expected (+0.6% vs –3.5% prior yr). EPS estimate revised –20.8% — elevated miss risk. $100M+ FCF target 2026. –63% off 52W high. LBO/M&A speculation. Venue remodel program ongoing.",
+    domain:"daveandbusters.com"
+  },
+  {
+    ticker:"RFIL", company:"RF Industries Ltd", sector:"Technology", industry:"RF & Coaxial Components",
+    earningsDate:"2026-06-15", reportingSoon:true,
+    salesGrowth:"FY2025: $80.6M +24.2% YoY\nQ1 FY26: Beat est (EPS beat 100%)",
+    avgSales:"$80.6M (FY2025)",
+    eps:"Q1 FY26: $0.06 (beat $0.03 est, +100%); FY26 full-yr est: $0.45",
+    nextSales:"~$21M (Q2 FY26 est)",
+    nextEPS:"$0.10 (Q2 FY26 consensus)",
+    price:"$17.59", priceDate:"Jun 1",
+    high52:"$19.77", offHigh:"-11.0%", offHighClass:"mild",
+    vol50:"~0.2M",
+    catalyst:"Reports Jun 15. 5G small cell RF cable demand strong. Backlog $18.6M. Aerospace/industrial segments growing. –11% off 52W high — near highs. Q1 EPS beat 100%; FY25 gross margin 33.2%. Avg analyst PT $11.25 is below current market price.",
+    domain:"rfindustries.com"
+  },
+  {
+    ticker:"QMCO", company:"Quantum Corporation", sector:"Technology", industry:"Data Storage & Management",
+    earningsDate:"2026-08-01", reportingSoon:false,
+    salesGrowth:"TTM: $261.3M\nQ3 FY26 guide: ~$67M; adj EBITDA positive",
+    avgSales:"$261.3M (TTM FY2026)",
+    eps:"Q3 FY26 non-GAAP guide: –$0.51; adj EBITDA +$0.5M; gross margin 37.6%",
+    nextSales:"~$67M (Q3 FY26 guidance)",
+    nextEPS:"–$0.51 non-GAAP (Q3 FY26 guidance)",
+    price:"$13.74", priceDate:"Jun 13",
+    high52:"$18.48", offHigh:"-25.6%", offHighClass:"moderate",
+    vol50:"~0.8M",
+    catalyst:"AI training data storage demand driving tape/disk sales. Gross margin improving to 37.6%. Path to adj EBITDA profitability. 2 analyst 'Strong Buy' avg PT $16.50. TTM GAAP EPS –$8.92 (legacy); non-GAAP operating metrics improving sharply.",
+    domain:"quantum.com"
+  },
+  {
+    ticker:"WLY", company:"John Wiley & Sons Inc", sector:"Communication Services", industry:"Academic & Research Publishing",
+    earningsDate:"2026-06-16", reportingSoon:true,
+    salesGrowth:"FY2025: $1,660M adj +3% YoY\nQ3 FY26: $410M +1.3% YoY",
+    avgSales:"$1,660M (FY2025 adjusted)",
+    eps:"Q3 FY26: $0.57 (vs –$0.42 Q3 2025); FY25 adj EPS $3.64 (+31%)",
+    nextSales:"$454.5M (Q4 FY26 consensus)",
+    nextEPS:"$1.67 (Q4 FY26 consensus)",
+    price:"$44.07", priceDate:"Jun 8",
+    high52:"$45.64", offHigh:"-3.4%", offHighClass:"mild",
+    vol50:"~0.4M",
+    catalyst:"Reports Jun 16. Near 52W high. AI content licensing for research/academic text is a growing revenue stream. FY26 adj EPS guide $3.90–$4.35. Q3 FY26 EPS swung from –$0.42 to +$0.57 YoY. Analyst avg PT $67.32 (+53% upside).",
+    domain:"wiley.com"
+  }
 ];
 
-const THEMES = [
-  {name:"Big Tech Software (ORCL + ADBE)", status:"HOT", cls:"b-hot",
-   why:"Oracle prints Jun 10 after dropping 9.6% on Jun 5 — street expects $19.1B rev (+11%) and $1.96 EPS with cloud +46–50% YoY; OCI AI backlog ~$130B resets the bar down from mid-week highs. Adobe prints Jun 11 at -40% off its 52wk high — AI disruption fears have already priced in a lot; lower bar than ORCL. Contrasting risk setups from the same sector.",
-   tickers:["ORCL","ADBE"]},
-  {name:"Nuclear & Clean Energy", status:"HOT", cls:"b-hot",
-   why:"Uranium Energy (UEC) has surged 152% over 52 weeks on nuclear renaissance demand — data centers need dispatchable baseload power and SMRs are the answer. Reports Jun 8. FCEL is the opposite story: fuel cells still burning cash, at multi-year lows. Nuclear wins this week's clean-energy narrative.",
-   tickers:["UEC","FCEL"]},
-  {name:"Consumer Staples — Food & Beverage", status:"WATCH", cls:"b-watch",
-   why:"A busy week for food: Campbell's (CPB) faces analyst downgrades and competitive pricing (Bernstein, UBS, BofA PTs cut); Smucker (SJM) digests Hostess synergies; Casey's (CASY) — the S&P 500 newcomer — is the standout (+68% 52wk, pizza momentum, Wells Fargo PT $910). UNFI near 52wk high after profitability turnaround. MAMA growing +47% from deli expansion. LMNR and SUJA (recent IPO) are micro-stories.",
-   tickers:["CPB","SJM","CASY","UNFI","MAMA","AVO","LMNR","SUJA"]},
-  {name:"Apparel & Accessories — Tariff Pressure", status:"MIXED", cls:"b-mixed",
-   why:"A large cohort this week across price points: J.Jill (JILL) maintains steady profitability; Duluth (DLTH) and Vera Bradley (VRA) are turnaround plays; Lands' End (LE) treads water; Oxford Industries (OXM) carries lifestyle brand premium with tariff headwind on Tommy Bahama/Lily Pulitzer imports. All are 27–50% off highs. Bar is low across the group.",
-   tickers:["JILL","DLTH","LE","VRA","OXM","LOVE","HOFT"]},
-  {name:"Home Furnishings & Housing Cycle", status:"WATCH", cls:"b-watch",
-   why:"RH (Restoration Hardware) prints Jun 8 at 43% off its 52wk high — furniture tariff delay (Jan 2027) is the key relief valve; Gary Friedman's antiques initiative and new gallery network are the longer-term hooks. Lovesac and Hooker are smaller bets on the same housing recovery thesis. All are capacity-for-upside names if rates ease.",
-   tickers:["RH","LOVE","HOFT"]},
-  {name:"Pet & Specialty Retail", status:"MIXED", cls:"b-mixed",
-   why:"Chewy (CHWY) reports Jun 10 at 57% off highs — analysts expect a guide-down after Modern Animal acquisition; Autoship provides revenue floor but macro pet-spend softness is real. BARK is tiny, subscription-driven, near break-even — micro-cap with resilient box subscribers.",
-   tickers:["CHWY","BARK"]},
-  {name:"Restaurant & Leisure Hospitality", status:"MIXED", cls:"b-mixed",
-   why:"Cracker Barrel (CBRL) prints Jun 9 AMC mid-turnaround (CEO Julie Masino store remodel program); still reporting a quarterly loss but comps recovering. Vail Resorts (MTN) prints Jun 8 AMC — Q3 includes spring skiing, easier weather comp vs disaster Q2 (record low snowfall); CEO bought $4.9M of stock personally.",
-   tickers:["CBRL","MTN"]},
-  {name:"Technology — SaaS & Enterprise Software", status:"RESET", cls:"b-reset",
-   why:"Diverse software cohort: DOMO surged 35% on Jun 4 (M&A speculation) — still 76% off 52wk high; SailPoint (SAIL) re-IPO identity security growth; Navan (NAVN) T&E SaaS 30%+ growth; Skillsoft (SKIL) deeply discounted learning platform; Stitch Fix (SFIX) AI-styling turnaround. Gloo (GLOO) serves faith communities. Most are 25–75% off highs — low expectations, reactive to guidance.",
-   tickers:["DOMO","SAIL","NAVN","SKIL","SFIX","GLOO","ATEX"]},
-  {name:"Industrials — Defense, Infra & Farm Equipment", status:"WATCH", cls:"b-watch",
-   why:"Graham Corp (GHM) makes heat exchange equipment for Navy submarines and clean energy — lumpiness from large contract timing. Core & Main (CNM) distributes water/pipe infrastructure and benefits from IIJA multi-year spend. Titan Machinery (TITN) is the ag-cycle bottoming play; Lakeland (LAKE) makes protective clothing for industrial/fire/chemical markets. Motorcar Parts (MPAA) is auto parts aftermarket.",
-   tickers:["GHM","CNM","TITN","LAKE","MPAA"]},
-  {name:"eVTOL & Emerging Mobility", status:"HOT", cls:"b-hot",
-   why:"EHang (EH) is reporting an extraordinary +2,044% revenue jump — the China eVTOL pioneer has moved from prototype to commercial operations, with EH216-S passenger drone deliveries ramping. This is an inflection-point story; revenue was essentially zero the prior year. VinFast (VFS) is the Vietnam EV wildcard with +66% revenue growth but significant cash burn.",
-   tickers:["EH","VFS"]},
-  {name:"Healthcare — Biotech & Cannabis", status:"WATCH", cls:"b-watch",
-   why:"Aurora Cannabis (ACB) prints Jun 11 — Germany adult-use expansion is the multi-year catalyst; medical cannabis exports growing. Aethlon Medical (AEMD) is clinical-stage with Hemopurifier device for viral blood clearance; micro-cap binary.",
-   tickers:["ACB","AEMD"]},
-  {name:"Homebuilding & Home Services", status:"WATCH", cls:"b-watch",
-   why:"Lennar (LEN) prints Jun 11 AMC — delivers 20–21K homes at $370K ASP; affordability headwinds and rate sensitivity keep the bar low at 41% off 52wk high. Designer Brands (DBI) and DSW footwear are discretionary retail with Asia-import tariff headwinds.",
-   tickers:["LEN","DBI"]}
-];
+function getLogoInitials(company) {
+  return company.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+}
 
-const TMAP = {};
-THEMES.forEach(t => t.tickers.forEach(tk => TMAP[tk] = t.name));
-STOCKS.forEach(s => s.theme = TMAP[s.ticker] || "Other");
+function getLogoColor(ticker) {
+  const colors = ['#4361ee','#2a9d5c','#e63946','#f4a261','#7b2d8b','#0077b6','#e76f51','#023e8a'];
+  let h = 0; for (let c of ticker) h = (h * 31 + c.charCodeAt(0)) % colors.length;
+  return colors[h];
+}
 
-function num(v){ if(v==null) return null; const m=String(v).replace(/,/g,'').match(/-?\d+(\.\d+)?/); return m?parseFloat(m[0]):null; }
-function edDate(v){ const m=String(v).match(/\d{4}-\d{2}-\d{2}/); return m?m[0]:null; }
-const WEEK_START="2026-06-08", WEEK_END="2026-06-14";
-STOCKS.forEach(s => { s._oh=num(s.offHigh); s._ed=edDate(s.earningsDate);
-  s._tw = s._ed && s._ed>=WEEK_START && s._ed<=WEEK_END; });
+function formatDate(d) {
+  const [y,m,day] = d.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[parseInt(m)-1]} ${parseInt(day)}`;
+}
 
-const total=STOCKS.length;
-const twCount=STOCKS.filter(s=>s._tw).length;
-const nearHigh=STOCKS.filter(s=>s._oh!=null && s._oh>=-10).length;
-const deepLow=STOCKS.filter(s=>s._oh!=null && s._oh<=-40).length;
-document.getElementById('kpis').innerHTML = `
-  <div class="kpi"><div class="num">${total}</div><div class="lbl">Stocks tracked</div></div>
-  <div class="kpi blue"><div class="num">${twCount}</div><div class="lbl">Report Jun 8&ndash;12, 2026</div></div>
-  <div class="kpi green"><div class="num">${nearHigh}</div><div class="lbl">Within 10% of 52-wk high</div></div>
-  <div class="kpi red"><div class="num">${deepLow}</div><div class="lbl">40%+ below 52-wk high</div></div>`;
-document.getElementById('asof').textContent =
-  "Generated " + new Date().toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'}) +
-  "  ·  Source data compiled Jun 5–6, 2026  ·  Week of Jun 8–12, 2026";
+function isWithin7Days(dateStr) {
+  const today = new Date('2026-06-14');
+  const target = new Date(dateStr);
+  const diff = (target - today) / (1000 * 60 * 60 * 24);
+  return diff >= 0 && diff <= 7;
+}
 
-// Themes
-const thDiv=document.getElementById('themes');
-THEMES.forEach(t=>{
-  const d=document.createElement('div'); d.className='theme';
-  d.innerHTML=`<h3>${t.name} <span class="badge ${t.cls}">${t.status}</span></h3>
-    <p>${t.why}</p><div class="tk">${t.tickers.map(tk=>`<span>${tk}</span>`).join('')}</div>`;
-  thDiv.appendChild(d);
+const tbody = document.getElementById('tableBody');
+
+stocks.forEach((s, idx) => {
+  const rowClass = s.reportingSoon ? 'reporting-soon' : '';
+  const color = getLogoColor(s.ticker);
+
+  // Main data row
+  const tr = document.createElement('tr');
+  tr.className = rowClass;
+  tr.innerHTML = `
+    <td class="ticker-cell">
+      <div class="logo-wrap">
+        <img src="https://www.google.com/s2/favicons?domain=${s.domain}&sz=64"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+             alt="">
+        <div class="logo-fallback" style="display:none;background:${color};width:28px;height:28px;border-radius:6px;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;">
+          ${getLogoInitials(s.company)}
+        </div>
+      </div>
+      <div class="ticker-info">
+        <div class="tick">${s.ticker}${s.reportingSoon ? '<span class="reporting-badge">THIS WEEK</span>' : ''}</div>
+        <div class="co" title="${s.company}">${s.company}</div>
+      </div>
+    </td>
+    <td style="font-size:11px;color:#555;">${s.sector}<br><span style="color:#aaa;font-size:10px;">${s.industry}</span></td>
+    <td style="font-size:11px;">${formatDate(s.earningsDate)}, ${s.earningsDate.split('-')[0]}</td>
+    <td style="font-size:11px;white-space:normal;max-width:180px;line-height:1.5;">${s.salesGrowth.replace(/\n/g,'<br>')}</td>
+    <td style="font-size:11px;">${s.avgSales}</td>
+    <td style="font-size:11px;white-space:normal;max-width:160px;line-height:1.5;">${s.eps}</td>
+    <td style="font-size:11px;">${s.nextSales}</td>
+    <td style="font-size:11px;">${s.nextEPS}</td>
+    <td style="font-size:11px;">${s.price}<br><span style="color:#aaa;font-size:10px;">${s.priceDate}</span></td>
+    <td><span class="off-high ${s.offHighClass}">${s.offHigh}</span><br><span style="color:#aaa;font-size:10px;">High: ${s.high52}</span></td>
+    <td>
+      <button class="expand-btn" onclick="toggleCatalyst(${idx})">Details</button>
+    </td>
+  `;
+  tbody.appendChild(tr);
+
+  // Catalyst expansion row
+  const catalystTr = document.createElement('tr');
+  catalystTr.className = 'catalyst-row';
+  catalystTr.id = `cat-${idx}`;
+  catalystTr.innerHTML = `
+    <td colspan="11" style="padding:8px 12px 10px 56px;">
+      <div class="catalyst-content">
+        <strong style="font-size:11px;color:#4361ee;">📌 Catalyst & Context:</strong><br>
+        ${s.catalyst}
+        <div style="margin-top:6px;font-size:10px;color:#aaa;">
+          Vol (50d): ${s.vol50} &nbsp;|&nbsp; 52W Range: ${s.high52} (high) / ${s.low52 || 'n/a'} (low)
+        </div>
+      </div>
+    </td>
+  `;
+  tbody.appendChild(catalystTr);
 });
 
-// Sector filter options
-const sectors=[...new Set(STOCKS.map(s=>s.sector))].sort();
-const fSec=document.getElementById('fSector');
-sectors.forEach(s=>{ const o=document.createElement('option'); o.value=s; o.textContent=s; fSec.appendChild(o); });
-const fThm=document.getElementById('fTheme');
-[...new Set(STOCKS.map(s=>s.theme))].sort().forEach(t=>{ const o=document.createElement('option'); o.value=t; o.textContent=t; fThm.appendChild(o); });
-
-// Table headers
-const COLS=[
-  {k:'co',    l:'Company'},
-  {k:'ed',    l:'Earnings Date'},
-  {k:'sg',    l:'Last 2Q Sales Growth / Avg Annual'},
-  {k:'ep',    l:'Last 2Q EPS'},
-  {k:'ne',    l:'Next-Q Est (Sales / EPS)'},
-  {k:'pr',    l:'Price / Vol(50d)'},
-  {k:'oh',    l:'Off 52-Wk High ▴', sort:'offHigh'},
-  {k:'cat',   l:'Catalyst (click row)'},
-  {k:'vol',   l:'50d Vol'},
-  {k:'chev',  l:''}
-];
-const thead=document.getElementById('thead');
-COLS.forEach((c,i)=>{
-  const th=document.createElement('th');
-  th.innerHTML=`${c.l}${c.sort?` <span class="arr">⬆</span>`:''}`;
-  thead.appendChild(th);
-});
-
-function ohColor(v){
-  if(v==null) return '#9ca3af';
-  if(v>=-10) return '#16a34a';
-  if(v>=-25) return '#0d9488';
-  if(v>=-45) return '#d97706';
-  return '#dc2626';
+function toggleCatalyst(idx) {
+  const row = document.getElementById(`cat-${idx}`);
+  const btn = document.querySelectorAll('.expand-btn')[idx];
+  const isOpen = row.classList.contains('visible');
+  row.classList.toggle('visible');
+  btn.classList.toggle('open');
+  btn.textContent = isOpen ? 'Details' : 'Collapse';
+  if (!isOpen) btn.classList.add('open'); else btn.classList.remove('open');
 }
-
-function renderRows(list){
-  const tbody=document.getElementById('tbody'); tbody.innerHTML='';
-  document.getElementById('count').textContent=`${list.length} of ${total} stocks`;
-  list.forEach((s,i)=>{
-    const oh=s._oh; const col=ohColor(oh);
-    const tw=s._tw;
-    const logoColors=['#2563eb','#059669','#7c3aed','#dc2626','#d97706','#0891b2','#be123c','#065f46'];
-    const lc=logoColors[i%logoColors.length];
-    const initials=(s.ticker.slice(0,2));
-
-    // Price display
-    const prStr = s.price.startsWith('~') ? `<span class="muted">${s.price}</span>` : `<b>${s.price}</b>`;
-    const edParts = s.earningsDate.split(' ');
-    const edMain = edParts[0];
-    const edSuf = edParts.slice(1).join(' ');
-    const edClass = tw ? 'ed tw' : 'ed';
-
-    const row=document.createElement('tr');
-    row.className='row'+(tw?' thisweek':'');
-    row.innerHTML=`
-      <td><div class="co">
-        <div class="logo" style="background:${lc}">
-          <div class="mono">${initials}</div>
-          <img src="https://www.google.com/s2/favicons?domain=${s.domain}&sz=64" alt="" loading="lazy" onload="this.style.opacity=1">
-        </div>
-        <div>
-          <div class="tk">${s.ticker}</div>
-          <div class="nm">${s.company}</div>
-          <div class="si">${s.sector} · ${s.industry.split('(')[0].trim()}</div>
-        </div>
-      </div></td>
-      <td><div class="${edClass}">${edMain}</div>${tw?`<span class="ed-tag">THIS WEEK</span>`:''}</td>
-      <td><div class="nq"><b>GROWTH</b> ${s.salesGrowth}</div><div class="nq" style="margin-top:3px"><b>AVG</b> ${s.avgAnnualSales}</div></td>
-      <td><div class="nq">${s.epsLast2Q}</div></td>
-      <td><div class="nq"><b>REV</b> ${s.nextQEstSales}</div><div class="nq" style="margin-top:2px"><b>EPS</b> ${s.nextQEstEPS}</div></td>
-      <td><div>${prStr}<span class="muted" style="font-size:9.5px"> @${s.priceAsOf}</span></div><div class="muted" style="font-size:9.5px">${s.avgVol50}/day</div></td>
-      <td><div class="oh">
-        <div class="bar"><div class="fill" style="width:${oh!=null?Math.min(100,Math.abs(oh))+'%':'0'};background:${col}"></div></div>
-        <span class="pct" style="color:${col}">${s.offHigh}</span>
-      </div></td>
-      <td><div class="muted" style="font-size:10px;font-style:italic">▸ click row</div></td>
-      <td class="muted" style="font-size:10px">${s.avgVol50}</td>
-      <td class="chev">›</td>`;
-
-    const det=document.createElement('tr');
-    det.className='detail';
-    det.innerHTML=`<td colspan="10"><div class="det-grid">
-      <div><div class="k">Catalyst / Key Driver</div><div class="v">${s.catalyst}</div></div>
-      <div><div class="k">Theme</div><div class="v">${s.theme}</div></div>
-      <div><div class="k">52-Week Range</div><div class="v">$${s.low52} → $${s.high52}</div></div>
-      <div><div class="k">Next-Q Est</div><div class="v">Sales ${s.nextQEstSales} · EPS ${s.nextQEstEPS}</div></div>
-      <div class="full"><div class="k">Last 2Q Sales Growth</div><div class="v">${s.salesGrowth}</div></div>
-      <div class="full"><div class="k">Avg Annual Sales</div><div class="v">${s.avgAnnualSales}</div></div>
-      <div class="full"><div class="k">Last 2Q EPS</div><div class="v">${s.epsLast2Q}</div></div>
-    </div></td>`;
-
-    row.addEventListener('click',()=>{ det.classList.toggle('open'); });
-    tbody.appendChild(row);
-    tbody.appendChild(det);
-  });
-}
-
-let currentList=[...STOCKS];
-function applyFilters(){
-  const q=document.getElementById('search').value.toLowerCase();
-  const sec=document.getElementById('fSector').value;
-  const thm=document.getElementById('fTheme').value;
-  const wk=document.getElementById('fWeek').checked;
-  currentList=STOCKS.filter(s=>{
-    if(wk && !s._tw) return false;
-    if(sec && s.sector!==sec) return false;
-    if(thm && s.theme!==thm) return false;
-    if(q && !s.ticker.toLowerCase().includes(q) && !s.company.toLowerCase().includes(q) && !s.industry.toLowerCase().includes(q)) return false;
-    return true;
-  });
-  renderRows(currentList);
-}
-['search','fSector','fTheme'].forEach(id=>document.getElementById(id).addEventListener('input',applyFilters));
-document.getElementById('fWeek').addEventListener('change',applyFilters);
-
-renderRows(STOCKS);
-
-document.getElementById('foot').innerHTML=`<span class="cp"><a href="https://substack.com/@trade2swing" target="_blank" style="color:#1a1d24;text-decoration:none">© 2026 trade2swing</a></span> &mdash; For informational purposes only. Not investment advice.`;
 </script>
 </body>
 </html>

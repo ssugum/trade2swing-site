@@ -1,8 +1,9 @@
 # Relaunch Post Draft — Sunday, June 14, 2026
 
-> This file is the draft of today's Substack relaunch post.
-> Paste the content below the divider into Substack. There are only two
-> short [FILL IN:] gaps to close before publishing.
+> This file is the final draft of today's Substack relaunch post.
+> Paste the content below the divider straight into Substack — no gaps left.
+> The market read is filled with the regime call as of Friday June 12 close
+> (S&P distribution 4, NASDAQ 5, semis still leading, healthcare emerging).
 
 ---
 
@@ -39,11 +40,15 @@ If you read one thing on the site, read that entry.
 
 ## 📊 Market read — week of June 8–12
 
-[FILL IN: 2-3 sentence read on current market regime as of Friday June 12 close. Is the post-April-FTD uptrend intact, under pressure, or showing signs of distribution? Reference distribution day count if relevant, and how SPY and QQQ behaved into the close.]
+Indices are in pullback mode, but semis continue to show leadership — no damage to the post-April FTD leaders. Net new high vs. new low is positive and elevated, which is the breadth tell that says the rally is still intact underneath the index noise.
+
+The line to watch is the distribution-day count: **S&P at 4, NASDAQ at 5.** Five is the threshold where an uptrend moves from "confirmed" to "under pressure." One more distribution day on either index and the read changes.
+
+Some healthcare names are showing strong leadership inside this pullback — new leadership emerging while the existing leaders hold is a healthy tape signal. Closely watching, and trading by the chart, not the news.
 
 *[Insert SPY weekly + QQQ daily charts — your standard TradingView layout]*
 
-[FILL IN: 1 sentence on what this gates — what action this allows or blocks for the coming week.]
+**What this gates this week:** continue working from the Watch and Ready lists with size scaled to the regime — and pass on hero new buys, with distribution one print away from flipping the read.
 
 ---
 
