@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1456 816" width="1456" height="816">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e0a1f"/>
+      <stop offset="1" stop-color="#1a1338"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.85" cy="0.2" r="0.7">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.15" cy="0.95" r="0.7">
+      <stop offset="0" stop-color="#6366f1" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="0.55" stop-color="#c4b5fd"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M 64 0 L 0 0 0 64" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.045"/>
+    </pattern>
+  </defs>
+
+  <!-- background -->
+  <rect width="1456" height="816" fill="url(#bg)"/>
+  <rect width="1456" height="816" fill="url(#grid)"/>
+  <rect width="1456" height="816" fill="url(#glow1)"/>
+  <rect width="1456" height="816" fill="url(#glow2)"/>
+
+  <!-- Trade2Swing wordmark -->
+  <g transform="translate(80,80)">
+    <rect width="44" height="44" rx="10" fill="#6366f1"/>
+    <rect x="10" y="28" width="5" height="10" rx="1" fill="#ffffff" opacity="0.55"/>
+    <rect x="19" y="22" width="5" height="16" rx="1" fill="#ffffff" opacity="0.78"/>
+    <rect x="28" y="14" width="5" height="24" rx="1" fill="#ffffff"/>
+    <path d="M11 26 L21 19 L28 22 L36 10" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="60" y="32" font-family="DejaVu Sans, Arial, sans-serif" font-weight="700" font-size="26" fill="#ffffff" letter-spacing="-0.5">Trade2Swing</text>
+  </g>
+
+  <!-- pill -->
+  <g transform="translate(80,200)">
+    <rect width="380" height="42" rx="21" fill="#8b5cf6" fill-opacity="0.15" stroke="#8b5cf6" stroke-opacity="0.6" stroke-width="1"/>
+    <circle cx="22" cy="21" r="5" fill="#10b981"/>
+    <text x="38" y="28" font-family="DejaVu Sans, Arial, sans-serif" font-weight="600" font-size="14" fill="#c4b5fd" letter-spacing="1.4">FTD 04/08/2026 &#183; MODEL BOOK ENTRY</text>
+  </g>
+
+  <!-- Headline -->
+  <text x="80" y="370" font-family="DejaVu Sans, Arial, sans-serif" font-weight="800" font-size="86" fill="#ffffff" letter-spacing="-2.5">Strength</text>
+  <text x="80" y="465" font-family="DejaVu Sans, Arial, sans-serif" font-weight="800" font-size="86" letter-spacing="-2.5" fill="url(#grad)">buys strength.</text>
+
+  <!-- Subhead -->
+  <text x="80" y="530" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" fill="#a59fc4">What the April 8 FTD cohort taught about buying</text>
+  <text x="80" y="560" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" fill="#a59fc4">leaders at the highs &#8212; and the cost of hesitating.</text>
+
+  <!-- Stats -->
+  <g transform="translate(80,640)">
+    <text font-family="DejaVu Sans, Arial, sans-serif" font-weight="700" font-size="44" fill="#ffffff">15</text>
+    <text y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#a59fc4" letter-spacing="1.4">LEADERS</text>
+
+    <text x="180" font-family="DejaVu Sans, Arial, sans-serif" font-weight="700" font-size="44" fill="#10b981">~200%</text>
+    <text x="180" y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#a59fc4" letter-spacing="1.4">AVG GAIN</text>
+
+    <text x="410" font-family="DejaVu Sans, Arial, sans-serif" font-weight="700" font-size="44" fill="#10b981">+467%</text>
+    <text x="410" y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#a59fc4" letter-spacing="1.4">BEST NAME</text>
+  </g>
+
+  <text x="80" y="770" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" fill="#7b7790">trade2swing.com</text>
+
+  <!-- ============ Chart on right ============ -->
+  <g transform="translate(800,200)">
+    <rect width="576" height="430" rx="18" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+
+    <!-- horizontal grid lines inside chart -->
+    <g stroke="#ffffff" stroke-opacity="0.05">
+      <line x1="30" y1="100" x2="546" y2="100"/>
+      <line x1="30" y1="180" x2="546" y2="180"/>
+      <line x1="30" y1="260" x2="546" y2="260"/>
+      <line x1="30" y1="340" x2="546" y2="340"/>
+    </g>
+
+    <!-- pre-FTD candles (gray, sideways near bottom) -->
+    <g fill="#4a4660">
+      <rect x="40" y="300" width="8" height="34"/>
+      <rect x="60" y="290" width="8" height="40"/>
+      <rect x="80" y="295" width="8" height="38"/>
+      <rect x="100" y="285" width="8" height="48"/>
+      <rect x="120" y="300" width="8" height="35"/>
+      <rect x="140" y="310" width="8" height="30"/>
+      <rect x="160" y="305" width="8" height="32"/>
+      <rect x="180" y="315" width="8" height="28"/>
+      <rect x="200" y="320" width="8" height="26"/>
+      <rect x="220" y="310" width="8" height="32"/>
+    </g>
+
+    <!-- FTD vertical line -->
+    <line x1="252" y1="40" x2="252" y2="380" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="6 4"/>
+    <g transform="translate(260,55)">
+      <rect width="60" height="26" rx="6" fill="#fbbf24"/>
+      <text x="30" y="18" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-weight="700" font-size="13" fill="#0e0a1f">FTD</text>
+    </g>
+
+    <!-- post-FTD candles (green, surging up) -->
+    <g fill="#10b981">
+      <rect x="270" y="295" width="8" height="40"/>
+      <rect x="290" y="265" width="8" height="50"/>
+      <rect x="310" y="230" width="8" height="50"/>
+      <rect x="330" y="200" width="8" height="45"/>
+      <rect x="350" y="170" width="8" height="42"/>
+      <rect x="370" y="140" width="8" height="40"/>
+      <rect x="390" y="115" width="8" height="38"/>
+      <rect x="410" y="92" width="8" height="36"/>
+      <rect x="430" y="75" width="8" height="32"/>
+      <rect x="450" y="60" width="8" height="30"/>
+      <rect x="470" y="48" width="8" height="28"/>
+      <rect x="490" y="40" width="8" height="26"/>
+      <rect x="510" y="35" width="8" height="22"/>
+    </g>
+
+    <!-- trend line -->
+    <path d="M 274 315 L 294 290 L 314 255 L 334 222 L 354 191 L 374 160 L 394 134 L 414 110 L 434 91 L 454 75 L 474 62 L 494 53 L 514 46"
+          fill="none" stroke="#10b981" stroke-width="2.5" opacity="0.7"/>
+
+    <!-- +467% callout -->
+    <g transform="translate(420,90)">
+      <rect width="116" height="36" rx="18" fill="#10b981"/>
+      <text x="58" y="24" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-weight="700" font-size="15" fill="#ffffff">+467%</text>
+    </g>
+
+    <!-- side legend -->
+    <text x="40" y="404" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#7b7790" letter-spacing="1.4">PRE-FTD: SIDEWAYS BASE</text>
+    <text x="320" y="404" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#10b981" letter-spacing="1.4">POST-FTD: LOCK-OUT RALLY</text>
+  </g>
+
+  <!-- tagline -->
+  <text x="1376" y="770" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-style="italic" font-size="14" fill="#7b7790">Trade by the chart, not the news.</text>
+</svg>

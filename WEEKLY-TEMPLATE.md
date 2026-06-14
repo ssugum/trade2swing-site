@@ -23,14 +23,33 @@ Sunday afternoon falls through, the Substack post still ships.
 
 ### Sunday morning — Substack post (75 min)
 
-- [ ] In Substack, duplicate last week's post as a new draft
+**Important: how to get your draft into Substack without it pasting as raw markdown**
+
+Substack's editor does NOT auto-convert markdown source on paste. If you paste
+raw `.md` content, it lands inside a "Markdown" code block and stays unformatted.
+The fix every week:
+
+1. Edit your draft inside an HTML preview file (one of: `RELAUNCH-POST-preview.html`
+   for this week, or generate a fresh one each week from your draft using the same
+   template — see Section 7 below).
+2. Double-click the `*-preview.html` file in File Explorer to open in your browser.
+3. **Ctrl+A → Ctrl+C** in the browser to copy the rendered rich text.
+4. In Substack, click in the body, **Ctrl+V**. The formatting will paste properly.
+
+**Weekly steps:**
+
+- [ ] In Substack, duplicate last week's post as a new draft (or start fresh)
 - [ ] Update date in headline and intro
+- [ ] Write/refresh content in your `.md` working file
+- [ ] Generate the rendered HTML preview (copy the `RELAUNCH-POST-preview.html` template, paste content, save as new file)
+- [ ] Open the preview in browser, Ctrl+A, Ctrl+C, paste into Substack
 - [ ] Refresh Market read (2-3 paragraphs + the SPY/QQQ chart)
 - [ ] Refresh Sector commentary (1 paragraph + sector ETF watchlist link)
 - [ ] Replace Watch & Ready list URLs (always check — TradingView regenerates)
 - [ ] Insert the week's Stock Idea / Model Book entry teaser + link
 - [ ] Update Earnings link if relevant context this week
 - [ ] Update IPO Radar with this week's screenshot if running it
+- [ ] Drag chart screenshots into Substack using its image button (Substack handles images natively)
 
 ### Sunday afternoon — One Model Book entry on trade2swing.com (60 min)
 
