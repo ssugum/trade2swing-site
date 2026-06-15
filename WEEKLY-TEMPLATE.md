@@ -16,8 +16,10 @@ Sunday afternoon falls through, the Substack post still ships.
 - [ ] Update MarketPulse Google sheet with Friday's close
 - [ ] Save SPY weekly + QQQ (or NASDAQ Composite) daily screenshots from
       TradingView, your standard layout
-- [ ] Confirm Watch and Ready lists in TradingView reflect this week's view
-      (or duplicate to new ones if last week's are stale)
+- [ ] Update the Watch / Ready / IPO Google Sheets (the lists live at
+      /watch-ready-lists.html on the site; the sheet IS the data, no URL
+      refresh needed)
+- [ ] Pick this week's spotlight stock(s) from the lists
 - [ ] Note any IPOs from the past 30 days for the IPO Radar
 - [ ] No writing yet — just data prep
 
@@ -45,7 +47,8 @@ The fix every week:
 - [ ] Open the preview in browser, Ctrl+A, Ctrl+C, paste into Substack
 - [ ] Refresh Market read (2-3 paragraphs + the SPY/QQQ chart)
 - [ ] Refresh Sector commentary (1 paragraph + sector ETF watchlist link)
-- [ ] Replace Watch & Ready list URLs (always check — TradingView regenerates)
+- [ ] Point the Substack post at trade2swing.com/watch-ready-lists.html
+      (the URL never changes; the sheet behind it is what you refresh)
 - [ ] Insert the week's Stock Idea / Model Book entry teaser + link
 - [ ] Update Earnings link if relevant context this week
 - [ ] Update IPO Radar with this week's screenshot if running it
@@ -117,13 +120,15 @@ action it allows or blocks.]
 
 ---
 
-## 🎯 Watch & Ready lists
+## 🎯 Watch, Ready & IPO lists
 
-**[Watch list — setting up, no trigger yet →](FILL IN URL)**
-Bases forming, monitor only.
+The three live working lists are maintained on the site. Tap any ticker to
+open the free TradingView chart.
 
-**[Ready list — at or near a pivot →](FILL IN URL)**
-Subset of Watch. First to act on if the broad signal supports.
+### **[→ See Watch, Ready & IPO lists on trade2swing.com](https://trade2swing.com/watch-ready-lists.html)**
+
+This week's setup spotlight is at the top of that page — one or two names
+with the chart, pivot, stop, sell rule, and how the position would be sized.
 
 > Always do your due diligence. This is not a buy or sell recommendation.
 
