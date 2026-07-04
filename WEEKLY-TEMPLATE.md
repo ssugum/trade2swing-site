@@ -272,6 +272,22 @@ week. The queue is a buffer, not the destination.
 
 ---
 
+## 5b. Codifying rules from live experience
+
+When a live trade produces a rule worth codifying (as AMKR did with the
+Fault-Line Protocol on 2026-07-03), the rule lands at
+**`/rules.html`** on trade2swing.com as a formal spec, and the trade that
+generated it becomes a Model Book entry. Two homes, one story:
+
+- **The Model Book entry** tells the story (what happened, why it hurt, the
+  lesson) - readers land in narrative mode.
+- **The House Rules page** carries the spec (terse, scannable, table-driven)
+  - readers land in reference mode.
+
+Each rule card on the Rules page cross-links to its origin Model Book entry,
+and each Model Book entry closes with "House Rules updated -> [link]" if
+it produced a new rule.
+
 ## 6. Long-arc — where this is going
 
 Free Substack is the front door. The trade2swing.com Model Book is the
