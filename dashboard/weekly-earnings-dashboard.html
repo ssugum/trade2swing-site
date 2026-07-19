@@ -20,30 +20,30 @@
   .kpi.alert .value { color: #e63946; }
   .kpi.green .value { color: #2a9d5c; }
 
-  /* ── Calendar view ── */
-  .cal-section { padding: 14px 20px 4px; }
-  .cal-head { display:flex; align-items:baseline; gap:10px; margin-bottom:10px; }
-  .cal-head h2 { font-size: 15px; font-weight:800; letter-spacing:.2px; color:#1a1a2e; }
-  .cal-head .cal-sub { font-size:11px; color:#888; }
-  .cal-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+  /* ── Calendar view (compact) ── */
+  .cal-section { padding: 12px 20px 2px; }
+  .cal-head { display:flex; align-items:baseline; gap:10px; margin-bottom:8px; }
+  .cal-head h2 { font-size: 14px; font-weight:800; letter-spacing:.2px; color:#1a1a2e; }
+  .cal-head .cal-sub { font-size:10px; color:#888; }
+  .cal-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; align-items:start; }
   @media (max-width: 900px){ .cal-grid { grid-template-columns:repeat(2,1fr); } }
-  .cal-day { background:#fff; border:1px solid #e0e4ea; border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
-  .cal-day .cd-head { background:#1a1a2e; color:#fff; text-align:center; padding:7px 4px; }
-  .cal-day .cd-dow { font-size:12px; font-weight:700; letter-spacing:.4px; }
-  .cal-day .cd-date { font-size:10px; opacity:.65; margin-top:1px; }
-  .cal-slot { padding:7px 8px; }
-  .cal-slot + .cal-slot { border-top:1px dashed #e6e9f0; }
-  .cal-slot .cs-label { font-size:9px; text-transform:uppercase; letter-spacing:.5px; color:#9aa1b0; font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:4px; }
+  .cal-day { background:#fff; border:1px solid #e0e4ea; border-radius:8px; overflow:hidden; display:flex; flex-direction:column; }
+  .cal-day .cd-head { background:#1a1a2e; color:#fff; text-align:center; padding:4px 4px; display:flex; justify-content:center; align-items:baseline; gap:5px; }
+  .cal-day .cd-dow { font-size:11px; font-weight:700; letter-spacing:.4px; }
+  .cal-day .cd-date { font-size:9px; opacity:.6; }
+  .cal-slot { padding:5px 6px; }
+  .cal-slot + .cal-slot { border-top:1px dashed #eceef3; }
+  .cal-slot .cs-label { font-size:8px; text-transform:uppercase; letter-spacing:.4px; color:#9aa1b0; font-weight:700; margin-bottom:4px; display:flex; align-items:center; gap:3px; }
   .cal-slot.after .cs-label { color:#b08; }
-  .cs-items { display:flex; flex-wrap:wrap; gap:6px; }
-  .cs-empty { font-size:10px; color:#c7ccd6; font-style:italic; }
-  .chip { display:flex; flex-direction:column; align-items:center; width:52px; gap:3px; cursor:pointer; }
-  .chip .chip-logo { width:34px; height:34px; border-radius:8px; overflow:hidden; background:#eef0f8; display:flex; align-items:center; justify-content:center; border:1px solid #e6e9f0; }
-  .chip .chip-logo img { width:34px; height:34px; object-fit:contain; }
-  .chip .chip-tick { font-size:9.5px; font-weight:700; color:#334; }
+  .cs-items { display:flex; flex-wrap:wrap; gap:4px; }
+  .cs-empty { font-size:9px; color:#c7ccd6; font-style:italic; }
+  .chip { display:flex; flex-direction:column; align-items:center; width:38px; gap:2px; cursor:pointer; }
+  .chip .chip-logo { width:26px; height:26px; border-radius:6px; overflow:hidden; background:#eef0f8; display:flex; align-items:center; justify-content:center; border:1px solid #e6e9f0; }
+  .chip .chip-logo img { width:26px; height:26px; object-fit:contain; }
+  .chip .chip-tick { font-size:8.5px; font-weight:700; color:#334; line-height:1; }
   .chip:hover .chip-logo { box-shadow:0 0 0 2px #4361ee; }
   .chip:hover .chip-tick { color:#4361ee; }
-  .cal-later { margin:10px 0 2px; background:#fff; border:1px solid #e0e4ea; border-left:4px solid #f4a261; border-radius:8px; padding:8px 12px; }
+  .cal-later { margin:8px 0 2px; background:#fff; border:1px solid #e0e4ea; border-left:4px solid #f4a261; border-radius:8px; padding:7px 12px; }
   .cal-later .cl-label { font-size:10px; text-transform:uppercase; letter-spacing:.5px; color:#c17d33; font-weight:700; margin-bottom:6px; }
   .cal-later .cs-items { gap:5px; }
   .later-chip { display:flex; align-items:center; gap:5px; background:#fff7ec; border:1px solid #f3ddc0; border-radius:16px; padding:2px 8px 2px 3px; cursor:pointer; }
@@ -209,16 +209,16 @@ function logoImg(s, size){ const col=getLogoColor(s.ticker); return '<img src="'
     const before=inDay.filter(s=>timingOf(s)!=='pm');   // am + tbd
     const after =inDay.filter(s=>timingOf(s)==='pm');
     const col=document.createElement('div'); col.className='cal-day';
+    let body = slot('☀️ Before Open','before',before) + slot('🌙 After Close','after',after);
+    if(!before.length && !after.length) body = '<div class="cal-slot"><span class="cs-empty">No confirmed reporters</span></div>';
     col.innerHTML =
-      '<div class="cd-head"><div class="cd-dow">'+DOW[day.getDay()]+'</div><div class="cd-date">'+
-        day.toLocaleDateString(undefined,{month:'short',day:'numeric'})+'</div></div>'+
-      slot('☀️ Before Open','before',before)+
-      slot('🌙 After Close','after',after);
+      '<div class="cd-head"><span class="cd-dow">'+DOW[day.getDay()]+'</span><span class="cd-date">'+
+        day.toLocaleDateString(undefined,{month:'short',day:'numeric'})+'</span></div>' + body;
     grid.appendChild(col);
   });
   function slot(label,cls,arr){
-    let items = arr.length ? arr.map(chip).join('') : '<span class="cs-empty">—</span>';
-    return '<div class="cal-slot '+cls+'"><div class="cs-label">'+label+'</div><div class="cs-items">'+items+'</div></div>';
+    if(!arr.length) return '';                       // hide empty AM/PM slots to stay compact
+    return '<div class="cal-slot '+cls+'"><div class="cs-label">'+label+'</div><div class="cs-items">'+arr.map(chip).join('')+'</div></div>';
   }
   function chip(s){
     return '<a class="chip" href="'+tvLayout(s)+'" target="_blank" rel="noopener" title="'+s.company+' — open chart">'
