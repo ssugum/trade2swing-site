@@ -180,7 +180,7 @@ const ASOF = new Date(DATA.asof + 'T00:00:00');
 const WEEK_END = new Date(DATA.wend + 'T23:59:59');
 
 // ── TradingView links ──
-function tvSym(s){ return encodeURIComponent((s.exch||'NASDAQ') + ':' + s.ticker); }
+function tvSym(s){ return encodeURIComponent(s.ticker); }  // ticker only — exchange prefix (NYSE:/NASDAQ:) breaks many TradingView deep links
 function tvLayout(s){ return 'https://www.tradingview.com/chart/' + TV_LAYOUT + '/?symbol=' + tvSym(s); }
 function tvGeneric(s){ return 'https://www.tradingview.com/chart/?symbol=' + tvSym(s); }
 
