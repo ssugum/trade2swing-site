@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Breadth Guide &mdash; Trade2Swing</title>
+<meta name="description" content="How to read the market breadth monitor: primary and secondary breadth indicators, what every column means, and how to interpret the colors. Your situational awareness for the whole market.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#6366f1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+<style>
+  /* ---- Breadth-guide page-specific styles ---- */
+  .lead-lg { font-size: 18px; color: var(--ink-soft); line-height: 1.7; max-width: 760px; }
+  .prose p { color: var(--ink-soft); font-size: 15.5px; line-height: 1.75; margin: 12px 0; max-width: 760px; }
+  .prose p b { color: var(--ink); font-family: var(--font-head); }
+
+  /* section blocks inside a card */
+  .block { margin-top: 30px; }
+  .block:first-child { margin-top: 0; }
+  .block .lab { font-family: var(--font-head); font-weight: 700; font-size: 11.5px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--brand); margin-bottom: 10px; }
+  .block h3 { font-size: 21px; margin-bottom: 8px; }
+  .block p { color: var(--ink-soft); font-size: 15px; line-height: 1.7; margin: 8px 0; }
+  .block p b { color: var(--ink); font-family: var(--font-head); }
+
+  .panel { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:32px; box-shadow: var(--shadow-sm); }
+
+  /* callout (borrowed from rules page) */
+  .callout { background:#faf8ff; border:1px solid #d6c9f0; border-left:3px solid var(--brand); border-radius:var(--radius-sm); padding:16px 20px; margin:16px 0; }
+  .callout p { margin:0; font-size:14.5px; color:var(--ink-soft); }
+  .callout b { color:var(--ink); font-family:var(--font-head); }
+  .callout.warn { border-left-color: var(--down); background:#fef2f2; border-color:#fecaca; }
+  .callout.good { border-left-color: var(--up); background:#f0fdf4; border-color:#bbf7d0; }
+
+  /* spec table (borrowed from rules page) */
+  table.spec { width:100%; border-collapse:collapse; margin-top:12px; font-size:14.5px; }
+  table.spec th, table.spec td { padding:12px 16px; text-align:left; border-bottom:1px solid var(--line); vertical-align: top; }
+  table.spec thead th { background: var(--bg-soft); font-family:var(--font-head); font-weight:700; font-size:12px; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink-mute); }
+  table.spec tbody tr:last-child td { border-bottom:none; }
+  table.spec td b { color:var(--ink); font-family:var(--font-head); }
+  table.spec td.k { color:var(--ink); font-weight:600; font-family:var(--font-head); white-space: nowrap; }
+
+  /* jump chips */
+  .jump { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+  .jump a { display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; background:var(--bg-soft); border:1px solid var(--line); font-family:var(--font-head); font-weight:600; font-size:13.5px; color:var(--ink); text-decoration:none; }
+  .jump a:hover { border-color:var(--brand); color:var(--brand-deep); background:#fff; }
+
+  /* three-section overview cards */
+  .sec-card .tag { display:inline-block; font-family:var(--font-head); font-weight:700; font-size:11px; letter-spacing:1px; text-transform:uppercase; padding:5px 11px; border-radius:6px; margin-bottom:12px; }
+  .sec-card.p .tag { background:#cffafe; color:#0e7490; }
+  .sec-card.s .tag { background:#fef9c3; color:#a16207; }
+  .sec-card.m .tag { background:#ede9fe; color:var(--brand-deep); }
+  .sec-card h3 { margin-bottom:6px; }
+
+  /* ---- Monitor recreation ---- */
+  .mm-scroll { overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius-sm); box-shadow: var(--shadow-sm); -webkit-overflow-scrolling:touch; }
+  table.mm { border-collapse:collapse; width:100%; min-width:900px; font-family:var(--font-body); font-variant-numeric: tabular-nums; }
+  table.mm th, table.mm td { padding:8px 9px; text-align:center; font-size:12.5px; border:1px solid #e2e1ee; white-space:nowrap; }
+  table.mm thead .grp th { font-family:var(--font-head); font-weight:700; font-size:11px; letter-spacing:.4px; text-transform:uppercase; padding:8px; }
+  table.mm thead .grp .g-p { background:#22d3ee; color:#083344; }
+  table.mm thead .grp .g-s { background:#facc15; color:#422006; }
+  table.mm thead .grp .g-m { background:#f1eefe; color:var(--brand-deep); }
+  table.mm thead .col th { background:#f6f5fb; color:var(--ink-soft); font-family:var(--font-head); font-weight:600; font-size:10.5px; line-height:1.25; letter-spacing:.2px; }
+  table.mm tbody td { color:#1f2937; }
+  table.mm td.date { font-family:var(--font-head); font-weight:600; color:var(--ink); }
+  /* monitor color states */
+  .c-up      { background:#c8f2d4; color:#14532d; font-weight:600; }
+  .c-up-str  { background:#16a34a; color:#fff; font-weight:700; }
+  .c-dn      { background:#f7cdd3; color:#7f1d1d; font-weight:600; }
+  .c-dn-str  { background:#ef4444; color:#fff; font-weight:700; }
+  .c-bull    { background:#22c55e; color:#fff; font-weight:700; }
+  .c-bear    { background:#ef4444; color:#fff; font-weight:700; }
+  .c-cond    { background:#86efac; color:#14532d; font-weight:600; }
+  .c-less    { background:#ef4444; color:#fff; font-weight:700; }
+  .c-os      { background:#86efac; color:#14532d; font-weight:600; }
+  .c-ob      { background:#ef4444; color:#fff; font-weight:700; }
+  .c-half    { background:#fde047; color:#422006; font-weight:700; }
+  .mm-note { font-size:12.5px; color:var(--ink-mute); margin-top:10px; font-style:italic; }
+
+  /* color legend */
+  .legend { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:8px; }
+  .legend .row { display:flex; gap:14px; align-items:flex-start; background:#fff; border:1px solid var(--line); border-radius:var(--radius-sm); padding:14px 16px; }
+  .legend .sw { flex:none; width:46px; height:38px; border-radius:8px; border:1px solid rgba(0,0,0,.08); display:flex; align-items:center; justify-content:center; font-family:var(--font-head); font-weight:700; font-size:13px; }
+  .legend .row .t { font-size:14px; color:var(--ink-soft); line-height:1.55; }
+  .legend .row .t b { color:var(--ink); font-family:var(--font-head); }
+  @media (max-width:640px){ .legend { grid-template-columns:1fr; } }
+
+  /* cheat sheet */
+  .cheat { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .cheat .c { background:#fff; border:1px solid var(--line); border-radius:var(--radius-sm); padding:18px 20px; border-left:3px solid var(--brand); }
+  .cheat .c.red { border-left-color:var(--down); }
+  .cheat .c.green { border-left-color:var(--up); }
+  .cheat .c .k { font-family:var(--font-head); font-weight:700; font-size:14.5px; color:var(--ink); margin-bottom:4px; }
+  .cheat .c p { font-size:14px; color:var(--ink-soft); margin:0; line-height:1.6; }
+  @media (max-width:640px){ .cheat { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="/" class="brand" aria-label="Trade2Swing home">
+      <img class="mark" src="/android-chrome-192x192.png" alt="">
+      <span>Trade<b>2</b>Swing</span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span></button>
+    <div class="nav-menu">
+      <ul class="nav-links">
+        <li><a href="/weekly-earnings.html">Weekly Earnings Summary</a></li>
+        <li><a href="/market-summary.html">Market Summary</a></li>
+        <li><a href="/watch-ready-lists.html">Watch &amp; Ready Lists</a></li>
+        <li><a href="/model-book.html">Model Book</a></li>
+        <li><a href="/rules.html">House Rules</a></li>
+        <li><a href="/market-breadth-guide.html" class="active">Breadth Guide</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a class="nav-sub" href="https://substack.com/@trade2swing" target="_blank" rel="noopener">Subscribe</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap inner">
+    <div class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; Breadth Guide</div>
+    <h1>How to Read Market Breadth</h1>
+    <p>The market breadth monitor is your situational awareness for the whole market &mdash; the instrument panel a pilot scans before trusting the view out the window. Miss what it is telling you and even a great stock can cost you dearly. This guide explains every column and every color, so you can read the dashboard at a glance.</p>
+  </div>
+</section>
+
+<!-- ============ WHY IT MATTERS ============ -->
+<section class="section tight">
+  <div class="wrap">
+    <div style="max-width:820px">
+      <div class="eyebrow">Why breadth comes first</div>
+      <h2 style="margin-bottom:14px">The instrument panel, not the window</h2>
+      <p class="lead-lg">Roughly three out of four stocks follow the general market. Breadth measures what that whole market is actually doing underneath the index &mdash; how many stocks are surging, how many are breaking down, and whether money is flowing in or out. An index can drift higher while breadth quietly rots; a scary red day can hide a market that is washed out and ready to bounce. The monitor turns those undercurrents into numbers and colors you can read objectively, before your emotions or a single chart talk you into a bad trade.</p>
+      <div class="jump">
+        <a href="#sections">The three sections</a>
+        <a href="#primary">Primary indicators</a>
+        <a href="#secondary">Secondary indicators</a>
+        <a href="#misc">The reference columns</a>
+        <a href="#colors">Reading the colors</a>
+        <a href="#most">The one signal that matters most</a>
+        <a href="#using">How to use it</a>
+        <a href="#cheat">Quick-glance cheat sheet</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THREE SECTIONS ============ -->
+<section class="section soft" id="sections">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Orientation</div>
+      <h2>The monitor has three sections</h2>
+      <p class="lead">The sheet is a table of daily rows &mdash; one row per trading day, newest at the top &mdash; split left to right into three groups of columns.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card sec-card p">
+        <span class="tag">Section 1</span>
+        <h3>Primary indicators</h3>
+        <p>The most important columns &mdash; hence <b>primary</b>. Daily and quarterly measures of how many stocks are moving big, and the ratios that show the trend of that money flow.</p>
+      </div>
+      <div class="card sec-card s">
+        <span class="tag">Section 2</span>
+        <h3>Secondary indicators</h3>
+        <p>The less important columns &mdash; hence <b>secondary</b>. Monthly and 34-day measures used <b>in addition to</b> the primary section to confirm and add nuance.</p>
+      </div>
+      <div class="card sec-card m">
+        <span class="tag">Section 3</span>
+        <h3>Reference / misc</h3>
+        <p>Context columns: the size of the stock universe, the T2108 reading, and the S&amp;P 500 value as a reference point for the day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRIMARY ============ -->
+<section class="section" id="primary">
+  <div class="wrap">
+    <div class="panel">
+      <div class="block">
+        <div class="lab">Section 1 &mdash; Primary indicators</div>
+        <h3>The primary section is three sets of numbers</h3>
+        <p>The primary indicators show whether money is flowing into the market on a <b>daily</b> basis and on a <b>quarterly</b> basis &mdash; the health of the short term (daily) and the medium term (quarterly). They break down into three sets:</p>
+        <table class="spec">
+          <thead><tr><th>The set</th><th>What it counts</th><th>What it tells you</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="k">4% up &amp; down today</td>
+              <td>Number of stocks up 4%+ today, and number of stocks down 4%+ today.</td>
+              <td>The raw daily thrust &mdash; is big money buying or selling <em>today</em>, across how many names.</td>
+            </tr>
+            <tr>
+              <td class="k">5-day &amp; 10-day ratio</td>
+              <td>A rolling ratio built from the daily 4% up/down numbers.</td>
+              <td>The <b>trend</b> of those 4% numbers &mdash; whether money has been flowing in or out over the last one to two weeks.</td>
+            </tr>
+            <tr>
+              <td class="k">25% up &amp; down in a quarter</td>
+              <td>Number of stocks up 25%+ over a quarter, and number down 25%+ over a quarter.</td>
+              <td>The medium-term picture &mdash; how many stocks are making real, sustained moves. <b>The single most important reading on the sheet.</b></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="callout">
+          <p><b>The 5- and 10-day ratios are trend, not level.</b> A single strong or weak day is noise; the ratios smooth the daily 4% numbers so you can see whether the flow is genuinely turning in or out.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECONDARY ============ -->
+<section class="section soft" id="secondary">
+  <div class="wrap">
+    <div class="panel">
+      <div class="block">
+        <div class="lab">Section 2 &mdash; Secondary indicators</div>
+        <h3>Use the secondary section in addition to the primary</h3>
+        <p>These columns are read <b>alongside</b> the primary indicators, never instead of them. They widen the lens to monthly and 34-day windows so you can confirm what the primary section is signaling.</p>
+        <table class="spec">
+          <thead><tr><th>Column</th><th>What it counts</th></tr></thead>
+          <tbody>
+            <tr><td class="k">25% up / down in a month</td><td>Stocks up 25%+ and down 25%+ over roughly one month.</td></tr>
+            <tr><td class="k">50% up / down in a month</td><td>Stocks up 50%+ and down 50%+ over roughly one month &mdash; the extreme movers, which flag overbought and oversold conditions.</td></tr>
+            <tr><td class="k">13% up / down in 34 days</td><td>Stocks up 13%+ and down 13%+ over the last 34 days &mdash; a medium-window breadth check.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MISC ============ -->
+<section class="section" id="misc">
+  <div class="wrap">
+    <div class="panel">
+      <div class="block">
+        <div class="lab">Section 3 &mdash; Reference columns</div>
+        <h3>The context columns on the right</h3>
+        <p>These are not signals on their own &mdash; they frame the rest of the row.</p>
+        <table class="spec">
+          <thead><tr><th>Column</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Worden Common stock universe</td><td>The total number of stocks in the universe used for all of the calculations in the sheet &mdash; the denominator behind every other column.</td></tr>
+            <tr><td class="k">T2108</td><td>An indicator from TC2000 showing the number (percentage) of stocks trading above their 40-day moving average. Readings <b>below 40 are significant</b> &mdash; a sign the market is stretched to the downside.</td></tr>
+            <tr><td class="k">S&amp;P</td><td>The value of the S&amp;P 500 for that day, carried as a plain reference point next to the breadth readings.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLORS ============ -->
+<section class="section soft" id="colors">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The heart of the sheet</div>
+      <h2>How to read the colors</h2>
+      <p class="lead">The numbers matter, but the <b>colors</b> are what let you read the whole board in a glance. Each column shades itself green or red based on rules baked into the sheet. Here is what every color is telling you.</p>
+    </div>
+
+    <!-- illustrative monitor -->
+    <div class="mm-scroll" role="img" aria-label="Illustrative market breadth monitor showing the column groups and color coding">
+      <table class="mm">
+        <thead>
+          <tr class="grp">
+            <th></th>
+            <th class="g-p" colspan="6">Primary breadth indicators</th>
+            <th class="g-s" colspan="6">Secondary breadth indicators</th>
+            <th class="g-m" colspan="3">Reference</th>
+          </tr>
+          <tr class="col">
+            <th>Date</th>
+            <th>Up 4%<br>today</th>
+            <th>Down 4%<br>today</th>
+            <th>5-day<br>ratio</th>
+            <th>10-day<br>ratio</th>
+            <th>Up 25%<br>quarter</th>
+            <th>Down 25%<br>quarter</th>
+            <th>Up 25%<br>month</th>
+            <th>Down 25%<br>month</th>
+            <th>Up 50%<br>month</th>
+            <th>Down 50%<br>month</th>
+            <th>Up 13%<br>34d</th>
+            <th>Down 13%<br>34d</th>
+            <th>Universe</th>
+            <th>T2108</th>
+            <th>S&amp;P</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="date">Day&nbsp;5</td>
+            <td class="c-up-str">356</td><td class="c-dn">92</td>
+            <td class="c-bull">2.31</td><td class="c-bull">2.05</td>
+            <td class="c-cond">1520</td><td>1040</td>
+            <td>300</td><td>95</td>
+            <td>44</td><td class="c-os">27</td>
+            <td>1880</td><td>1330</td>
+            <td>6536</td><td>52.1</td><td>7674</td>
+          </tr>
+          <tr>
+            <td class="date">Day&nbsp;4</td>
+            <td class="c-up">210</td><td class="c-dn">160</td>
+            <td>1.31</td><td>1.45</td>
+            <td class="c-cond">1490</td><td>1050</td>
+            <td>290</td><td>110</td>
+            <td>40</td><td class="c-os">29</td>
+            <td>1810</td><td>1390</td>
+            <td>6536</td><td>48.4</td><td>7691</td>
+          </tr>
+          <tr>
+            <td class="date c-half">Day&nbsp;3</td>
+            <td class="c-up">194</td><td class="c-dn">150</td>
+            <td>1.10</td><td>1.30</td>
+            <td class="c-cond">1470</td><td>1050</td>
+            <td>216</td><td>127</td>
+            <td>39</td><td class="c-os">31</td>
+            <td>1816</td><td>1391</td>
+            <td>6535</td><td>51.2</td><td>7745</td>
+          </tr>
+          <tr>
+            <td class="date">Day&nbsp;2</td>
+            <td class="c-up">167</td><td class="c-dn-str">335</td>
+            <td class="c-bear">0.46</td><td>0.90</td>
+            <td>1180</td><td class="c-less">1230</td>
+            <td>144</td><td>125</td>
+            <td class="c-ob">22</td><td>13</td>
+            <td>1500</td><td>1644</td>
+            <td>6516</td><td>37.3</td><td>7489</td>
+          </tr>
+          <tr>
+            <td class="date">Day&nbsp;1</td>
+            <td class="c-dn">120</td><td class="c-dn-str">352</td>
+            <td class="c-bear">0.32</td><td class="c-bear">0.35</td>
+            <td>990</td><td class="c-less">1420</td>
+            <td>79</td><td>162</td>
+            <td class="c-ob">21</td><td>16</td>
+            <td>1420</td><td>1720</td>
+            <td>6510</td><td>29.8</td><td>7360</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mm-note">Illustrative layout only &mdash; the numbers above are made up to show each color state, not live data. In the real sheet, newest days sit at the top and every colored cell follows the rules below.</p>
+
+    <!-- Date column -->
+    <div class="panel" style="margin-top:26px">
+      <div class="block">
+        <div class="lab">Date column</div>
+        <h3>A yellow date = a shortened trading day</h3>
+        <p>When a date cell is highlighted <b>yellow</b>, that session was a shortened / half trading day (for example, the day after a holiday). Interpret that day's counts accordingly &mdash; fewer trading hours naturally produce smaller numbers, so don't read a "weak" day as a real signal.</p>
+        <div class="legend">
+          <div class="row"><span class="sw c-half">Y</span><div class="t"><b>Yellow date</b> &mdash; shortened / half trading day. Read the day's numbers with that in mind.</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="lab">4% up / down today</div>
+        <h3>Daily thrust: who won the day, and by how much</h3>
+        <p>The two daily columns shade based on which side was bigger &mdash; and turn to a strong color when a side clears <b>300 stocks</b>, which marks a powerful one-day thrust.</p>
+        <div class="legend">
+          <div class="row"><span class="sw c-up">258</span><div class="t"><b>Green (up column)</b> &mdash; more stocks were up 4%+ than down. Buyers won the day.</div></div>
+          <div class="row"><span class="sw c-up-str">346</span><div class="t"><b>Dark green (up column)</b> &mdash; more than <b>300</b> stocks up 4%+. A strong bullish thrust.</div></div>
+          <div class="row"><span class="sw c-dn">129</span><div class="t"><b>Pink (down column)</b> &mdash; more stocks were down 4%+ than up. Sellers won the day.</div></div>
+          <div class="row"><span class="sw c-dn-str">352</span><div class="t"><b>Red (down column)</b> &mdash; more than <b>300</b> stocks down 4%+. A strong bearish thrust.</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="lab">5-day &amp; 10-day ratio</div>
+        <h3>The trend of the money flow</h3>
+        <p>The ratio columns color at the extremes to flag a decisive shift in the daily 4% trend.</p>
+        <div class="legend">
+          <div class="row"><span class="sw c-bull">2.6</span><div class="t"><b>Green</b> &mdash; the ratio has gone <b>above 2.0</b>, a bullish thrust: money flowing in.</div></div>
+          <div class="row"><span class="sw c-bear">0.4</span><div class="t"><b>Red</b> &mdash; the ratio has dropped <b>below 0.5</b>, a bearish thrust: money flowing out.</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="lab">25% up / down in a quarter</div>
+        <h3>The most important pair on the sheet</h3>
+        <p>This pair compares how many stocks are up 25%+ over a quarter against how many are down 25%+. It is the medium-term health of the market for swing and momentum trading.</p>
+        <div class="legend">
+          <div class="row"><span class="sw c-cond">1484</span><div class="t"><b>Green</b> &mdash; more stocks up 25% in a quarter than down. <b>More conducive</b> for swing / momentum trading to the upside.</div></div>
+          <div class="row"><span class="sw c-less">1781</span><div class="t"><b>Red</b> &mdash; more stocks down 25% in a quarter than up. <b>Less conducive</b> &mdash; be cautious about longs.</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="lab">50% up / down in a month</div>
+        <h3>The extreme movers: overbought vs. oversold</h3>
+        <p>This pair works the opposite way to instinct. It flags <b>extremes</b>, and an extreme in either direction is a caution, not a green light.</p>
+        <div class="legend">
+          <div class="row"><span class="sw c-ob">38</span><div class="t"><b>Red (up 50% column)</b> &mdash; more than <b>20</b> stocks up 50%+ in a month: a possible <b>overbought</b> condition.</div></div>
+          <div class="row"><span class="sw c-os">33</span><div class="t"><b>Green (down 50% column)</b> &mdash; more than <b>20</b> stocks down 50%+ in a month: a possible <b>oversold</b> condition (a bounce becomes more likely).</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOST IMPORTANT ============ -->
+<section class="section" id="most">
+  <div class="wrap">
+    <div class="panel">
+      <div class="block">
+        <div class="lab">If you remember one thing</div>
+        <h3>The one signal that matters most</h3>
+        <p>Of everything on the sheet, the <b>number of stocks up vs. down 25% in a quarter</b> is the single most important reading. It captures whether real, sustained moves are being rewarded across the whole market.</p>
+        <div class="callout warn">
+          <p><b>When the 25%-in-a-quarter pair turns red</b> &mdash; more stocks down 25% than up &mdash; <b>be cautious about any longs.</b> The environment has stopped rewarding upside momentum, and even a great-looking stock is fighting the tide.</p>
+        </div>
+        <div class="callout good">
+          <p><b>When it is green</b> &mdash; more stocks up 25% than down &mdash; the medium-term backdrop is more conducive to swing and momentum trading on the long side. It does not guarantee anything, but the wind is at your back rather than in your face.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW TO USE ============ -->
+<section class="section soft" id="using">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Putting it to work</div>
+      <h2>How to use the monitor</h2>
+      <p class="lead">The monitor is an added tool in your arsenal &mdash; a way to see the health of the market objectively, alongside everything else you look at.</p>
+    </div>
+    <div class="prose" style="max-width:none">
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Read the health, objectively</h3>
+          <p>It shows when money is flowing into the market and when it is flowing out &mdash; if interpreted correctly along with the rest of your read. It takes the emotion out of "does this feel like a good market?" and replaces it with numbers and colors.</p>
+        </div>
+        <div class="card">
+          <h3>Watch the extremes</h3>
+          <p>The monitor is at its most valuable at extremes &mdash; when the market is deeply oversold and a bounce becomes likely, or when it is overtly, unsustainably bullish. Study what the numbers looked like around the big turning points &mdash; think 2008 and 2020 &mdash; and learn to recognize those readings.</p>
+        </div>
+        <div class="card">
+          <h3>Never trade it alone</h3>
+          <p>Breadth is context, not a signal generator. Use it to size your aggression and to gate your longs &mdash; then still require a real setup, a real entry, and a real risk plan on the individual stock.</p>
+        </div>
+        <div class="card">
+          <h3>Look back through history</h3>
+          <p>The sheet carries years of daily rows &mdash; you can scroll all the way back to 2007. Comparing today's readings to past regimes is how the colors start to mean something in your gut, not just on the page.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:22px">
+      <div class="block">
+        <div class="lab">Good to know</div>
+        <h3>Where the numbers come from</h3>
+        <p>The sheet is filled in from <b>TC2000</b> &mdash; the underlying scans that count how many stocks are up or down by each threshold. The breadth monitor and its methodology are a member resource of the <b>Stock Bee</b> community (stockbee.biz); this page is a Trade2Swing study guide for reading it, not the sheet itself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHEAT SHEET ============ -->
+<section class="section" id="cheat">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Print this on your brain</div>
+      <h2>Quick-glance cheat sheet</h2>
+      <p class="lead">The whole board, distilled. Scan left to right; let the colors do the talking.</p>
+    </div>
+    <div class="cheat">
+      <div class="c green"><div class="k">4% up today &mdash; green / dark green</div><p>Buyers won the day. Dark green = 300+ up: a strong bullish thrust.</p></div>
+      <div class="c red"><div class="k">4% down today &mdash; pink / red</div><p>Sellers won the day. Red = 300+ down: a strong bearish thrust.</p></div>
+      <div class="c green"><div class="k">5- / 10-day ratio &mdash; green</div><p>Above 2.0. Money flowing in &mdash; a bullish trend in the 4% numbers.</p></div>
+      <div class="c red"><div class="k">5- / 10-day ratio &mdash; red</div><p>Below 0.5. Money flowing out &mdash; a bearish trend in the 4% numbers.</p></div>
+      <div class="c green"><div class="k">25% in a quarter &mdash; green &#9733;</div><p>More up than down. Conducive for longs. The most important reading.</p></div>
+      <div class="c red"><div class="k">25% in a quarter &mdash; red &#9733;</div><p>More down than up. <b>Be cautious about any longs.</b></p></div>
+      <div class="c red"><div class="k">50% up in a month &mdash; red</div><p>20+ names up 50%. Possible overbought &mdash; froth, handle with care.</p></div>
+      <div class="c green"><div class="k">50% down in a month &mdash; green</div><p>20+ names down 50%. Possible oversold &mdash; a bounce becomes likelier.</p></div>
+      <div class="c"><div class="k">T2108 below 40</div><p>Few stocks above their 40-day MA &mdash; the market is stretched down.</p></div>
+      <div class="c"><div class="k">Yellow date</div><p>Half / shortened session. Smaller counts are expected &mdash; discount them.</p></div>
+    </div>
+
+    <div class="disclaimer" style="margin-top:30px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <p><b>Educational, not a recommendation.</b> This guide explains how to read a market breadth monitor as a tool for situational awareness. It is not investment advice, not a market call, and not a signal to buy or sell anything. Breadth is one input among many &mdash; always pair it with your own analysis and a defined risk plan, and do your own due diligence. The market monitor described here is a member resource of the Stock Bee community; Trade2Swing is independent and unaffiliated.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="brand" style="font-size:21px"><img class="mark" src="/android-chrome-192x192.png" alt=""> <span>Trade<b>2</b>Swing</span></div>
+        <p class="footer-blurb">A research journal on disciplined, rules-based growth-stock trading &mdash; CANSLIM&reg; principles paired with momentum swing and position trading. Building a Model Book of true market leaders, one week at a time.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/weekly-earnings.html">Weekly Earnings Summary</a></li>
+          <li><a href="/market-summary.html">Market Summary</a></li>
+          <li><a href="/watch-ready-lists.html">Watch &amp; Ready Lists</a></li>
+          <li><a href="/model-book.html">Model Book</a></li>
+          <li><a href="/rules.html">House Rules</a></li>
+          <li><a href="/market-breadth-guide.html">Breadth Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://substack.com/@trade2swing" target="_blank" rel="noopener">Substack</a></li>
+          <li><a href="mailto:trade2swing@gmail.com">trade2swing@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclaimer">
+      <p><b>This is not a buy or sell recommendation.</b> All content on Trade2Swing &mdash; including market summaries, watch lists, charts, earnings data, the Model Book, and the House Rules &mdash; is published for educational and informational purposes only. Nothing here is investment, financial, legal, or tax advice, an offer or solicitation to buy or sell any security, or a recommendation for any particular person.</p>
+      <p>Trading and investing in stocks involves substantial risk, including the possible loss of capital. Past performance and historical chart examples do not guarantee future results. Always do your own research and consider consulting a licensed financial advisor before making any investment decision. You are solely responsible for your own decisions.</p>
+      <p><b>CAN SLIM&reg; trademark.</b> CAN SLIM&reg; is a registered trademark of Investor's Business Daily, Inc. (IBD). &ldquo;CANSLIM&rdquo; is used on this site as the common shorthand for the same methodology. Trade2Swing is an independent publication and is not affiliated with, endorsed by, or sponsored by Investor's Business Daily, Inc. The approach described here blends CAN SLIM&reg; principles with momentum swing-trading techniques and the author's own methods.</p>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Trade2Swing &middot; trade2swing.com</span>
+      <span>Educational content only &middot; <a href="mailto:trade2swing@gmail.com">trade2swing@gmail.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js"></script>
+</body>
+</html>
