@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mr. Market Situational Awareness &mdash; Trade2Swing</title>
-<meta name="description" content="How to read market direction like a pilot scans an instrument panel: market breadth, index distribution & follow-through days, net new highs vs. new lows, and leadership behaviour. Step 01 of the Trade2Swing process.">
+<title>Market Breadth &mdash; Mr. Market &middot; Trade2Swing</title>
+<meta name="description" content="Instrument A of the market-direction panel: how to read the Stock Bee market breadth monitor column by column and color by color.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -115,7 +115,22 @@
   .darknote p { margin:0; font-size:14.5px; color:var(--on-dark-mute); line-height:1.7; }
   .darknote b { color:#fff; font-family:var(--font-head); }
   @media (max-width:640px){ .planes { grid-template-columns:1fr; } }
+
+  /* clickable instrument tiles (hub) */
+  a.plane { text-decoration:none; display:block; transition: transform .16s ease, border-color .16s ease, background .16s ease; }
+  a.plane:hover { transform: translateY(-3px); border-color:var(--brand); background:rgba(255,255,255,.08); text-decoration:none; }
+  .plane p b { color:#fff; font-family:var(--font-head); }
+  .plane .go { display:inline-block; margin-top:12px; font-family:var(--font-head); font-weight:600; font-size:13px; color:#c4b5fd; }
+  a.plane:hover .go { color:#fff; }
+  /* subpage: back link + sibling instrument cards */
+  .backlink { display:inline-flex; align-items:center; gap:6px; font-family:var(--font-head); font-weight:600; font-size:14px; color:var(--brand-deep); }
+  .inst-card { text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:8px; }
+  .inst-card:hover { text-decoration:none; }
+  .inst-card .b2 { align-self:flex-start; font-family:var(--font-head); font-weight:700; font-size:11.5px; letter-spacing:.5px; text-transform:uppercase; padding:4px 10px; border-radius:6px; background:#ece9fe; color:var(--brand-deep); }
+  .inst-card h3 { font-size:18px; }
+  .inst-card .go { color:var(--brand-deep); font-family:var(--font-head); font-weight:600; font-size:13.5px; margin-top:2px; }
 </style>
+
 </head>
 <body>
 
@@ -133,7 +148,7 @@
         <li><a href="/watch-ready-lists.html">Watch &amp; Ready Lists</a></li>
         <li><a href="/model-book.html">Model Book</a></li>
         <li><a href="/rules.html">House Rules</a></li>
-        <li><a href="/market-breadth-guide.html" class="active">Mr. Market</a></li>
+        <li><a href="/mr-market.html" class="active">Mr. Market</a></li>
       </ul>
       <div class="nav-cta">
         <a class="nav-sub" href="https://substack.com/@trade2swing" target="_blank" rel="noopener">Subscribe</a>
@@ -144,67 +159,9 @@
 
 <section class="page-head">
   <div class="wrap inner">
-    <div class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; Mr. Market</div>
-    <h1>Mr. Market Situational Awareness</h1>
-    <p>Reading market direction is like flying an Airbus &mdash; you trust the instrument panel, not the view out the window. No single gauge flies the plane; you scan several at once. This page walks the whole panel: market breadth, the indices' own footprints, new highs versus new lows, and how the leaders are behaving. Miss these signals and even a great stock can cost you dearly.</p>
-  </div>
-</section>
-
-<!-- ============ WHY IT MATTERS ============ -->
-<section class="section tight">
-  <div class="wrap">
-    <div style="max-width:820px">
-      <div class="eyebrow">Why direction comes first</div>
-      <h2 style="margin-bottom:14px">The instrument panel, not the window</h2>
-      <p class="lead-lg">Roughly three out of four stocks follow the general market, so the first job on any trade is to read the market itself. That read is never one number &mdash; it is a panel of instruments that, together, tell you whether money is flowing in or out and whether the odds favor buying at all. An index can drift higher while its internals quietly rot; a scary red day can hide a market that is washed out and ready to turn. Reading the panel objectively &mdash; before your emotions or a single chart talk you into a bad trade &mdash; is the edge.</p>
-      <div class="jump">
-        <a href="#panel">The full panel</a>
-        <a href="#sections">A &middot; Market breadth</a>
-        <a href="#colors">Reading the colors</a>
-        <a href="#planeB">B &middot; Distribution &amp; FTD</a>
-        <a href="#planeC">C &middot; New highs / lows</a>
-        <a href="#planeD">D &middot; Leadership</a>
-        <a href="#using">How to use it</a>
-        <a href="#cheat">Cheat sheet</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ THE FULL MARKET READ (FOUR PLANES) ============ -->
-<section class="section dark" id="panel">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Step 01 &middot; Market direction first</div>
-      <h2>Breadth is one instrument, not the whole panel</h2>
-      <p class="lead">At Trade2Swing, <a href="/#approach">every trade starts with market direction</a> &mdash; Step 01, before any single stock. And direction is never read from one gauge. Like a pilot scanning the panel before trusting the view, you cross-check several instruments at once. Breadth is one of them. Here is the full panel this page fits into.</p>
-    </div>
-    <div class="planes">
-      <div class="plane here">
-        <span class="badge">A</span>
-        <h3>Market breadth</h3>
-        <p>How the whole market is behaving beneath the index &mdash; the monitor this page decodes. Is money flowing in or out, and across how many stocks?</p>
-        <span class="here-tag">You are here</span>
-      </div>
-      <div class="plane">
-        <span class="badge">B</span>
-        <h3>Index distribution &amp; follow-through</h3>
-        <p>The NASDAQ and S&amp;P themselves: <b style="color:#fff;font-family:var(--font-head)">distribution</b> &mdash; higher-volume selling that warns of a top &mdash; and the <b style="color:#fff;font-family:var(--font-head)">follow-through day (FTD)</b> that can confirm a new uptrend out of a correction. The classic IBD read.</p>
-      </div>
-      <div class="plane">
-        <span class="badge">C</span>
-        <h3>Net new highs vs. new lows</h3>
-        <p>New 52-week highs against new lows on both the NASDAQ and NYSE. When the index keeps rising but net new lows expand, that divergence is a warning. An extreme spike in net new lows during a correction often marks a bottom &mdash; and can precede a follow-through day.</p>
-      </div>
-      <div class="plane">
-        <span class="badge">D</span>
-        <h3>Leadership &amp; your own positions</h3>
-        <p>The real-money tape: how the leading stocks are acting, and how your own portfolio is behaving. Breakouts that stick and leaders resetting is health; failed breakouts and leaders breaking down is a red flag no indicator can override.</p>
-      </div>
-    </div>
-    <div class="darknote">
-      <p><b>No single gauge flies the plane.</b> Reading the market &mdash; and actually making money from it &mdash; is not easy. These instruments disagree as often as they agree; the skill is weighing them together, staying humble when they conflict, and letting risk management have the final word. Each instrument gets its own read below. The live weekly verdict &mdash; where all four point right now &mdash; lands on the <a href="/market-summary.html">Market Summary</a> page.</p>
-    </div>
+    <div class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/mr-market.html">Mr. Market</a> &nbsp;/&nbsp; Market breadth</div>
+    <h1>Instrument A &middot; Market Breadth</h1>
+    <p>How the whole market is behaving beneath the index &mdash; the Stock Bee monitor, read column by column and color by color. This is the deepest instrument on the panel, so take it a section at a time.</p>
   </div>
 </section>
 
@@ -483,169 +440,14 @@
   </div>
 </section>
 
-<!-- ============ INSTRUMENT B ============ -->
-<section class="section soft" id="planeB">
-  <div class="wrap">
-    <div class="panel">
-      <div class="block">
-        <div class="lab">Instrument B &mdash; Index distribution &amp; follow-through</div>
-        <h3>Read the indices' own footprints</h3>
-        <p>Breadth tells you what the average stock is doing; this instrument watches the <b>NASDAQ and S&amp;P 500 themselves</b> for the footprints of big institutions &mdash; heavy selling (distribution) on the way down, and the first confirmed buying (the follow-through day) on the way back up. It is the classic <b>IBD / William O'Neil</b> market-timing read.</p>
-      </div>
-
-      <div class="block">
-        <div class="lab">Topping signal</div>
-        <h3>Distribution days &mdash; institutions heading for the exits</h3>
-        <p>A <b>distribution day</b> is a day the index closes <b>lower on heavier volume than the day before</b> (commonly a drop of more than about 0.2%). One is just noise. But when they cluster &mdash; roughly <b>five to six within four to five weeks</b>, or <b>two in a single week</b> &mdash; it means large investors are quietly selling into strength, and the outlook shifts from a confirmed uptrend to <em>under pressure</em>, often ahead of a top. In the IBD method each distribution day &ldquo;expires&rdquo; after 25 trading sessions, or once the index closes 5% above where it finished that day.</p>
-        <div class="callout warn">
-          <p><b>Rising distribution = raise cash and tighten up.</b> A stacking count of distribution days is the market telling you demand is being met by supply. It rarely pays to press new longs into it.</p>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="lab">Bottoming signal</div>
-        <h3>The follow-through day &mdash; the all-clear after a correction</h3>
-        <p>After a decline, the market will try to rally. The <b>follow-through day (FTD)</b> confirms that a rally has real institutional backing: it typically lands on <b>day 4 through 7</b> of a rally attempt, when a major index surges <b>~1.5% or more on volume heavier than the prior day</b>. O'Neil's rule of thumb: <em>no sustained bull market has ever begun without a follow-through day &mdash; but not every follow-through day becomes a bull market.</em> Some fail, especially if the index can't hold its gains in the days that follow, so confirm it against breadth and new highs before committing size.</p>
-        <div class="callout good">
-          <p><b>A clean FTD after a washout = start buying leaders again.</b> It won't call the exact low, but it shifts the odds &mdash; the moment to move from defense toward offense, one probe at a time.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ INSTRUMENT C ============ -->
-<section class="section" id="planeC">
-  <div class="wrap">
-    <div class="panel">
-      <div class="block">
-        <div class="lab">Instrument C &mdash; Net new highs vs. new lows</div>
-        <h3>Who is making new 52-week highs &mdash; and new lows</h3>
-        <p>Every day, some stocks print a fresh <b>52-week high</b> and some print a fresh <b>52-week low</b>, on both the <b>NYSE and the NASDAQ</b>. The difference &mdash; <b>net new highs minus new lows</b> &mdash; is one of the cleanest reads on who is really winning beneath the index.</p>
-      </div>
-
-      <div class="block">
-        <div class="lab">The healthy state</div>
-        <h3>New highs should lead in an uptrend</h3>
-        <p>In a genuine advance, new highs dominate and the net stays positive and expanding. A common way to frame it is the <b>Record High Percent</b> &mdash; new highs &divide; (new highs + new lows) &mdash; and its 10-day average, the <b>High-Low Index</b>: readings <b>above 50</b> mean bulls are in control, <b>consistently above 70</b> accompanies a strong uptrend, <b>below 50</b> tips bearish, and <b>below 30</b> marks a strong downtrend.</p>
-      </div>
-
-      <div class="block">
-        <div class="lab">The warning</div>
-        <h3>Divergence &mdash; the advance narrowing</h3>
-        <p>The signal to respect is <b>divergence</b>: the index keeps pushing to new highs, but net new highs shrink or net new <em>lows</em> start expanding. That means fewer and fewer stocks are carrying the market &mdash; leadership is thinning even as the headline index looks fine. When the index leads but new lows are creeping up, treat it as a yellow flag that the move is running out of fuel.</p>
-      </div>
-
-      <div class="block">
-        <div class="lab">The extreme</div>
-        <h3>A spike in new lows can mark the bottom</h3>
-        <p>The flip side is powerful. In a hard correction, new lows <b>explode</b> &mdash; and an extreme spike in net new lows is a hallmark of <b>capitulation</b>, when the last sellers finally give up. When that spike then dries up and reverses, and it lines up with a <b>follow-through day</b> (Instrument B), you often have a durable low. Watch both exchanges: the NASDAQ skews to growth and tech, the NYSE is broader &mdash; when they disagree, that gap is information too.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ INSTRUMENT D ============ -->
-<section class="section soft" id="planeD">
-  <div class="wrap">
-    <div class="panel">
-      <div class="block">
-        <div class="lab">Instrument D &mdash; Leadership &amp; your own positions</div>
-        <h3>The real-money tape &mdash; the most honest instrument</h3>
-        <p>Indicators lag; the tape does not. The cleanest read on direction is how the <b>true market leaders</b> &mdash; and your <b>own holdings</b> &mdash; are actually behaving. When the best stocks and your best setups start acting badly, that is often the earliest and most honest warning you'll get, well before it shows up in the indices.</p>
-        <table class="spec">
-          <thead><tr><th>Healthy tape</th><th>Deteriorating tape</th></tr></thead>
-          <tbody>
-            <tr><td>Breakouts work and <b>hold</b> their gains.</td><td>Breakouts <b>fail and reverse</b> &mdash; bull traps.</td></tr>
-            <tr><td>Leaders trend and reset in orderly bases.</td><td>Leaders <b>break down</b> on heavy volume.</td></tr>
-            <tr><td>Pullbacks get bought; dips stay shallow.</td><td>Gains give back; big red days close on the lows.</td></tr>
-            <tr><td>Broad, high-quality leadership.</td><td>Leadership <b>narrows</b>, or rotates to defensive, low-quality names.</td></tr>
-            <tr><td>Your positions act well; stops sit safe.</td><td>Relative-strength lines roll over; your stops keep getting hit.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="block">
-        <div class="lab">The personal signal</div>
-        <h3>When your own book stops working, listen</h3>
-        <p>A subtle but critical read: when your own well-chosen setups suddenly stop working and stops keep triggering, the market is telling you something the indexes may not show yet. A <b>change of character</b> &mdash; the small, tight, orderly gains of a healthy trend giving way to wide, sloppy, heavy-volume swings &mdash; is the tape turning. Let it override the optimism of any single indicator.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ HOW TO USE ============ -->
-<section class="section" id="using">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Bringing the panel together</div>
-      <h2>How to use the panel</h2>
-      <p class="lead">No instrument is a signal generator on its own. Read all four together and ask which way the weight of evidence points.</p>
-    </div>
-
-    <div class="panel" style="margin-bottom:22px">
-      <div class="block">
-        <div class="lab">Weigh the evidence</div>
-        <h3>Read all four, then decide how aggressive to be</h3>
-        <div class="callout good"><p><b>When they align</b> &mdash; breadth firming, distribution fading into a follow-through day, new highs expanding, leaders acting well &mdash; conviction is high. Press your best ideas.</p></div>
-        <div class="callout warn"><p><b>When they conflict</b> &mdash; the index at highs but new lows creeping up, leaders failing while the tape still looks calm &mdash; reduce risk and wait. Conflicting instruments are themselves a signal.</p></div>
-        <p>Whatever the panel says, <b>risk management has the final word</b> &mdash; position size and stops decide whether being right actually pays. This weekly read is what drives the verdict on the <a href="/market-summary.html">Market Summary</a> page.</p>
-      </div>
-    </div>
-
-    <div class="prose" style="max-width:none">
-      <div class="grid grid-2">
-        <div class="card">
-          <h3>Read the health, objectively</h3>
-          <p>It shows when money is flowing into the market and when it is flowing out &mdash; if interpreted correctly along with the rest of your read. It takes the emotion out of "does this feel like a good market?" and replaces it with numbers and colors.</p>
-        </div>
-        <div class="card">
-          <h3>Watch the extremes</h3>
-          <p>The monitor is at its most valuable at extremes &mdash; when the market is deeply oversold and a bounce becomes likely, or when it is overtly, unsustainably bullish. Study what the numbers looked like around the big turning points &mdash; think 2008 and 2020 &mdash; and learn to recognize those readings.</p>
-        </div>
-        <div class="card">
-          <h3>Never trade it alone</h3>
-          <p>The panel is context, not a signal generator. Use it to size your aggression and to gate your longs &mdash; then still require a real setup, a real entry, and a real risk plan on the individual stock.</p>
-        </div>
-        <div class="card">
-          <h3>Look back through history</h3>
-          <p>The sheet carries years of daily rows &mdash; you can scroll all the way back to 2007. Comparing today's readings to past regimes is how the colors start to mean something in your gut, not just on the page.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel" style="margin-top:22px">
-      <div class="block">
-        <div class="lab">Good to know</div>
-        <h3>Where the numbers come from</h3>
-        <p>The sheet is filled in from <b>TC2000</b> &mdash; the underlying scans that count how many stocks are up or down by each threshold. The market monitor is a member resource of the Stock Bee community, created by <b>Pradeep Bonde</b> &mdash; known to members as <b>Easy Guru (EG)</b> &mdash; the trader and mentor behind <a href="https://stockbee.biz" target="_blank" rel="noopener">stockbee.biz</a>. This page is a Trade2Swing study guide for reading EG's monitor, shared with gratitude for his teaching &mdash; it is not the sheet itself.</p>
-      </div>
-    </div>
-
-    <div class="panel" style="margin-top:22px">
-      <div class="block">
-        <div class="lab">Sources &amp; further reading</div>
-        <h3>Where to go deeper</h3>
-        <p>This page blends widely-used market-direction methods with the Trade2Swing lens. To study the primary sources:</p>
-        <ul style="list-style:none; display:grid; gap:10px; margin-top:6px; padding:0">
-          <li style="font-size:14.5px; color:var(--ink-soft)"><b style="color:var(--ink);font-family:var(--font-head)">Market breadth (A)</b> &mdash; <a href="https://stockbee.biz" target="_blank" rel="noopener">Stock Bee</a>, the market monitor by Pradeep Bonde (Easy Guru).</li>
-          <li style="font-size:14.5px; color:var(--ink-soft)"><b style="color:var(--ink);font-family:var(--font-head)">Distribution days &amp; the follow-through day (B)</b> &mdash; the Investor's Business Daily / William O'Neil market-timing methodology.</li>
-          <li style="font-size:14.5px; color:var(--ink-soft)"><b style="color:var(--ink);font-family:var(--font-head)">New highs&ndash;new lows &amp; the High-Low Index (C)</b> &mdash; <a href="https://chartschool.stockcharts.com/table-of-contents/market-indicators/high-low-index" target="_blank" rel="noopener">StockCharts ChartSchool</a>.</li>
-          <li style="font-size:14.5px; color:var(--ink-soft)"><b style="color:var(--ink);font-family:var(--font-head)">Leadership &amp; the topping process (D)</b> &mdash; <a href="https://traderlion.com/technical-analysis/stock-topping-process/" target="_blank" rel="noopener">TraderLion</a>, plus O'Neil's leadership principles.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CHEAT SHEET ============ -->
-<section class="section soft" id="cheat">
+<!-- BREADTH CHEAT -->
+<section class="section soft">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Print this on your brain</div>
-      <h2>Quick-glance cheat sheet</h2>
-      <p class="lead">The whole panel, distilled &mdash; the breadth colors first, then the other three instruments.</p>
+      <h2>Breadth colors, distilled</h2>
+      <p class="lead">Scan the monitor left to right; let the colors do the talking.</p>
     </div>
-    <h3 style="font-family:var(--font-head); font-size:18px; margin:0 0 14px">Market breadth (A)</h3>
     <div class="cheat">
       <div class="c green"><div class="k">4% up today &mdash; green / dark green</div><p>Buyers won the day. Dark green = 300+ up: a strong bullish thrust.</p></div>
       <div class="c red"><div class="k">4% down today &mdash; pink / red</div><p>Sellers won the day. Red = 300+ down: a strong bearish thrust.</p></div>
@@ -658,21 +460,50 @@
       <div class="c"><div class="k">T2108 below 40</div><p>Few stocks above their 40-day MA &mdash; the market is stretched down.</p></div>
       <div class="c"><div class="k">Yellow date</div><p>Half / shortened session. Smaller counts are expected &mdash; discount them.</p></div>
     </div>
+  </div>
+</section>
 
-    <h3 style="font-family:var(--font-head); font-size:18px; margin:30px 0 14px">The other three instruments</h3>
-    <div class="cheat">
-      <div class="c green"><div class="k">Follow-through day (B)</div><p>Day 4&ndash;7 of a rally, index +1.5%+ on higher volume. The all-clear to start buying leaders again.</p></div>
-      <div class="c red"><div class="k">Distribution cluster (B)</div><p>~5&ndash;6 down days on higher volume in 4&ndash;5 weeks. Institutions selling &mdash; raise cash.</p></div>
-      <div class="c green"><div class="k">New highs expanding (C)</div><p>High-Low Index above 50 (strong above 70). Broad participation &mdash; healthy.</p></div>
-      <div class="c red"><div class="k">New high/low divergence (C)</div><p>Index up but net new lows rising. The advance is narrowing &mdash; yellow flag.</p></div>
-      <div class="c green"><div class="k">New-low spike, then dries up (C)</div><p>A capitulation washout; paired with a follow-through day, often near a bottom.</p></div>
-      <div class="c red"><div class="k">Leaders failing (D)</div><p>Failed breakouts, leaders breaking down, your stops getting hit. Trust the tape.</p></div>
+<!-- CREDIT -->
+<section class="section">
+  <div class="wrap">
+    <div class="panel">
+      <div class="block">
+        <div class="lab">Good to know</div>
+        <h3>Where the numbers come from</h3>
+        <p>The sheet is filled in from <b>TC2000</b> &mdash; the underlying scans that count how many stocks are up or down by each threshold. The market monitor is a member resource of the Stock Bee community, created by <b>Pradeep Bonde</b> &mdash; known to members as <b>Easy Guru (EG)</b> &mdash; the trader and mentor behind <a href="https://stockbee.biz" target="_blank" rel="noopener">stockbee.biz</a>. This page is a Trade2Swing study guide for reading EG's monitor, shared with gratitude for his teaching &mdash; it is not the sheet itself.</p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="disclaimer" style="margin-top:30px">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-      <p><b>Educational, not a recommendation.</b> This page explains how to read market direction &mdash; breadth, index distribution and follow-through days, new highs versus new lows, and leadership behaviour &mdash; as a tool for situational awareness. It is not investment advice, not a market call, and not a signal to buy or sell anything. These are inputs among many &mdash; always pair them with your own analysis and a defined risk plan, and do your own due diligence. The market monitor described here is a member resource of the Stock Bee community, created by Pradeep Bonde (Easy Guru); Trade2Swing is independent and unaffiliated.</p>
+<section class="section soft">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:26px">
+      <div class="eyebrow">Keep going</div>
+      <h2>The rest of the panel</h2>
+      <p class="lead">Direction is a cross-check, never one gauge. Read the other instruments, then bring them together.</p>
     </div>
+    <div class="grid grid-3">
+      <a class="card inst-card" href="/mr-market-distribution.html">
+        <span class="b2">B &middot; Instrument</span>
+        <h3>Index distribution &amp; follow-through</h3>
+        <p style="color:var(--ink-soft);font-size:14.5px;line-height:1.6">The indices' own footprints: distribution days that warn of a top, and the follow-through day that confirms a bottom.</p>
+        <span class="go">Open the guide &rarr;</span>
+      </a>
+      <a class="card inst-card" href="/mr-market-highs-lows.html">
+        <span class="b2">C &middot; Instrument</span>
+        <h3>Net new highs vs. new lows</h3>
+        <p style="color:var(--ink-soft);font-size:14.5px;line-height:1.6">New 52-week highs against new lows on the NASDAQ and NYSE &mdash; divergences and capitulation washouts.</p>
+        <span class="go">Open the guide &rarr;</span>
+      </a>
+      <a class="card inst-card" href="/mr-market-leadership.html">
+        <span class="b2">D &middot; Instrument</span>
+        <h3>Leadership &amp; your own positions</h3>
+        <p style="color:var(--ink-soft);font-size:14.5px;line-height:1.6">The real-money tape: how the leaders and your own book are actually behaving.</p>
+        <span class="go">Open the guide &rarr;</span>
+      </a>
+    </div>
+    <p style="margin-top:24px"><a class="backlink" href="/mr-market.html">&larr; Back to the panel &amp; how to use it</a></p>
   </div>
 </section>
 
@@ -692,7 +523,7 @@
           <li><a href="/watch-ready-lists.html">Watch &amp; Ready Lists</a></li>
           <li><a href="/model-book.html">Model Book</a></li>
           <li><a href="/rules.html">House Rules</a></li>
-          <li><a href="/market-breadth-guide.html">Mr. Market</a></li>
+          <li><a href="/mr-market.html">Mr. Market</a></li>
         </ul>
       </div>
       <div>
@@ -714,7 +545,6 @@
     </div>
   </div>
 </footer>
-
 <script src="/assets/site.js"></script>
 </body>
 </html>
