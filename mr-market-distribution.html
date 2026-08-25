@@ -129,6 +129,18 @@
   .inst-card .b2 { align-self:flex-start; font-family:var(--font-head); font-weight:700; font-size:11.5px; letter-spacing:.5px; text-transform:uppercase; padding:4px 10px; border-radius:6px; background:#ece9fe; color:var(--brand-deep); }
   .inst-card h3 { font-size:18px; }
   .inst-card .go { color:var(--brand-deep); font-family:var(--font-head); font-weight:600; font-size:13.5px; margin-top:2px; }
+  /* decline-severity ladder */
+  table.ladder td:first-child { font-family:var(--font-head); font-weight:700; color:var(--ink); white-space:nowrap; border-left:4px solid var(--line); }
+  table.ladder tr.sev-1 td:first-child { border-left-color:#10b981; }
+  table.ladder tr.sev-2 td:first-child { border-left-color:#84cc16; }
+  table.ladder tr.sev-3 td:first-child { border-left-color:#f59e0b; }
+  table.ladder tr.sev-4 td:first-child { border-left-color:#f97316; }
+  table.ladder tr.sev-5 td:first-child { border-left-color:#ef4444; }
+  table.ladder tbody tr.sev-1 { background:#f0fdf4; }
+  table.ladder tbody tr.sev-2 { background:#f7fee7; }
+  table.ladder tbody tr.sev-3 { background:#fffbeb; }
+  table.ladder tbody tr.sev-4 { background:#fff7ed; }
+  table.ladder tbody tr.sev-5 { background:#fef2f2; }
 </style>
 
 </head>
@@ -190,6 +202,27 @@
         <p>After a decline, the market will try to rally. The <b>follow-through day (FTD)</b> confirms that a rally has real institutional backing: it typically lands on <b>day 4 through 7</b> of a rally attempt, when a major index surges <b>~1.5% or more on volume heavier than the prior day</b>. O'Neil's rule of thumb: <em>no sustained bull market has ever begun without a follow-through day &mdash; but not every follow-through day becomes a bull market.</em> Some fail, especially if the index can't hold its gains in the days that follow, so confirm it against breadth and new highs before committing size.</p>
         <div class="callout good">
           <p><b>A clean FTD after a washout = start buying leaders again.</b> It won't call the exact low, but it shifts the odds &mdash; the moment to move from defense toward offense, one probe at a time.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="lab">Measuring the damage</div>
+        <h3>How deep is the decline? A field guide</h3>
+        <p>Not every decline is equal. Sizing the damage &mdash; by how far the index has fallen from its high, and whether it has closed below its <b>200-day moving average</b> &mdash; tells you how defensive to get. These are rules of thumb, not precise triggers; the 200-day line matters more than the exact percentage.</p>
+        <div class="mm-scroll" style="margin-top:12px">
+          <table class="spec ladder" style="min-width:720px">
+            <thead><tr><th>Decline</th><th>Depth off highs</th><th>200-day</th><th>What to do</th></tr></thead>
+            <tbody>
+              <tr class="sev-1"><td>Pullback</td><td>~5%</td><td>Above</td><td>Normal noise. Hold; trim laggards. No follow-through day needed to stay in.</td></tr>
+              <tr class="sev-2"><td>Intermediate correction</td><td>~8&ndash;12%</td><td>Still above</td><td>Get defensive &mdash; mostly cash. Wait for a follow-through day to re-enter.</td></tr>
+              <tr class="sev-3"><td>Bull-market correction</td><td>~10%+</td><td>Closes <b>below</b></td><td>The trend has cracked. Capital preservation; re-enter only on a follow-through day.</td></tr>
+              <tr class="sev-4"><td>Bear market</td><td>~20%+</td><td>Below</td><td>Sidelines. Small, proven probes only after a confirmed follow-through day.</td></tr>
+              <tr class="sev-5"><td>Major bear market</td><td>~25%+</td><td>Below, plus <b>2 failed FTDs in 3 months</b></td><td>Liquidate and protect capital. Go on vacation &mdash; forget trading until the market turns around.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <p><b>The follow-through day is your re-entry signal at every level.</b> The deeper the decline, the more confirmation you want &mdash; and the smaller your first probes. A capitulation spike in new lows (<a href="/mr-market-highs-lows.html">Instrument C</a>) followed by a clean follow-through day is what separates a bottoming correction from a deepening bear.</p>
         </div>
       </div>
     </div>
