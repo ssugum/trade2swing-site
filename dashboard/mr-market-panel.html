@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mr. Market — The Instrument Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   Mr. Market — The Instrument Panel  (weekly dashboard)
+   -------------------------------------------------------------------------
+   TO UPDATE EACH WEEK: edit ONLY the WEEK object in the <script> at the
+   bottom of this file. Nothing else needs to change. Each gauge value takes
+   a color: "green" (constructive), "amber" (caution), or "red" (negative).
+   ========================================================================= */
+:root{
+  --bg:#0b0a1a; --panel:rgba(255,255,255,.035); --panel-line:rgba(255,255,255,.09);
+  --ink:#eceafb; --mute:#a7a2c6; --faint:#6f6a90;
+  --green:#34d399; --red:#f87171; --amber:#fbbf24;
+  --indigo:#818cf8; --violet:#a78bfa;
+  --grad:linear-gradient(135deg,#6366f1,#8b5cf6);
+  --font-head:"Sora",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+body{
+  position:relative;overflow-x:hidden;padding:34px clamp(16px,3.5vw,44px) 30px;
+  background:
+    radial-gradient(680px 380px at 82% -6%, rgba(139,92,246,.28), transparent 70%),
+    radial-gradient(640px 460px at 6% 108%, rgba(99,102,241,.22), transparent 70%),
+    var(--bg);
+  min-height:100vh;
+}
+.panel-wrap{max-width:1240px;margin:0 auto}
+
+/* header */
+.eyebrow{font-family:var(--font-head);font-weight:700;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--indigo)}
+.eyebrow .bar{display:inline-block;width:34px;height:3px;border-radius:2px;background:var(--grad);vertical-align:middle;margin-right:12px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.wk{font-family:var(--font-head);font-size:14px;color:var(--mute);white-space:nowrap}
+h1{font-family:var(--font-head);font-weight:800;font-size:clamp(28px,4.4vw,46px);letter-spacing:-.02em;line-height:1.05;margin:16px 0 8px;color:#fff}
+.sub{font-size:clamp(14px,1.6vw,17px);color:var(--mute);max-width:640px}
+
+/* verdict banner */
+.verdict{
+  margin:24px 0 26px;border-radius:16px;padding:22px 26px;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
+  border:1px solid var(--amber);background:linear-gradient(180deg,rgba(245,158,11,.10),rgba(245,158,11,.03));
+}
+.verdict.green{border-color:var(--green);background:linear-gradient(180deg,rgba(52,211,153,.10),rgba(52,211,153,.03))}
+.verdict.red{border-color:var(--red);background:linear-gradient(180deg,rgba(248,113,113,.10),rgba(248,113,113,.03))}
+.verdict .l{display:flex;align-items:center;gap:18px;min-width:0}
+.verdict .icon{flex:none;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-head);font-weight:800;font-size:24px;color:#111;background:var(--amber)}
+.verdict.green .icon{background:var(--green)} .verdict.red .icon{background:var(--red)}
+.verdict .k{font-family:var(--font-head);font-weight:700;font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:var(--amber)}
+.verdict.green .k{color:var(--green)} .verdict.red .k{color:var(--red)}
+.verdict .big{font-family:var(--font-head);font-weight:800;font-size:clamp(19px,2.4vw,26px);color:#fff;letter-spacing:-.01em;margin-top:3px;line-height:1.15}
+.verdict .r{text-align:right}
+.verdict .r .k{color:var(--faint)}
+.verdict .posture{font-family:var(--font-head);font-weight:700;font-size:clamp(15px,1.9vw,20px);color:var(--amber);margin-top:3px}
+.verdict.green .posture{color:var(--green)} .verdict.red .posture{color:var(--red)}
+
+/* gauges grid */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.gauge{border:1px solid var(--panel-line);background:var(--panel);border-radius:16px;padding:22px 24px}
+.gauge-head{display:flex;align-items:flex-start;gap:14px}
+.badge{flex:none;width:34px;height:34px;border-radius:9px;background:var(--grad);color:#fff;
+  font-family:var(--font-head);font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(99,102,241,.4)}
+.gauge-head .tt{flex:1;min-width:0}
+.gauge-head h3{font-family:var(--font-head);font-weight:700;font-size:19px;color:#fff}
+.gauge-head .q{font-size:13.5px;color:var(--mute);margin-top:2px}
+.pill{flex:none;align-self:flex-start;font-family:var(--font-head);font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;
+  padding:5px 12px;border-radius:999px;border:1px solid}
+.pill.green{color:var(--green);border-color:rgba(52,211,153,.5);background:rgba(52,211,153,.12)}
+.pill.amber{color:var(--amber);border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.12)}
+.pill.red{color:var(--red);border-color:rgba(248,113,113,.5);background:rgba(248,113,113,.12)}
+.rows{margin-top:16px;display:grid;gap:0}
+.row{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid rgba(255,255,255,.06);font-size:14px}
+.row:first-child{border-top:0}
+.row .lab{color:var(--mute)}
+.row .val{font-family:var(--font-head);font-weight:700;text-align:right;color:var(--ink)}
+.row .val.green{color:var(--green)} .row .val.amber{color:var(--amber)} .row .val.red{color:var(--red)}
+.note{margin-top:14px;font-size:13.5px;font-style:italic;color:var(--faint);line-height:1.55}
+
+/* newbie box */
+.newbie{margin-top:24px;border:1px solid var(--panel-line);background:linear-gradient(180deg,rgba(99,102,241,.08),rgba(255,255,255,.02));
+  border-radius:16px;padding:24px 28px}
+.newbie .k{font-family:var(--font-head);font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);margin-bottom:14px}
+.newbie ol{list-style:none;display:grid;gap:12px;counter-reset:n}
+.newbie li{counter-increment:n;display:flex;gap:12px;font-size:15px;color:var(--ink);line-height:1.6}
+.newbie li::before{content:counter(n) ".";font-family:var(--font-head);font-weight:800;color:var(--indigo);flex:none}
+
+/* footer */
+.foot{margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.foot .bd{font-family:var(--font-head);font-weight:800;font-size:17px;color:#fff}
+.foot .bd b{color:var(--violet)}
+.foot .dis{font-size:12.5px;color:var(--faint)}
+
+@media (max-width:760px){
+  .grid{grid-template-columns:1fr}
+  .verdict{flex-direction:column;align-items:flex-start}
+  .verdict .r{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="panel-wrap">
+  <div class="top">
+    <div class="eyebrow"><span class="bar"></span>Mr. Market &middot; The Instrument Panel</div>
+    <div class="wk" id="wk"></div>
+  </div>
+  <h1 id="title"></h1>
+  <p class="sub">Four gauges. No single one flies the plane &mdash; you read them together.</p>
+
+  <div class="verdict" id="verdict">
+    <div class="l">
+      <div class="icon" id="verdict-icon">!</div>
+      <div>
+        <div class="k">The verdict</div>
+        <div class="big" id="verdict-label"></div>
+      </div>
+    </div>
+    <div class="r">
+      <div class="k">Posture</div>
+      <div class="posture" id="verdict-posture"></div>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="newbie">
+    <div class="k">If you are new to this &mdash; what it means</div>
+    <ol id="newbie"></ol>
+  </div>
+
+  <div class="foot">
+    <div class="bd">Trade<b>2</b>Swing</div>
+    <div class="dis">Educational only &middot; not a buy or sell recommendation</div>
+  </div>
+</div>
+
+<script>
+/* ============================ EDIT ME EACH WEEK ============================ */
+const WEEK = {
+  week: "Week of Aug 24–28, 2026",
+  title: "How to read the market this week",
+  articleUrl: "https://trade2swing.substack.com/p/08-30-2026-the-index-held-the-internals",
+  verdict: {
+    level: "amber",                                            // green | amber | red
+    label: "UNDER PRESSURE — but the window is still open",
+    posture: "Selective. Fewer, smaller, tighter."
+  },
+  gauges: [
+    { key:"A", name:"Market breadth", q:"Are most stocks joining in, or just a few?",
+      status:{t:"MIXED", c:"amber"},
+      rows:[
+        {l:"Stocks up 25% in a quarter", v:"1,379 vs 1,105 — still GOOD", c:"green"},
+        {l:"T2108 (stocks above their 40-day line)", v:"41.9 — nearly at the 40 line", c:"red"},
+        {l:"Friday's big movers, up vs. down 4%", v:"84 up vs 382 down", c:"red"}
+      ],
+      note:"In plain English: the week was fine until Friday, when sellers took it decisively." },
+
+    { key:"B", name:"Distribution days", q:"Are big institutions quietly selling?",
+      status:{t:"WARNING", c:"amber"},
+      rows:[
+        {l:"NASDAQ / S&P distribution count", v:"4 and 2 — under the 5 line", c:"amber"},
+        {l:"IBD market condition", v:"60–80% exposure allowed", c:"green"},
+        {l:"Long-term trend (50-day vs 200-day)", v:"50d above 200d — intact", c:"green"}
+      ],
+      note:"In plain English: selling is building, but has not yet reached the danger line." },
+
+    { key:"C", name:"New highs vs. new lows", q:"Are more stocks hitting 1-year highs or lows?",
+      status:{t:"WEAKENING", c:"amber"},
+      rows:[
+        {l:"NASDAQ new highs vs. new lows", v:"40 highs vs 32 lows", c:"amber"},
+        {l:"Net reading (was 34 last week)", v:"8 — down sharply", c:"red"},
+        {l:"Friday's NASDAQ up vs. down stocks", v:"1,308 up vs 3,104 down", c:"red"}
+      ],
+      note:"In plain English: still positive — but far fewer stocks are leading than a week ago." },
+
+    { key:"D", name:"Leadership", q:"Which stocks are actually being bought?",
+      status:{t:"HEALTHY", c:"green"},
+      rows:[
+        {l:"Rising fast in the group rankings", v:"Software — 7 groups in the top 25", c:"green"},
+        {l:"Falling", v:"Semiconductors, rank 13 to 32", c:"red"},
+        {l:"Last week's biotech leaders", v:"Mostly gone from the big movers", c:"amber"}
+      ],
+      note:"In plain English: software is where the buying went. Biotech was a one-week visit." }
+  ],
+  newbie: [
+    "Three gauges softened this week and one improved — that mix means “be careful”, not “get out”.",
+    "Fewer stocks are leading than a week ago, so this is a market for a few good names, not for buying broadly.",
+    "Watch one number next week: if T2108 drops under 40, the read turns defensive. It closed at 41.9."
+  ]
+};
+/* ========================== END EDIT ME EACH WEEK ========================== */
+
+(function render(w){
+  var esc = function(s){ var d=document.createElement("div"); d.textContent=s==null?"":String(s); return d.innerHTML; };
+  document.getElementById("wk").textContent = w.week;
+  document.getElementById("title").textContent = w.title;
+  document.title = "Mr. Market Panel — " + w.week;
+
+  var v = w.verdict || {};
+  var vb = document.getElementById("verdict");
+  vb.className = "verdict " + (v.level||"amber");
+  document.getElementById("verdict-icon").textContent = v.level==="green" ? "✓" : (v.level==="red" ? "✕" : "!");
+  document.getElementById("verdict-label").textContent = v.label||"";
+  document.getElementById("verdict-posture").textContent = v.posture||"";
+
+  var grid = document.getElementById("grid");
+  grid.innerHTML = (w.gauges||[]).map(function(g){
+    var rows = (g.rows||[]).map(function(r){
+      return '<div class="row"><span class="lab">'+esc(r.l)+'</span><span class="val '+(r.c||"")+'">'+esc(r.v)+'</span></div>';
+    }).join("");
+    return ''
+      + '<div class="gauge">'
+      +   '<div class="gauge-head">'
+      +     '<span class="badge">'+esc(g.key)+'</span>'
+      +     '<div class="tt"><h3>'+esc(g.name)+'</h3><div class="q">'+esc(g.q)+'</div></div>'
+      +     '<span class="pill '+((g.status&&g.status.c)||"amber")+'">'+esc(g.status&&g.status.t)+'</span>'
+      +   '</div>'
+      +   '<div class="rows">'+rows+'</div>'
+      +   '<div class="note">'+esc(g.note)+'</div>'
+      + '</div>';
+  }).join("");
+
+  document.getElementById("newbie").innerHTML = (w.newbie||[]).map(function(t){
+    return '<li>'+esc(t)+'</li>';
+  }).join("");
+
+  // tell a same-origin parent how tall we are, so the iframe can size to content
+  function postHeight(){
+    var h = document.body.scrollHeight;
+    if (window.parent && window.parent !== window) {
+      try { window.parent.postMessage({ t2sPanelHeight: h }, "*"); } catch(e){}
+    }
+  }
+  window.addEventListener("load", postHeight);
+  window.addEventListener("resize", postHeight);
+  setTimeout(postHeight, 300);
+})(WEEK);
+</script>
+</body>
+</html>

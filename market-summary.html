@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Market Summary &amp; Sector Strength — Trade2Swing</title>
-<meta name="description" content="A weekly read on overall market direction, health, and sector strength — coming soon to Trade2Swing.">
+<title>Mr. Market Situational Awareness Panel &mdash; Trade2Swing</title>
+<meta name="description" content="The weekly outcome of the Mr. Market four-instrument read: where the market stands right now and how aggressive to be — breadth, distribution, new highs vs. lows, and leadership, in one dashboard.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -15,6 +15,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/styles.css">
+<style>
+  .embed-shell iframe#panel-frame { height:1180px; background:#0b0a1a; }
+  .legend-row { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
+  .legend-row .lg { display:inline-flex; align-items:center; gap:9px; font-size:14px; color:var(--ink-soft);
+    background:#fff; border:1px solid var(--line); border-radius:999px; padding:8px 15px; }
+  .legend-row .lg .d { width:10px; height:10px; border-radius:50%; flex:none; }
+  .legend-row .lg b { color:var(--ink); font-family:var(--font-head); }
+</style>
 </head>
 <body>
 
@@ -41,29 +49,75 @@
   </div>
 </header>
 
-<section class="section" style="padding:96px 0">
+<section class="page-head">
+  <div class="wrap inner">
+    <div class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; Market Summary</div>
+    <h1>Mr. Market Situational Awareness Panel</h1>
+    <p>The weekly outcome of the <a href="/mr-market.html">Mr. Market four-instrument read</a> &mdash; where the market stands right now, and how aggressive to be. Published every week alongside the full write-up on Substack. Step&nbsp;01 of the process: read the market before reading any stock.</p>
+  </div>
+</section>
+
+<!-- ============ THIS WEEK'S READ ============ -->
+<section class="section">
   <div class="wrap">
-    <div class="soon-block">
-      <div class="glyph">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-5 3 3 5-7"/></svg>
-      </div>
-      <span class="tag">Coming soon</span>
-      <h1>Market Summary &amp; Sector Strength</h1>
-      <p>Step 01 of the process — read the market before reading any stock. Direction is never read from one gauge; this page will bring the instruments together in one weekly view. Reading the market well is hard — that's exactly why it comes first.</p>
-      <ul class="preview-list">
-        <li>The market-direction call — uptrend, under pressure, or correction — the read that gates every trade.</li>
-        <li>Market breadth — the Stock Bee monitor, read column by column and color by color.</li>
-        <li>Index distribution and follow-through days on the NASDAQ and S&amp;P — the IBD-style read.</li>
-        <li>Net new highs vs. new lows on the NASDAQ and NYSE — divergences and capitulation extremes.</li>
-        <li>How leadership and our own positions are behaving — the real-money tape.</li>
-        <li>Sector strength and where money is rotating.</li>
-      </ul>
-      <div class="hero-cta" style="justify-content:center">
-        <a class="btn btn-primary" href="https://substack.com/@trade2swing" target="_blank" rel="noopener">Get it first on Substack</a>
-        <a class="btn btn-ghost" href="/">Back to home</a>
-      </div>
-      <p style="margin-top:24px;font-size:14.5px;color:var(--ink-mute)">Available now &mdash; see how we read market direction across all four instruments in <a href="/mr-market.html">Mr. Market &mdash; Situational Awareness</a>.</p>
+
+    <div style="max-width:760px;margin-bottom:24px">
+      <div class="eyebrow">This week &middot; Aug 24&ndash;28, 2026</div>
+      <h2 style="margin-bottom:12px">The index held, the internals didn't</h2>
+      <p class="lead">The index held its ground last week &mdash; but the internals didn't. Breadth was fine until Friday, when 382 stocks fell 4% against just 84 that rose. New-high leadership thinned sharply (net new highs dropped from 34 to 8), and distribution is quietly building (4 days on the NASDAQ, 2 on the S&amp;P). The long-term trend is still intact &mdash; the 50-day sits above the 200-day &mdash; and leadership rotated cleanly out of biotech into software. The net read: <b>under pressure, not broken</b> &mdash; selective, with fewer, smaller, tighter positions. The one number to watch is T2108 at 41.9; under 40 and this turns defensive.</p>
     </div>
+
+    <div class="disclaimer" style="margin-bottom:24px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <p><b>A weekly snapshot, not a recommendation.</b> This dashboard is the author's read of market direction for the week &mdash; a tool for situational awareness, not a market call or a signal to buy or sell. Readings are as of the Friday close and change week to week. See the full disclaimer below.</p>
+    </div>
+
+    <!-- Embedded weekly dashboard -->
+    <div class="embed-shell">
+      <div class="embed-bar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="label">Mr. Market &mdash; The Instrument Panel</span>
+        <a class="open" href="/dashboard/mr-market-panel.html" target="_blank" rel="noopener">Open full dashboard &#8599;</a>
+      </div>
+      <iframe id="panel-frame" src="/dashboard/mr-market-panel.html"
+              title="Mr. Market — The Instrument Panel (weekly dashboard)"
+              loading="lazy"></iframe>
+    </div>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:12px">
+      Dashboard not displaying? <a href="/dashboard/mr-market-panel.html" target="_blank" rel="noopener">Open it in a new tab &#8599;</a>
+    </p>
+
+    <div class="hero-cta" style="margin-top:26px;gap:14px">
+      <a class="btn btn-primary" href="https://trade2swing.substack.com/p/08-30-2026-the-index-held-the-internals" target="_blank" rel="noopener">Read the full weekly analysis on Substack &#8599;</a>
+      <a class="btn btn-ghost" href="/mr-market.html">How these four gauges work</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ HOW THIS READ IS BUILT ============ -->
+<section class="section soft">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The method</div>
+      <h2>How this read is built</h2>
+      <p class="lead">Every reading above comes from the same four-instrument panel &mdash; and no single gauge decides it. You weigh them together, then let the balance set how aggressive to be.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <a class="card" href="/mr-market-breadth.html" style="text-decoration:none;color:inherit"><h3 style="margin-bottom:6px">A &middot; Market breadth</h3><p style="color:var(--ink-soft)">Is money flowing in or out, and across how many stocks?</p></a>
+      <a class="card" href="/mr-market-distribution.html" style="text-decoration:none;color:inherit"><h3 style="margin-bottom:6px">B &middot; Distribution &amp; follow-through</h3><p style="color:var(--ink-soft)">Are big institutions quietly selling &mdash; or has a bottom been confirmed?</p></a>
+      <a class="card" href="/mr-market-highs-lows.html" style="text-decoration:none;color:inherit"><h3 style="margin-bottom:6px">C &middot; New highs vs. new lows</h3><p style="color:var(--ink-soft)">Are more stocks hitting one-year highs, or one-year lows?</p></a>
+      <a class="card" href="/mr-market-leadership.html" style="text-decoration:none;color:inherit"><h3 style="margin-bottom:6px">D &middot; Leadership</h3><p style="color:var(--ink-soft)">Which stocks are actually being bought right now?</p></a>
+    </div>
+
+    <div class="legend-row">
+      <span class="lg"><span class="d" style="background:var(--up)"></span><b>Green</b> &mdash; confirmed uptrend: offense</span>
+      <span class="lg"><span class="d" style="background:var(--amber)"></span><b>Amber</b> &mdash; under pressure: caution</span>
+      <span class="lg"><span class="d" style="background:var(--down)"></span><b>Red</b> &mdash; correction: defense</span>
+    </div>
+
+    <p style="margin-top:22px"><a class="btn btn-ghost" href="/mr-market.html">Open the full Mr. Market panel &amp; how to use it &rarr;</a></p>
   </div>
 </section>
 
@@ -72,7 +126,7 @@
     <div class="footer-top">
       <div>
         <div class="brand" style="font-size:21px"><img class="mark" src="/android-chrome-192x192.png" alt=""> <span>Trade<b>2</b>Swing</span></div>
-        <p class="footer-blurb">A research journal on disciplined, rules-based growth-stock trading — CANSLIM&reg; principles paired with momentum swing and position trading. Building a Model Book of true market leaders, one week at a time.</p>
+        <p class="footer-blurb">A research journal on disciplined, rules-based growth-stock trading &mdash; CANSLIM&reg; principles paired with momentum swing and position trading. Building a Model Book of true market leaders, one week at a time.</p>
       </div>
       <div>
         <h4>Explore</h4>
@@ -82,8 +136,8 @@
           <li><a href="/market-summary.html">Market Summary</a></li>
           <li><a href="/watch-ready-lists.html">Watch &amp; Ready Lists</a></li>
           <li><a href="/model-book.html">Model Book</a></li>
-        <li><a href="/rules.html">House Rules</a></li>
-        <li><a href="/mr-market.html">Mr. Market</a></li>
+          <li><a href="/rules.html">House Rules</a></li>
+          <li><a href="/mr-market.html">Mr. Market</a></li>
         </ul>
       </div>
       <div>
@@ -95,17 +149,26 @@
       </div>
     </div>
     <div class="footer-disclaimer">
-      <p><b>This is not a buy or sell recommendation.</b> All content on Trade2Swing — including market summaries, watch lists, charts, earnings data, and the Model Book — is published for educational and informational purposes only. Nothing here is investment, financial, legal, or tax advice, an offer or solicitation to buy or sell any security, or a recommendation for any particular person.</p>
+      <p><b>This is not a buy or sell recommendation.</b> All content on Trade2Swing &mdash; including market summaries, watch lists, charts, earnings data, the Model Book, and the House Rules &mdash; is published for educational and informational purposes only. Nothing here is investment, financial, legal, or tax advice, an offer or solicitation to buy or sell any security, or a recommendation for any particular person.</p>
       <p>Trading and investing in stocks involves substantial risk, including the possible loss of capital. Past performance and historical chart examples do not guarantee future results. Always do your own research and consider consulting a licensed financial advisor before making any investment decision. You are solely responsible for your own decisions.</p>
       <p><b>CAN SLIM&reg; trademark.</b> CAN SLIM&reg; is a registered trademark of Investor's Business Daily, Inc. (IBD). &ldquo;CANSLIM&rdquo; is used on this site as the common shorthand for the same methodology. Trade2Swing is an independent publication and is not affiliated with, endorsed by, or sponsored by Investor's Business Daily, Inc. The approach described here blends CAN SLIM&reg; principles with momentum swing-trading techniques and the author's own methods.</p>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 Trade2Swing · trade2swing.com</span>
-      <span>Educational content only · <a href="mailto:trade2swing@gmail.com">trade2swing@gmail.com</a></span>
+      <span>&copy; 2026 Trade2Swing &middot; trade2swing.com</span>
+      <span>Educational content only &middot; <a href="mailto:trade2swing@gmail.com">trade2swing@gmail.com</a></span>
     </div>
   </div>
 </footer>
 
 <script src="/assets/site.js"></script>
+<script>
+  // size the embedded dashboard iframe to its content (same-origin on the live site)
+  window.addEventListener("message", function(e){
+    if (e.data && e.data.t2sPanelHeight) {
+      var f = document.getElementById("panel-frame");
+      if (f) f.style.height = (e.data.t2sPanelHeight + 4) + "px";
+    }
+  });
+</script>
 </body>
 </html>
