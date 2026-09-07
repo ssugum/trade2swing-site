@@ -32,7 +32,6 @@ body{
     radial-gradient(680px 380px at 82% -6%, rgba(139,92,246,.28), transparent 70%),
     radial-gradient(640px 460px at 6% 108%, rgba(99,102,241,.22), transparent 70%),
     var(--bg);
-  min-height:100vh;
 }
 .panel-wrap{max-width:1240px;margin:0 auto}
 
@@ -147,125 +146,52 @@ h1{font-family:var(--font-head);font-weight:800;font-size:clamp(28px,4.4vw,46px)
 <script>
 /* ============================ EDIT ME EACH WEEK ============================ */
 const WEEK = {
-  "week": "Week of Aug 24–28, 2026",
-  "title": "How to read the market this week",
-  "articleUrl": "https://trade2swing.substack.com/p/08-30-2026-the-index-held-the-internals",
-  "verdict": {
-    "level": "amber",
-    "label": "UNDER PRESSURE — but the window is still open",
-    "posture": "Selective. Fewer, smaller, tighter."
+  week: "Week of Aug 24–28, 2026",
+  title: "How to read the market this week",
+  articleUrl: "https://trade2swing.substack.com/p/08-30-2026-the-index-held-the-internals",
+  verdict: {
+    level: "amber",                                            // green | amber | red
+    label: "UNDER PRESSURE — but the window is still open",
+    posture: "Selective. Fewer, smaller, tighter."
   },
-  "gauges": [
-    {
-      "key": "A",
-      "name": "Market breadth",
-      "q": "Are most stocks joining in, or just a few?",
-      "status": {
-        "t": "MIXED",
-        "c": "amber"
-      },
-      "rows": [
-        {
-          "l": "Stocks up 25% in a quarter",
-          "v": "1,379 vs 1,105 — still GOOD",
-          "c": "green"
-        },
-        {
-          "l": "T2108 (stocks above their 40-day line)",
-          "v": "41.9 — nearly at the 40 line",
-          "c": "red"
-        },
-        {
-          "l": "Friday's big movers, up vs. down 4%",
-          "v": "84 up vs 382 down",
-          "c": "red"
-        }
+  gauges: [
+    { key:"A", name:"Market breadth", q:"Are most stocks joining in, or just a few?",
+      status:{t:"MIXED", c:"amber"},
+      rows:[
+        {l:"Stocks up 25% in a quarter", v:"1,379 vs 1,105 — still GOOD", c:"green"},
+        {l:"T2108 (stocks above their 40-day line)", v:"41.9 — nearly at the 40 line", c:"red"},
+        {l:"Friday's big movers, up vs. down 4%", v:"84 up vs 382 down", c:"red"}
       ],
-      "note": "In plain English: the week was fine until Friday, when sellers took it decisively."
-    },
-    {
-      "key": "B",
-      "name": "Distribution days",
-      "q": "Are big institutions quietly selling?",
-      "status": {
-        "t": "WARNING",
-        "c": "amber"
-      },
-      "rows": [
-        {
-          "l": "NASDAQ / S&P distribution count",
-          "v": "4 and 2 — under the 5 line",
-          "c": "amber"
-        },
-        {
-          "l": "IBD market condition",
-          "v": "60–80% exposure allowed",
-          "c": "green"
-        },
-        {
-          "l": "Long-term trend (50-day vs 200-day)",
-          "v": "50d above 200d — intact",
-          "c": "green"
-        }
+      note:"In plain English: the week was fine until Friday, when sellers took it decisively." },
+
+    { key:"B", name:"Distribution days", q:"Are big institutions quietly selling?",
+      status:{t:"WARNING", c:"amber"},
+      rows:[
+        {l:"NASDAQ / S&P distribution count", v:"4 and 2 — under the 5 line", c:"amber"},
+        {l:"IBD market condition", v:"60–80% exposure allowed", c:"green"},
+        {l:"Long-term trend (50-day vs 200-day)", v:"50d above 200d — intact", c:"green"}
       ],
-      "note": "In plain English: selling is building, but has not yet reached the danger line."
-    },
-    {
-      "key": "C",
-      "name": "New highs vs. new lows",
-      "q": "Are more stocks hitting 1-year highs or lows?",
-      "status": {
-        "t": "WEAKENING",
-        "c": "amber"
-      },
-      "rows": [
-        {
-          "l": "NASDAQ new highs vs. new lows",
-          "v": "40 highs vs 32 lows",
-          "c": "amber"
-        },
-        {
-          "l": "Net reading (was 34 last week)",
-          "v": "8 — down sharply",
-          "c": "red"
-        },
-        {
-          "l": "Friday's NASDAQ up vs. down stocks",
-          "v": "1,308 up vs 3,104 down",
-          "c": "red"
-        }
+      note:"In plain English: selling is building, but has not yet reached the danger line." },
+
+    { key:"C", name:"New highs vs. new lows", q:"Are more stocks hitting 1-year highs or lows?",
+      status:{t:"WEAKENING", c:"amber"},
+      rows:[
+        {l:"NASDAQ new highs vs. new lows", v:"40 highs vs 32 lows", c:"amber"},
+        {l:"Net reading (was 34 last week)", v:"8 — down sharply", c:"red"},
+        {l:"Friday's NASDAQ up vs. down stocks", v:"1,308 up vs 3,104 down", c:"red"}
       ],
-      "note": "In plain English: still positive — but far fewer stocks are leading than a week ago."
-    },
-    {
-      "key": "D",
-      "name": "Leadership",
-      "q": "Which stocks are actually being bought?",
-      "status": {
-        "t": "HEALTHY",
-        "c": "green"
-      },
-      "rows": [
-        {
-          "l": "Rising fast in the group rankings",
-          "v": "Software — 7 groups in the top 25",
-          "c": "green"
-        },
-        {
-          "l": "Falling",
-          "v": "Semiconductors, rank 13 to 32",
-          "c": "red"
-        },
-        {
-          "l": "Last week's biotech leaders",
-          "v": "Mostly gone from the big movers",
-          "c": "amber"
-        }
+      note:"In plain English: still positive — but far fewer stocks are leading than a week ago." },
+
+    { key:"D", name:"Leadership", q:"Which stocks are actually being bought?",
+      status:{t:"HEALTHY", c:"green"},
+      rows:[
+        {l:"Rising fast in the group rankings", v:"Software — 7 groups in the top 25", c:"green"},
+        {l:"Falling", v:"Semiconductors, rank 13 to 32", c:"red"},
+        {l:"Last week's biotech leaders", v:"Mostly gone from the big movers", c:"amber"}
       ],
-      "note": "In plain English: software is where the buying went. Biotech was a one-week visit."
-    }
+      note:"In plain English: software is where the buying went. Biotech was a one-week visit." }
   ],
-  "newbie": [
+  newbie: [
     "Three gauges softened this week and one improved — that mix means “be careful”, not “get out”.",
     "Fewer stocks are leading than a week ago, so this is a market for a few good names, not for buying broadly.",
     "Watch one number next week: if T2108 drops under 40, the read turns defensive. It closed at 41.9."
@@ -307,9 +233,14 @@ const WEEK = {
     return '<li>'+esc(t)+'</li>';
   }).join("");
 
-  // tell a same-origin parent how tall we are, so the iframe can size to content
+  // tell a same-origin parent how tall our CONTENT is, so the iframe can size to it.
+  // Uses content height (not the viewport), and ignores sub-pixel jitter, so it
+  // cannot feed back into a growth loop with the parent's height-setter.
+  var _lastH = 0;
   function postHeight(){
-    var h = document.body.scrollHeight;
+    var h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+    if (Math.abs(h - _lastH) < 2) return;
+    _lastH = h;
     if (window.parent && window.parent !== window) {
       try { window.parent.postMessage({ t2sPanelHeight: h }, "*"); } catch(e){}
     }
@@ -317,6 +248,7 @@ const WEEK = {
   window.addEventListener("load", postHeight);
   window.addEventListener("resize", postHeight);
   setTimeout(postHeight, 300);
+  setTimeout(postHeight, 900);
 })(WEEK);
 </script>
 </body>

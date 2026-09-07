@@ -316,7 +316,7 @@ h3 { font-size: 19px; }
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(560px 320px at 80% 0%, rgba(139,92,246,.36), transparent 70%);
 }
-.page-head .inner { position: relative; max-width: 720px; }
+.page-head .inner { position: relative; }
 .page-head h1 { font-size: clamp(30px, 4.2vw, 44px); color: #fff; }
 .page-head p { color: var(--on-dark-mute); font-size: 18px; margin-top: 14px; max-width: 620px; }
 .crumb { font-size: 13px; color: var(--on-dark-mute); margin-bottom: 16px; font-family: var(--font-head); }
