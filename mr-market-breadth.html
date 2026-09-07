@@ -37,6 +37,11 @@
   .callout b { color:var(--ink); font-family:var(--font-head); }
   .callout.warn { border-left-color: var(--down); background:#fef2f2; border-color:#fecaca; }
   .callout.good { border-left-color: var(--up); background:#f0fdf4; border-color:#bbf7d0; }
+  .t2108-scale { margin:14px 0 4px; display:grid; gap:8px; }
+  .t2108-scale .z { display:flex; align-items:baseline; gap:14px; }
+  .t2108-scale .lvl { flex:0 0 78px; font-family:var(--font-head); font-weight:700; font-size:13.5px; color:var(--up); }
+  .t2108-scale .act { font-size:14px; color:var(--ink-soft); }
+  .t2108-hist { margin-top:4px !important; }
 
   /* spec table (borrowed from rules page) */
   table.spec { width:100%; border-collapse:collapse; margin-top:12px; font-size:14.5px; }
@@ -266,6 +271,17 @@
             <tr><td class="k">S&amp;P</td><td>The value of the S&amp;P 500 for that day, carried as a plain reference point next to the breadth readings.</td></tr>
           </tbody>
         </table>
+
+        <div class="callout good">
+          <p><b>T2108 is a bottom signal &mdash; not a top signal.</b> It is a one-sided tell. A high reading does <b>not</b> reliably call a market top, so don't use it that way. But a <b>low</b> reading is one of the cleanest bottoms breadth ever gives you &mdash; the lower it goes, the more washed-out the market is, and the closer you are to the point where the leaders are worth watching and accumulating with tight risk.</p>
+          <div class="t2108-scale">
+            <div class="z"><span class="lvl">Below&nbsp;20</span><span class="act">Keep the powder dry &mdash; stalk, don't chase.</span></div>
+            <div class="z"><span class="lvl">Below&nbsp;10</span><span class="act">Start buying the leaders, scaling in.</span></div>
+            <div class="z"><span class="lvl">Below&nbsp;5</span><span class="act">Go crazy &mdash; generational washout, back up the truck.</span></div>
+          </div>
+          <p class="t2108-hist">How rare single digits are, at the true panics: <b>dot-com bust ~7</b>, <b>GFC ~1.2</b>, <b>COVID ~1.5</b>, <b>2025 tariff selloff ~13</b>.</p>
+          <p>At the bottom it will feel like the world is ending &mdash; that fear <b>is</b> the signal. Stay calm, buy the leaders, and manage risk tightly.</p>
+        </div>
       </div>
     </div>
   </div>
