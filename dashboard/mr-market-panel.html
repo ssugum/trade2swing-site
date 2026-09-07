@@ -146,55 +146,128 @@ h1{font-family:var(--font-head);font-weight:800;font-size:clamp(28px,4.4vw,46px)
 <script>
 /* ============================ EDIT ME EACH WEEK ============================ */
 const WEEK = {
-  week: "Week of Aug 24–28, 2026",
-  title: "How to read the market this week",
-  articleUrl: "https://trade2swing.substack.com/p/08-30-2026-the-index-held-the-internals",
-  verdict: {
-    level: "amber",                                            // green | amber | red
-    label: "UNDER PRESSURE — but the window is still open",
-    posture: "Selective. Fewer, smaller, tighter."
+  "week": "Week of Aug 31–Sep 4, 2026",
+  "title": "How to read the market this week",
+  "articleUrl": "https://trade2swing.substack.com/p/09-07-2026-the-number-we-were-watching",
+  "verdict": {
+    "level": "amber",
+    "label": "UNDER PRESSURE — the line broke and healed",
+    "posture": "Selective. Fewer, smaller, tighter."
   },
-  gauges: [
-    { key:"A", name:"Market breadth", q:"Are most stocks joining in, or just a few?",
-      status:{t:"MIXED", c:"amber"},
-      rows:[
-        {l:"Stocks up 25% in a quarter", v:"1,379 vs 1,105 — still GOOD", c:"green"},
-        {l:"T2108 (stocks above their 40-day line)", v:"41.9 — nearly at the 40 line", c:"red"},
-        {l:"Friday's big movers, up vs. down 4%", v:"84 up vs 382 down", c:"red"}
+  "gauges": [
+    {
+      "key": "A",
+      "name": "Market breadth",
+      "q": "Are most stocks joining in, or just a few?",
+      "status": {
+        "t": "WARNING",
+        "c": "amber"
+      },
+      "rows": [
+        {
+          "l": "Stocks up 25% in a quarter",
+          "v": "1,356 vs 1,065 — still GOOD",
+          "c": "green"
+        },
+        {
+          "l": "T2108 (stocks above their 40-day line)",
+          "v": "41.1 — traded down to 36.4 midweek",
+          "c": "red"
+        },
+        {
+          "l": "Stocks up 25% in a month vs down",
+          "v": "114 vs 110 — dead even, was 256 vs 90",
+          "c": "red"
+        }
       ],
-      note:"In plain English: the week was fine until Friday, when sellers took it decisively." },
-
-    { key:"B", name:"Distribution days", q:"Are big institutions quietly selling?",
-      status:{t:"WARNING", c:"amber"},
-      rows:[
-        {l:"NASDAQ / S&P distribution count", v:"4 and 2 — under the 5 line", c:"amber"},
-        {l:"IBD market condition", v:"60–80% exposure allowed", c:"green"},
-        {l:"Long-term trend (50-day vs 200-day)", v:"50d above 200d — intact", c:"green"}
+      "note": "In plain English: the line we said to watch got breached this week and then walked back — that's a warning, not a verdict."
+    },
+    {
+      "key": "B",
+      "name": "Distribution days",
+      "q": "Are big institutions quietly selling?",
+      "status": {
+        "t": "WARNING",
+        "c": "amber"
+      },
+      "rows": [
+        {
+          "l": "NASDAQ / S&P distribution count",
+          "v": "4 and 3 — building, still under the 5 line",
+          "c": "amber"
+        },
+        {
+          "l": "Index off 52-week highs",
+          "v": "NASDAQ -2.5%, S&P -1.3% — still near the top",
+          "c": "amber"
+        },
+        {
+          "l": "Long-term trend (50-day vs 200-day)",
+          "v": "50d above 200d — intact",
+          "c": "green"
+        }
       ],
-      note:"In plain English: selling is building, but has not yet reached the danger line." },
-
-    { key:"C", name:"New highs vs. new lows", q:"Are more stocks hitting 1-year highs or lows?",
-      status:{t:"WEAKENING", c:"amber"},
-      rows:[
-        {l:"NASDAQ new highs vs. new lows", v:"40 highs vs 32 lows", c:"amber"},
-        {l:"Net reading (was 34 last week)", v:"8 — down sharply", c:"red"},
-        {l:"Friday's NASDAQ up vs. down stocks", v:"1,308 up vs 3,104 down", c:"red"}
+      "note": "In plain English: selling is building while both indexes sit within 3% of their highs — supply meeting demand with nothing on the price chart to warn you yet."
+    },
+    {
+      "key": "C",
+      "name": "New highs vs. new lows",
+      "q": "Are more stocks hitting 1-year highs or lows?",
+      "status": {
+        "t": "WEAKENING",
+        "c": "amber"
+      },
+      "rows": [
+        {
+          "l": "Friday's NASDAQ up vs. down stocks",
+          "v": "2,253 up vs 2,125 down — modestly positive",
+          "c": "green"
+        },
+        {
+          "l": "Friday's NYSE up vs. down stocks",
+          "v": "1,074 up vs 1,123 down — modestly negative",
+          "c": "amber"
+        },
+        {
+          "l": "NASDAQ net new highs",
+          "v": "flipped negative Mon–Tue, positive again by Friday",
+          "c": "amber"
+        }
       ],
-      note:"In plain English: still positive — but far fewer stocks are leading than a week ago." },
-
-    { key:"D", name:"Leadership", q:"Which stocks are actually being bought?",
-      status:{t:"HEALTHY", c:"green"},
-      rows:[
-        {l:"Rising fast in the group rankings", v:"Software — 7 groups in the top 25", c:"green"},
-        {l:"Falling", v:"Semiconductors, rank 13 to 32", c:"red"},
-        {l:"Last week's biotech leaders", v:"Mostly gone from the big movers", c:"amber"}
+      "note": "In plain English: NASDAQ breadth beat NYSE breadth this week — a narrower, growth-led tape, not a broad one."
+    },
+    {
+      "key": "D",
+      "name": "Leadership",
+      "q": "Which stocks are actually being bought?",
+      "status": {
+        "t": "MIXED",
+        "c": "amber"
+      },
+      "rows": [
+        {
+          "l": "Top-ranked industry groups",
+          "v": "Security Software #9, Enterprise #8, Hardware #6",
+          "c": "green"
+        },
+        {
+          "l": "Fastest 6-week risers",
+          "v": "Finance-Crypto 135→21, Cannabis 119→19 — speculative",
+          "c": "amber"
+        },
+        {
+          "l": "Monster-footprint list",
+          "v": "44 names, biotech-heavy — matches sector re-acceleration",
+          "c": "green"
+        }
       ],
-      note:"In plain English: software is where the buying went. Biotech was a one-week visit." }
+      "note": "In plain English: real leadership (software) is still intact, but the fastest movers are speculative pockets — smaller size, faster stops."
+    }
   ],
-  newbie: [
-    "Three gauges softened this week and one improved — that mix means “be careful”, not “get out”.",
-    "Fewer stocks are leading than a week ago, so this is a market for a few good names, not for buying broadly.",
-    "Watch one number next week: if T2108 drops under 40, the read turns defensive. It closed at 41.9."
+  "newbie": [
+    "Two gauges are flashing caution (breadth and distribution) while leadership still holds — that mix means “stay selective,” not “get out.”",
+    "The number we were watching, T2108, actually broke below 40 this week before recovering — a preview of what a real breakdown would look like.",
+    "Watch T2108 again next week: a Friday close below 40, not just a dip during the week, is what would flip this to defense."
   ]
 };
 /* ========================== END EDIT ME EACH WEEK ========================== */
