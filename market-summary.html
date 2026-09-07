@@ -22,6 +22,21 @@
     background:#fff; border:1px solid var(--line); border-radius:999px; padding:8px 15px; }
   .legend-row .lg .d { width:10px; height:10px; border-radius:50%; flex:none; }
   .legend-row .lg b { color:var(--ink); font-family:var(--font-head); }
+  /* this-week intro: narrative left, verdict card right (fills the desktop gutter) */
+  .week-head { display:grid; grid-template-columns:1.55fr 1fr; gap:34px; align-items:start; margin-bottom:26px; }
+  .week-head .wh-main .lead { max-width:none; }
+  .verdict-card { background:#fff; border:1px solid var(--line); border-top:4px solid var(--amber);
+    border-radius:var(--radius); padding:22px 24px; box-shadow:var(--shadow-sm); position:sticky; top:88px; }
+  .verdict-card[data-level="green"] { border-top-color:var(--up); }
+  .verdict-card[data-level="red"]   { border-top-color:var(--down); }
+  .verdict-card .vk-label,
+  .verdict-card .vk-posture-label { font-family:var(--font-head); font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-mute); }
+  .verdict-card .vk-posture-label { margin-top:16px; }
+  .verdict-card .vk-big { font-family:var(--font-head); font-weight:800; font-size:19px; line-height:1.25; margin-top:7px; color:var(--amber); }
+  .verdict-card[data-level="green"] .vk-big { color:var(--up); }
+  .verdict-card[data-level="red"]   .vk-big { color:var(--down); }
+  .verdict-card .vk-posture { font-family:var(--font-head); font-weight:700; font-size:15.5px; color:var(--ink); margin-top:5px; }
+  @media (max-width:860px){ .week-head { grid-template-columns:1fr; gap:20px; } .verdict-card { position:static; } }
 </style>
 </head>
 <body>
@@ -61,10 +76,18 @@
 <section class="section">
   <div class="wrap">
 
-    <div style="max-width:760px;margin-bottom:24px">
-      <div class="eyebrow">This week &middot; <!--WK:dates-->Aug 24&ndash;28, 2026<!--/WK:dates--></div>
-      <h2 style="margin-bottom:12px"><!--WK:headline-->The index held, the internals didn't<!--/WK:headline--></h2>
-      <p class="lead"><!--WK:summary-->The index held its ground last week &mdash; but the internals didn't. Breadth was fine until Friday, when 382 stocks fell 4% against just 84 that rose. New-high leadership thinned sharply (net new highs dropped from 34 to 8), and distribution is quietly building (4 days on the NASDAQ, 2 on the S&amp;P). The long-term trend is still intact &mdash; the 50-day sits above the 200-day &mdash; and leadership rotated cleanly out of biotech into software. The net read: <b>under pressure, not broken</b> &mdash; selective, with fewer, smaller, tighter positions. The one number to watch is T2108 at 41.9; under 40 and this turns defensive.<!--/WK:summary--></p>
+    <div class="week-head">
+      <div class="wh-main">
+        <div class="eyebrow">This week &middot; <!--WK:dates-->Aug 24&ndash;28, 2026<!--/WK:dates--></div>
+        <h2 style="margin-bottom:12px"><!--WK:headline-->The index held, the internals didn't<!--/WK:headline--></h2>
+        <p class="lead"><!--WK:summary-->The index held its ground last week &mdash; but the internals didn't. Breadth was fine until Friday, when 382 stocks fell 4% against just 84 that rose. New-high leadership thinned sharply (net new highs dropped from 34 to 8), and distribution is quietly building (4 days on the NASDAQ, 2 on the S&amp;P). The long-term trend is still intact &mdash; the 50-day sits above the 200-day &mdash; and leadership rotated cleanly out of biotech into software. The net read: <b>under pressure, not broken</b> &mdash; selective, with fewer, smaller, tighter positions. The one number to watch is T2108 at 41.9; under 40 and this turns defensive.<!--/WK:summary--></p>
+      </div>
+      <aside id="verdict-card" class="verdict-card" data-level="amber">
+        <div class="vk-label">The verdict</div>
+        <div class="vk-big"><!--WK:verdict-->UNDER PRESSURE &mdash; but the window is still open<!--/WK:verdict--></div>
+        <div class="vk-posture-label">Posture</div>
+        <div class="vk-posture"><!--WK:posture-->Selective. Fewer, smaller, tighter.<!--/WK:posture--></div>
+      </aside>
     </div>
 
     <div class="disclaimer" style="margin-bottom:24px">
