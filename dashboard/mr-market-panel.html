@@ -146,13 +146,13 @@ h1{font-family:var(--font-head);font-weight:800;font-size:clamp(28px,4.4vw,46px)
 <script>
 /* ============================ EDIT ME EACH WEEK ============================ */
 const WEEK = {
-  "week": "Week of Sep 1–5, 2026",
+  "week": "Week of Sep 8–11, 2026",
   "title": "How to read the market this week",
-  "articleUrl": "https://trade2swing.substack.com/p/09-05-2026-the-panel-splits",
+  "articleUrl": "https://trade2swing.substack.com/p/09-12-2026-breadth-cracks-price-holds",
   "verdict": {
     "level": "amber",
-    "label": "UNDER PRESSURE — the panel has split",
-    "posture": "Caution, not cash."
+    "label": "UNDER PRESSURE — the split has closed",
+    "posture": "Caution — protect gains, no new longs."
   },
   "gauges": [
     {
@@ -160,81 +160,81 @@ const WEEK = {
       "name": "Market breadth",
       "q": "Are most stocks joining in, or just a few?",
       "status": {
-        "t": "WEAKENING",
-        "c": "amber"
+        "t": "DANGER",
+        "c": "red"
       },
       "rows": [
         {
           "l": "T2108 (stocks above their 40-day line)",
-          "v": "41.1, down from 41.9 (touched 36.4 Tue)",
+          "v": "30.9, down from 41.1 (4th day below 40)",
           "c": "red"
         },
         {
-          "l": "Stocks up 25%+ in a month",
-          "v": "256 → 114 this week",
-          "c": "amber"
+          "l": "Stocks up 25%+ in a quarter (up vs down)",
+          "v": "1,133 up vs 1,191 down — flipped negative",
+          "c": "red"
         },
         {
-          "l": "Stocks up 50%+ in a month (froth)",
-          "v": "56 → 25 this week",
-          "c": "amber"
+          "l": "5-day / 10-day up-down ratio",
+          "v": "0.73 / 0.76 — both under 1.0",
+          "c": "red"
         }
       ],
-      "note": "In plain English: breadth cooled sharply this week — momentum thinned across the board even though the three-month base is still intact."
+      "note": "In plain English: fewer than a third of stocks are above their 40-day line, and more names are breaking down over three months than breaking out — the breadth gauge we flagged last week has now gone red."
     },
     {
       "key": "B",
       "name": "Distribution days",
       "q": "Are big institutions quietly selling?",
       "status": {
-        "t": "MIXED",
+        "t": "WARNING",
         "c": "amber"
       },
       "rows": [
         {
           "l": "NASDAQ / S&P distribution days",
-          "v": "4 and 3 — under the 5–6 line",
+          "v": "5 and 4 — nearing the 5–6 line",
           "c": "amber"
         },
         {
-          "l": "Institutional buying grade (IBD)",
-          "v": "S&P B−, NASDAQ B",
+          "l": "Institutional buying grade (IBD A/D)",
+          "v": "S&P C, NASDAQ B",
           "c": "amber"
         },
         {
-          "l": "IBD market exposure guidance",
-          "v": "60–80% allowed",
+          "l": "Trend structure (50-day vs 200-day line)",
+          "v": "Above on both",
           "c": "green"
         }
       ],
-      "note": "In plain English: selling is building but still under the danger line — the NASDAQ is a session or two from getting concerning though."
+      "note": "In plain English: five heavy-selling days on the NASDAQ — one more makes a cluster — but both indexes still sit well above their long-term trend lines."
     },
     {
       "key": "C",
       "name": "New highs vs. new lows",
       "q": "Are more stocks hitting 1-year highs or lows?",
       "status": {
-        "t": "MIXED",
+        "t": "WARNING",
         "c": "amber"
       },
       "rows": [
         {
-          "l": "NASDAQ new 52-week highs (Friday)",
-          "v": "52 — down from 62 two weeks ago",
-          "c": "amber"
-        },
-        {
-          "l": "Friday NYSE up vs. down stocks",
-          "v": "1,074 up vs 1,123 down",
+          "l": "Net new highs — NASDAQ",
+          "v": "Rolled negative this week",
           "c": "red"
         },
         {
-          "l": "Stocks above their 50-day (NYSE)",
-          "v": "exactly half",
+          "l": "Net new highs — NYSE / S&P",
+          "v": "Rolled negative this week",
+          "c": "red"
+        },
+        {
+          "l": "Divergence vs price",
+          "v": "Index near highs, new highs shrinking",
           "c": "amber"
         }
       ],
-      "note": "In plain English: rallies are being carried by a shrinking group of stocks, not broad participation."
+      "note": "In plain English: both exchanges flipped to more new lows than new highs even as the indexes held near their highs — rallies are being carried by fewer and fewer stocks."
     },
     {
       "key": "D",
@@ -246,28 +246,28 @@ const WEEK = {
       },
       "rows": [
         {
-          "l": "IBD A- vs D-graded stocks",
-          "v": "A −40 to 673; D +31 to 711",
+          "l": "Groups climbing (3-week IBD rank)",
+          "v": "Energy, shipping, foreign banks, chips",
+          "c": "green"
+        },
+        {
+          "l": "Monster-volume footprints (count)",
+          "v": "39 this week, down from 154",
+          "c": "amber"
+        },
+        {
+          "l": "Fading leaders (top-30 losing rank)",
+          "v": "Medical groups, appliances",
           "c": "red"
-        },
-        {
-          "l": "Best leaders' volume",
-          "v": "TARS +9.1%, MU +6.1% — both lighter than normal",
-          "c": "amber"
-        },
-        {
-          "l": "MU volume vs normal",
-          "v": "13% lighter than normal on a 6.1% gain",
-          "c": "amber"
         }
       ],
-      "note": "In plain English: real buying exists, but it isn't showing the volume conviction of serious institutional backing."
+      "note": "In plain English: money is rotating hard into energy, shipping, foreign banks and chips — but far fewer names showed heavy-volume buying, and last month's medical leaders are slipping down the ranks."
     }
   ],
   "newbie": [
-    "Two indexes, two stories: when the S&P and NASDAQ disagree, the market has lost its clean all-clear signal and moved into a caution zone — pick selectively rather than buy broadly.",
-    "Volume tells the real story: rising prices on lighter-than-normal volume means buyers exist but aren't fully committed — a classic sign of a tiring market, not an accelerating one.",
-    "Watch T2108 at 41.1: a close below 40 that sticks flips the posture from caution to defense."
+    "The split closed the wrong way: both the S&P and NASDAQ are now in the same shallow pullback, so this is a market to protect gains in, not chase.",
+    "Price is still holding above its long-term trend, but fewer and fewer stocks are joining — that thinning underneath is what a pullback looks like before it breaks either way.",
+    "Watch T2108 at 30.9: back above 40 means the pressure is easing; another leg down flips the posture from caution to defense."
   ]
 };
 /* ========================== END EDIT ME EACH WEEK ========================== */
